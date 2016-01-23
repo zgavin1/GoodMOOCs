@@ -6,19 +6,18 @@
 
 ## Minimum Viable Product
 
-FresherNote is a web application inspired by Evernote built using Ruby on Rails
-and React.js. FresherNote allows users to:
+"GoodMoocs" is a clone of GoodReads built using Ruby on Rails
+and React.js. GoodMoocs allows users to:
 
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
 - [ ] Create an account
 - [ ] Log in / Log out
-- [ ] Create, read, edit, and delete notes
-- [ ] Organize notes within Notebooks
-- [ ] Tag notes with multiple tags and search notes by tag
-- [ ] Search through notes for blocks of text
-- [ ] Apply complex styling to notes while editing
-- [ ] Set reminders on notes
+- [ ] Review, rate MOOCs (online courses) by different criteria.
+- [ ] Track courses with a wishlist.
+- [ ] Set course reminders (registration, start, and due/dates).
+- [ ] Have courses suggested to users based on past ratings.
+- [ ] Chat with other users.
 
 ## Design Docs
 * [View Wireframes][view]
@@ -29,12 +28,18 @@ and React.js. FresherNote allows users to:
 
 ## Implementation Timeline
 
+
+
+
+
+## Below is sample imp. timeline, keeping for reference, will update with my info soon.
+
 ### Phase 1: User Authentication, Note Model and JSON API (1.5 days)
 
 In Phase 1, I will begin by implementing user signup and authentication (using
 BCrypt). There will be a basic landing page after signup that will contain the
 container for the application's root React component. Before building out the
-front end, I will begin by setting up a full JSON API for Notes.
+front end, I will begin by setting up a full JSON API for Courses.
 
 [Details][phase-one]
 
