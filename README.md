@@ -13,7 +13,7 @@ and React.js. GoodMoocs allows users to:
 
 - [ ] Create an account
 - [ ] Log in / Log out
-- [ ] Review, rate MOOCs (online courses) by different criteria.
+- [ ] Review, rate, tag MOOCs (online courses) by different criteria.
 - [ ] Track courses with a wishlist.
 - [ ] Set course reminders (registration, start, and due/dates).
 - [ ] Have courses suggested to users based on past ratings.
