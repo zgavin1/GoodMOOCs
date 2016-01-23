@@ -1,32 +1,38 @@
 # Schema Information
 
-## notes
+## users
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+username        | string    | not null, indexed, unique
+password_digest | string    | not null
+session_token   | string    | not null, indexed, unique
+
+## course_providers
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+name   		    | string    | not null, indexed, unique
+website			| string	| not null, indexed, unique
+
+## courses
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 title       | string    | not null
+description | text      | not null
+rating      | integer   | not null
+provider_id | integer   | not null, foreign key (references providers), indexed
 body        | text      | not null
-author_id   | integer   | not null, foreign key (references users), indexed
-notebook_id | integer   | not null, foreign key (references notebooks), indexed
-archived    | boolean   | not null, default: false
 
-## notebooks
+##course_reviews
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-author_id   | integer   | not null, foreign key (references users), indexed
-title       | string    | not null
-description | string    | 
-
-## reminders
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-user_id     | integer   | not null, foreign key (references users), indexed
-note_id     | string    | not null, foreign key (references notes), indexed
-date        | datetime  | not null
-type        | string    | not null
-prev_id     | integer   | foreign key (references reminders), indexed
+body        | text 	    |
+rating		| integer	| not null, max 5
+author_id   | integer   | not null, foreign key references users, indexed
+course_id   | integer   | not null, foreign key references course_provider, indexed
 
 ## tags
 column name | data type | details
@@ -39,13 +45,15 @@ column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 name        | string    | not null
-note_id     | integer   | not null, foreign key (references notes), indexed, unique [tag_id]
+course_id   | integer   | not null, foreign key (references notes), indexed, unique [tag_id]
 tag_id      | integer   | not null, foreign key (references tags), indexed
 
-## users
-column name     | data type | details
-----------------|-----------|-----------------------
-id              | integer   | not null, primary key
-username        | string    | not null, indexed, unique
-password_digest | string    | not null
-session_token   | string    | not null, indexed, unique
+## reminders
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+user_id     | integer   | not null, foreign key (references users), indexed
+note_id     | string    | not null, foreign key (references notes), indexed
+date        | datetime  | not null
+type        | string    | not null
+prev_id     | integer   | foreign key (references reminders), indexed
