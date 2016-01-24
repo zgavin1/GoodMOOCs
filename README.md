@@ -24,7 +24,7 @@ and React.js. GoodMoocs allows users to:
 * [View Wireframes][view]
 * [DB schema][schema]
 
-[view]: ./docs/views.md
+[view]: https://cacoo.com/diagrams/Rhs9A3tZdQb93eYq#8BBCE
 [schema]: ./docs/schema.md
 
 ## Implementation Timeline
