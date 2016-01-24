@@ -27,4 +27,4 @@
 
 
 
-[component-heirarchy]: ./wireframes/component_heirarchy.png
+[component-heirarchy]: https://cacoo.com/diagrams/Rhs9A3tZdQb93eYq/edit?sid=AAACD
