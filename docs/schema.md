@@ -21,9 +21,9 @@ column name | data type | details
 id          | integer   | not null, primary key
 title       | string    | not null
 description | text      | not null
-rating      | integer   | not null
 provider_id | integer   | not null, foreign key (references providers), indexed
 body        | text      | not null
+url			| text  	| not null
 
 ##course_reviews
 column name | data type | details
@@ -53,7 +53,7 @@ column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 user_id     | integer   | not null, foreign key (references users), indexed
-note_id     | string    | not null, foreign key (references notes), indexed
+course_id   | string    | not null, foreign key (references notes), indexed
 date        | datetime  | not null
 type        | string    | not null
 prev_id     | integer   | foreign key (references reminders), indexed

@@ -1,6 +1,7 @@
 # FresherNote
 
 [Heroku link][heroku] **NB:** This should be a link to your production site
+- Working link to be added during first day of capstones.
 
 [heroku]: http://www.herokuapp.com
 
