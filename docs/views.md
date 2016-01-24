@@ -20,7 +20,11 @@
 
 [new-user]: ./wireframes/new_user.png
 [new-session]: ./wireframes/new_session.png
-[notes]: ./wireframes/root_notes.png
-[notebooks]: ./wireframes/root_notebooks.png
-[notebook-form]: ./wireframes/notebook_form.png
+[home]: https://cacoo.com/diagrams/Rhs9A3tZdQb93eYq#8BBCE
+[course show]: https://cacoo.com/diagrams/Rhs9A3tZdQb93eYq#C38DA
+[course review-form]: https://cacoo.com/diagrams/Rhs9A3tZdQb93eYq#1A23E
+[user enrolled-course show/form]: https://cacoo.com/diagrams/Rhs9A3tZdQb93eYq#AAACD
+
+
+
 [component-heirarchy]: ./wireframes/component_heirarchy.png
