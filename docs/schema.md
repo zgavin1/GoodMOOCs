@@ -21,9 +21,10 @@ column name | data type | details
 id          | integer   | not null, primary key
 title       | string    | not null
 description | text      | not null
-provider_id | integer   | not null, foreign key (references providers), indexed
-body        | text      | not null
+cost		| integer	| not null
 url			| text  	| not null
+start_date	| datetime	| not null
+provider_id | integer   | not null, foreign key (references providers), indexed
 
 ##course_reviews
 column name | data type | details
