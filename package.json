@@ -1,0 +1,32 @@
+{
+  "name": "GoodMOOCs",
+  "version": "1.0.0",
+  "description": "[Heroku link][heroku] **NB:** This should be a link to your production site - Working link to be added during first day of capstones.",
+  "main": "webpack.config.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "dependencies": {
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "babel-preset-react": "^6.3.13",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zgavin1/GoodMOOCs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zgavin1/GoodMOOCs/issues"
+  },
+  "homepage": "https://github.com/zgavin1/GoodMOOCs#readme"
+}
