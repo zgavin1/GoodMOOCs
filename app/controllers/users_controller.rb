@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      sign_in(@user)
       render :show
     else
       render :new
@@ -10,13 +11,13 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new(params[:id])
-    render :new
+    @user = User.new
   end
 
 
   def show
-    render :json 'show'
+    @user = User.find_by_id(params[:id])
+    render :show
   end
 
   private
