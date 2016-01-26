@@ -31,7 +31,11 @@ html, body, div, form, input, label, br, h3, h1, a {
 }
 
 html {
-  
+
+}
+
+input {
+  border: 1px solid gray;
 }
 
 /* CLEAR FIX */

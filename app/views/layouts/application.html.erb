@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CapstoneProposal</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <title>GoodMOOCs</title>
+
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<header>
+  <h1 class="">
+    <a href="#">good<strong>moocs</strong></h1></a>
+  </h1>
+</header>
 
   <% if signed_in? %>
     <%= current_user.username %>
     <%= link_to "Sign Out", session_url, method: :delete %>
   <% else %>
-    <%= link_to "Sign In", new_session_url %>
-    <%= link_to "Sign Up", new_user_url %>
+    <!-- <%= link_to "Sign In", new_session_url %>
+    <%= link_to "Sign Up", new_user_url %> -->
   <% end %>
 
 <br>
