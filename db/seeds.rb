@@ -11,3 +11,21 @@ User.destroy_all
 
 pw = User.create!(username: "password", password: "password")
 llewyn = User.create!(username: "Llewyn Davis", password: "folkmusic")
+
+Course.destroy_all
+
+course1 = Course.create!(
+  title: "Intro to Statistics",
+  description: "Learn the core concepts of statistics, like calculating probability, and analyzing a set of data.",
+  cost: 0,
+  url: "https://www.udacity.com/courses/st101",
+  start_date: DateTime.now
+)
+
+course1 = Course.create!(
+  title: "How to Write a Novel– Part 1: Plan & Outline",
+  description: "Learn the fundamentals of story structure from our MFA program faculty and complete a detailed, scene-by-scene outline.",
+  cost: 250.00,
+  url: "https://www.edx.org/course/how-write-novel-part-1-plan-outline-ubcx-cw1-1x",
+  start_date: DateTime.new(2016, 1, 20)
+)

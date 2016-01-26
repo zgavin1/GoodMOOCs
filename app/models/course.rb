@@ -1,7 +1,4 @@
 class Course < ActiveRecord::Base
-  validates :title, :description, :cost, :null, :url, :start_date, presence: true
-
-  def convert_cost
-
-  end
+  validates :title, :description, :cost, :url, :start_date, presence: true
+  
 end
