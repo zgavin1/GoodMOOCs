@@ -13,3 +13,31 @@
  *= require_tree .
  *= require_self
  */
+
+/* CSS RESET */
+html, body, div, form, input, label, br, h3, h1, a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  box-sizing: inherit;
+  color: inherit;
+
+  background-color: transparent
+}
+
+html {
+  
+}
+
+/* CLEAR FIX */
+
+.group:before {
+  clear: both;
+  content: "";
+  display: block;
+}
