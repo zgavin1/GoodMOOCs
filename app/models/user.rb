@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   end
 
   def is_password?(password)
-    BCryptL::Password.new(self.password_digest).is_password?(self.password_digest)
+    BCryptL::Password.new(self.password_digest).is_password?(password)
   end
 
   def reset_session_token
