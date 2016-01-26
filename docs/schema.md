@@ -12,8 +12,8 @@ session_token   | string    | not null, indexed, unique
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
-name   		    | string    | not null, indexed, unique
-website			| string	| not null, indexed, unique
+name   		      | string    | not null, indexed, unique
+website			    | string	  | not null, indexed, unique
 
 ## courses
 column name | data type | details
