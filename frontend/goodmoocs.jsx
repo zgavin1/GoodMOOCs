@@ -13,8 +13,6 @@ var App = React.createClass({
     return (
       <div>
         <h1> GoodMOOCs App </h1>
-        // <CourseIndex />
-
         {this.props.children}
       </div>
     );
@@ -28,5 +26,5 @@ var routes = (
 );
 
 $(function () {
-  ReactDOM.render(<App />, document.getElementById('root'));
+  ReactDOM.render(<Router>{routes}</Router>, document.getElementById('root'));
 });

@@ -66,8 +66,6 @@
 	        null,
 	        ' GoodMOOCs App '
 	      ),
-	      '// ',
-	      React.createElement(CourseIndex, null),
 	      this.props.children
 	    );
 	  }
@@ -80,7 +78,11 @@
 	);
 	
 	$(function () {
-	  ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
+	  ReactDOM.render(React.createElement(
+	    Router,
+	    null,
+	    routes
+	  ), document.getElementById('root'));
 	});
 
 /***/ },
