@@ -9,7 +9,6 @@ var Course = require('./components/Course');
 
 var App = React.createClass({
   render: function () {
-    debugger
     return (
       <div>
         <h1> GoodMOOCs </h1>
@@ -19,9 +18,6 @@ var App = React.createClass({
   }
 });
 
-$(function () {
-  ReactDOM.render(
-    <h1>Hey</h1>,
-    document.getElementById('root')
-  );
+jQuery(function () {
+  ReactDOM.render(<h1>Hey</h1>, document.getElementById('root'));
 });

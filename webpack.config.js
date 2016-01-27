@@ -1,9 +1,13 @@
+var path = require("path");
+
 module.exports = {
   context: __dirname,
   entry: "./frontend/goodmoocs.jsx",
   output: {
-    path: "./",
-    filename: "bundle.js"
+    path: path.join(__dirname, 'app', 'assets', 'javascripts'),
+    filename: "bundle.js",
+    devtoolModuleFilenameTemplate: '[resourcePath]',
+    devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
   },
   module: {
     loaders: [

@@ -1,5 +1,6 @@
-class CoursesControllers < ApplicationController
+class Api::CoursesController < ApplicationController
   def show
+    course = Course.find_by_id(params[:course][:id])
   end
 
   def create
@@ -9,10 +10,8 @@ class CoursesControllers < ApplicationController
   end
 
   def index
-    course = Course.all
+    @courses = Course.all
 
-    @benches = benches
-
-    render 'index'
+    render json: @courses
   end
 end
