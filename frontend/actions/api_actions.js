@@ -10,4 +10,4 @@ var ApiActions = {
   }
 };
 
-module.export = ApiActions;
+module.exports = ApiActions;

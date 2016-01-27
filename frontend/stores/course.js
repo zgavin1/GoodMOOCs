@@ -3,18 +3,23 @@ var AppDispatcher = require('../dispatcher/dispatcher');
 
 var _courses = {};
 var CourseStore = new Store(AppDispatcher);
+var CourseConstants = require('../constants/course_constants');
 
 CourseStore.all = function () {
   var courses = [];
   for (var id in _courses) {
     courses.push(_courses[id]);
   }
+  debugger
+
   return courses;
 };
 
-resetCourses = function (coursesArray) {
+var resetCourses = function (coursesArray) {
   var _courses = {};
+  debugger
   coursesArray.forEach(function (course) {
+    console.log(course.id);
     _courses[course.id] = course;
   });
 };

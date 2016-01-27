@@ -4,10 +4,14 @@ var ApiUtil = {
   fetchCourses: function () {
     $.ajax({
       type: "GET",
-      url: "api/benches",
+      url: "api/courses",
       success: function (courses) {
         ApiActions.receiveAll(courses);
+      }, failure: function () {
+        alert("fetch courses failed");
       }
     });
   }
 };
+
+module.exports = ApiUtil;

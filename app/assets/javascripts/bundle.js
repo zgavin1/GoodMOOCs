@@ -51,7 +51,7 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	
-	var Course = __webpack_require__(159);
+	var CourseIndex = __webpack_require__(184);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -63,19 +63,15 @@
 	      React.createElement(
 	        'h1',
 	        null,
-	        ' GoodMOOCs '
+	        ' GoodMOOCs App '
 	      ),
-	      React.createElement(Course, null)
+	      React.createElement(CourseIndex, null)
 	    );
 	  }
 	});
 	
-	jQuery(function () {
-	  ReactDOM.render(React.createElement(
-	    'h1',
-	    null,
-	    'Hey'
-	  ), document.getElementById('root'));
+	$(function () {
+	  ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
 	});
 
 /***/ },
@@ -19674,50 +19670,7 @@
 
 
 /***/ },
-/* 159 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(158);
-	
-	var CourseStore = __webpack_require__(160);
-	
-	var Course = React.createClass({
-	  displayName: 'Course',
-	
-	  render: function () {
-	    var courses = CourseStore.all().map(function (course) {
-	      return React.createElement(
-	        'li',
-	        null,
-	        React.createElement(
-	          'h1',
-	          null,
-	          course.title
-	        ),
-	        React.createElement(
-	          'a',
-	          null,
-	          course.url
-	        )
-	      );
-	    });
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'ul',
-	        null,
-	        courses
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Course;
-
-/***/ },
+/* 159 */,
 /* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -19726,18 +19679,23 @@
 	
 	var _courses = {};
 	var CourseStore = new Store(AppDispatcher);
+	var CourseConstants = __webpack_require__(180);
 	
 	CourseStore.all = function () {
 	  var courses = [];
 	  for (var id in _courses) {
 	    courses.push(_courses[id]);
 	  }
+	  debugger;
+	
 	  return courses;
 	};
 	
-	resetCourses = function (coursesArray) {
+	var resetCourses = function (coursesArray) {
 	  var _courses = {};
+	  debugger;
 	  coursesArray.forEach(function (course) {
+	    console.log(course.id);
 	    _courses[course.id] = course;
 	  });
 	};
@@ -26417,6 +26375,128 @@
 	
 	module.exports = Dispatcher;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 180 */
+/***/ function(module, exports) {
+
+	var CourseConstants = {
+	  COURSES_RECEIVED: "COURSES_RECEIVED"
+	};
+	
+	module.exports = CourseConstants;
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ApiActions = __webpack_require__(182);
+	
+	var ApiUtil = {
+	  fetchCourses: function () {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/courses",
+	      success: function (courses) {
+	        ApiActions.receiveAll(courses);
+	      }, failure: function () {
+	        alert("fetch courses failed");
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = ApiUtil;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(177);
+	var CourseConstants = __webpack_require__(180);
+	
+	var ApiActions = {
+	  receiveAll: function (courses) {
+	    AppDispatcher.dispatch({
+	      actionType: CourseConstants.COURSES_RECEIVED,
+	      courses: courses
+	    });
+	  }
+	};
+	
+	module.exports = ApiActions;
+
+/***/ },
+/* 183 */,
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(158);
+	
+	var CourseStore = __webpack_require__(160);
+	var ApiUtil = __webpack_require__(181);
+	
+	var CourseIndex = React.createClass({
+	  displayName: 'CourseIndex',
+	
+	  getInitialState: function () {
+	    return {
+	      courses: {}
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.storeListener = CourseStore.addListener(this._onChange);
+	    ApiUtil.fetchCourses();
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ courses: CourseStore.all() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.storeListener.remove();
+	  },
+	
+	  render: function () {
+	    var courses = CourseStore.all().map(function (course) {
+	      return React.createElement(
+	        'li',
+	        null,
+	        React.createElement(
+	          'h1',
+	          null,
+	          course.title
+	        ),
+	        React.createElement(
+	          'a',
+	          null,
+	          course.url
+	        )
+	      );
+	    });
+	
+	    debugger;
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Course render'
+	      ),
+	      React.createElement(
+	        'ul',
+	        null,
+	        courses
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = CourseIndex;
 
 /***/ }
 /******/ ]);
