@@ -61,11 +61,6 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        ' GoodMOOCs App '
-	      ),
 	      this.props.children
 	    );
 	  }
@@ -26471,32 +26466,73 @@
 	    var courses = CourseStore.all().map(function (course) {
 	      return React.createElement(
 	        'li',
-	        { key: course.id },
-	        React.createElement(
-	          'h1',
-	          null,
-	          course.title
-	        ),
+	        { className: 'landing-page-course-index-item', key: course.id },
 	        React.createElement(
 	          'a',
-	          { href: course.url },
-	          course.url
+	          { href: course.course_url },
+	          React.createElement('img', { src: course.img_url })
 	        )
 	      );
 	    });
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'landing-page-sugguestions' },
 	      React.createElement(
-	        'h2',
-	        null,
-	        'Course render'
+	        'div',
+	        { className: 'landing-page-selling-point' },
+	        React.createElement(
+	          'h3',
+	          null,
+	          'Deciding what to read next?'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'You’re in the right place. Tell us what titles ',
+	          React.createElement('br', null),
+	          'or genres you’ve enjoyed in the past, and we’ll give ',
+	          React.createElement('br', null),
+	          'you surprisingly insightful recommendations.'
+	        )
 	      ),
 	      React.createElement(
-	        'ul',
+	        'div',
+	        { className: 'landing-page-selling-point' },
+	        React.createElement(
+	          'h3',
+	          null,
+	          'What are your friends reading?'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Chances are your friends are discussing their  ',
+	          React.createElement('br', null),
+	          'favorite (and least favorite) books on Goodreads.  ',
+	          React.createElement('br', null),
+	          'Want to learn more? Take the tour.'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
 	        null,
-	        courses
+	        React.createElement(
+	          'h3',
+	          null,
+	          ' What will ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'you'
+	          ),
+	          ' discover?'
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'landing-page-course-index' },
+	          courses
+	        )
 	      )
 	    );
 	  }

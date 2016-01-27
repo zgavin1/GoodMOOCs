@@ -12,7 +12,6 @@ var App = React.createClass({
   render: function () {
     return (
       <div>
-        <h1> GoodMOOCs App </h1>
         {this.props.children}
       </div>
     );
