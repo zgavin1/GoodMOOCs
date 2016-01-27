@@ -6,9 +6,7 @@ var ApiUtil = {
       type: "GET",
       url: "api/courses",
       success: function (courses) {
-        ApiActions.receiveAll(courses);
-      }, failure: function () {
-        alert("fetch courses failed");
+        ApiActions.receiveCourses(courses);
       }
     });
   }
