@@ -1,9 +1,9 @@
 # GoodMoocs
 
-[Heroku link][heroku] **NB:** This should be a link to your production site
-- Working link to be added during first day of capstones.
+[Heroku link][heroku] **NB:** Live Link! I use a free Heroku account
+so please allow a few seconds for the server to get running.
 
-[heroku]: http://www.herokuapp.com
+[heroku]: https://goodmoocs.herokuapp.com/
 
 ## Overview
 
@@ -12,6 +12,8 @@ My app "GoodMoocs" is a clone of GoodReads built using Ruby on Rails
 and React.js. I'm putting a twist on the content (online courses
 rather than books), but the layout and functionality should be near
 copies of GoodReads' website.
+
+
 
 ### Features
 
