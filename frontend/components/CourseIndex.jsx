@@ -7,7 +7,7 @@ var ApiUtil = require('../util/api_util');
 var CourseIndex = React.createClass({
   getInitialState: function () {
     return {
-      courses: {}
+      courses: CourseStore.all()
     };
   },
 
@@ -29,12 +29,10 @@ var CourseIndex = React.createClass({
       return (
         <li>
           <h1>{course.title}</h1>
-          <a>{course.url}</a>
+          <a href={course.url} >{course.url}</a>
         </li>
       );
     });
-
-    debugger
 
     return (
       <div>

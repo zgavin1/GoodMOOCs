@@ -10,14 +10,12 @@ CourseStore.all = function () {
   for (var id in _courses) {
     courses.push(_courses[id]);
   }
-  debugger
 
   return courses;
 };
 
 var resetCourses = function (coursesArray) {
-  var _courses = {};
-  debugger
+  _courses = {};
   coursesArray.forEach(function (course) {
     console.log(course.id);
     _courses[course.id] = course;
