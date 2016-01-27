@@ -16,9 +16,11 @@
     "react-dom": "^0.14.6",
     "react-router": "^1.0.3",
     "react-addons-linked-state-mixin": "^0.14.2",
-    "history": "1.13.0"
+    "history": "1.17.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^1.12.2"
+  },
   "scripts": {
     "postinstall": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
