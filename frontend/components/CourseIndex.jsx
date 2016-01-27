@@ -27,7 +27,7 @@ var CourseIndex = React.createClass({
   render: function () {
     var courses = CourseStore.all().map(function (course) {
       return (
-        <li>
+        <li key={course.id}>
           <h1>{course.title}</h1>
           <a href={course.url} >{course.url}</a>
         </li>

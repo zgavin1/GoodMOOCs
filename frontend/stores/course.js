@@ -17,7 +17,6 @@ CourseStore.all = function () {
 var resetCourses = function (coursesArray) {
   _courses = {};
   coursesArray.forEach(function (course) {
-    console.log(course.id);
     _courses[course.id] = course;
   });
 };
