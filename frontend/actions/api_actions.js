@@ -7,8 +7,7 @@ var ApiActions = {
       actionType: CourseConstants.COURSES_RECEIVED,
       courses: courses
     });
-  },
-
+  }
 
 };
 

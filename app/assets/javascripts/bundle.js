@@ -26404,6 +26404,16 @@
 	        ApiActions.receiveCourses(courses);
 	      }
 	    });
+	  },
+	
+	  fetchReviews: function () {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/courses",
+	      success: function () {
+	        ApiActions.receiveReviews(courses);
+	      }
+	    });
 	  }
 	};
 	
