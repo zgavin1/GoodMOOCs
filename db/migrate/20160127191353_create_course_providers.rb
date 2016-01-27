@@ -6,8 +6,5 @@ class CreateCourseProviders < ActiveRecord::Migration
 
       t.timestamps
     end
-
-    add_index :course_providers, :name
-    add_index :course_providers, :home_url
   end
 end

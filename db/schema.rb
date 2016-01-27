@@ -23,16 +23,13 @@ ActiveRecord::Schema.define(version: 20160127191353) do
     t.datetime "updated_at"
   end
 
-  add_index "course_providers", ["home_url"], name: "index_course_providers_on_home_url", using: :btree
-  add_index "course_providers", ["name"], name: "index_course_providers_on_name", using: :btree
-
   create_table "courses", force: :cascade do |t|
     t.string   "title",              null: false
     t.text     "description",        null: false
     t.decimal  "cost",               null: false
     t.string   "course_url",         null: false
     t.datetime "start_date",         null: false
-    t.integer  "course_provider_id"
+    t.integer  "course_provider_id", null: false
     t.string   "subject",            null: false
     t.string   "img_url"
     t.datetime "created_at"
