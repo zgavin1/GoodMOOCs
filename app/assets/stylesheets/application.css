@@ -122,3 +122,21 @@ ul {
   font-weight: 300;
   font-family: Roboto;
 }
+
+.header-body {
+
+}
+
+.catchphrase {
+  float: left;
+}
+
+.catchphrase h1 {
+  font-size: 50px;
+  color: #58371F;
+  vertical-align: middle;
+  margin: 50px;
+  text-align: center;
+}
+
+.

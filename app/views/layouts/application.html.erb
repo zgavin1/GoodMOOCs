@@ -16,16 +16,18 @@
       <h1 class="header-nav-logo">
         <a href="#">good<strong>moocs</strong></a>
       </h1>
-
-      <form class="new-session-form group" action="<%= session_url %>" method="post">
-        <%= auth_token_input %>
+      <div class="new-session-form">
+        <form class="new-session-form group" action="<%= session_url %>" method="post">
+          <%= auth_token_input %>
 
           <input type="text" name="user[username]" value="" placeholder="Username">
 
           <input type="password" name="user[password]" value="" placeholder="Password">
 
-        <button>Sign In</button>
-      </form>
+          <button>Sign In</button>
+        </form>
+
+      </div>
 
       <form class="demo-form group" action="<%= session_url %>" method="post">
         <%= auth_token_input %>
@@ -35,8 +37,26 @@
       </form>
 
     </div>
-    <div class="header-body">
-      <h1>You'll love your next class</h1>
+    <div class="header-body group">
+      <div class="catchphrase">
+        <h1>You'll love </h1><br><h1> your next class.</h1>
+      </div>
+      <div class="new-user-form">
+        <h2>New here? Create a free account!</h2>
+        <form action=" <%= users_url %>" method="post">
+          <%= auth_token_input %>
+
+          <input type="button" name="name" value="" placeholder="Name">
+
+            <input type="text" name="user[username]" value="" placeholder="Email Address">
+
+          <br>
+            <input type="password" name="user[password]" value="" placeholder="Password">
+
+          <br>
+          <button>Sign Up</button>
+        </form>
+      </div>
     </div>
   </header>
 
