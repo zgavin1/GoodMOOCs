@@ -3,4 +3,6 @@ class Course < ActiveRecord::Base
 
   belongs_to :course_provider
 
+  has_many :reviews
+
 end
