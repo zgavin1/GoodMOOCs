@@ -7,24 +7,54 @@
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700,100' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<header>
-  <h1 class="">
-    <a href="#">good<strong>moocs</strong></h1></a>
-  </h1>
-</header>
+  <header>
+    <div class="header-nav group">
+      <h1 class="header-nav-logo">
+        <a href="#">good<strong>moocs</strong></a>
+      </h1>
 
-  <% if signed_in? %>
+      <form class="new-session-form group" action="<%= session_url %>" method="post">
+        <%= auth_token_input %>
+
+          <input type="text" name="user[username]" value="" placeholder="Username">
+
+          <input type="password" name="user[password]" value="" placeholder="Password">
+
+        <button>Sign In</button>
+      </form>
+
+      <form class="demo-form group" action="<%= session_url %>" method="post">
+        <%= auth_token_input %>
+        <input type="hidden" name="user[username]" value="password">
+        <input type="hidden" name="user[password]" value="password">
+        <button>Demo User</button>
+      </form>
+
+    </div>
+    <div class="header-body">
+      <h1>You'll love your next class</h1>
+    </div>
+  </header>
+
+
+  <main>
+
+  </main>
+
+  <!-- <% if signed_in? %>
     <%= current_user.username %>
     <%= link_to "Sign Out", session_url, method: :delete %>
   <% else %>
-    <!-- <%= link_to "Sign In", new_session_url %>
-    <%= link_to "Sign Up", new_user_url %> -->
-  <% end %>
+    <%= link_to "Sign In", new_session_url %>
+    <%= link_to "Sign Up", new_user_url %>
+  <% end %> -->
 
 <br>
-
+<br>
 <%= render "layouts/errors" %>
 <%= yield %>
 

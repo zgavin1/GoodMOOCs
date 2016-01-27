@@ -15,7 +15,7 @@
  */
 
 /* CSS RESET */
-html, body, div, form, input, label, br, h3, h1, a {
+html, body, div, form, input, label, br, h3, h1, a, strong {
   margin: 0;
   padding: 0;
   border: 0;
@@ -27,21 +27,98 @@ html, body, div, form, input, label, br, h3, h1, a {
   box-sizing: inherit;
   color: inherit;
 
-  background-color: transparent
-}
-
-html {
-
-}
-
-input {
-  border: 1px solid gray;
+  background-color: transparent;
 }
 
 /* CLEAR FIX */
 
-.group:before {
+.group:after {
   clear: both;
   content: "";
   display: block;
+}
+
+html {
+  font-family: sans-serif, Lato, Roboto;
+}
+
+body {
+  width: 100%;
+}
+
+header {
+  width: 965px;
+  margin: auto;
+}
+
+input {
+  border: 1px solid #ccc;
+}
+
+input::-webkit-input-placeholder {
+  color: #666666;
+}
+
+ul {
+  list-style: none;
+}
+
+.header-nav {
+  border-bottom: 1px solid #ccc;
+  font-family: Lato;
+}
+
+.header-nav-logo {
+  float: left;
+  font-family: Roboto;
+  font-weight: 100;
+  letter-spacing: -1.75px;
+  font-size: 44px;
+  padding: 5px;
+}
+
+.header-nav form {
+  margin: 20px 0;
+  float: right;
+}
+
+.header-nav form button {
+  border: none;
+  background-color: black;
+  color: white;
+  border-radius: 10%;
+  display: inline;
+  padding: 5px 10px 6px 10px;
+  font-size: 14px;
+  font-family: Lato;
+  margin: 0 3px;
+}
+
+.header-nav form button:hover {
+  background-color: #58371F;
+}
+
+.header-nav form input {
+  float: left;
+  width: 120px;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 5%;
+  font-weight: lighter;
+  color: black;
+  margin: 0 3px;
+}
+
+.demo-form {
+
+}
+
+.new-session-form {
+
+}
+
+
+.header-nav-logo strong {
+  font-weight: 300;
+  font-family: Roboto;
 }
