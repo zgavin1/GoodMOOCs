@@ -4,8 +4,11 @@ class CreateCourses < ActiveRecord::Migration
       t.string :title, null: false
       t.text :description, null: false
       t.decimal :cost, null: false
-      t.string :url, null: false
+      t.string :course_url, null: false
       t.datetime :start_date, null: false
+      t.integer :course_provider_id
+      t.string :subject, null: false
+      t.string :img_url
 
 
       t.timestamps

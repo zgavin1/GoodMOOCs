@@ -11,17 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126170932) do
+ActiveRecord::Schema.define(version: 20160127191353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "course_providers", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "home_url",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "course_providers", ["home_url"], name: "index_course_providers_on_home_url", using: :btree
+  add_index "course_providers", ["name"], name: "index_course_providers_on_name", using: :btree
+
   create_table "courses", force: :cascade do |t|
-    t.string   "title",       null: false
-    t.text     "description", null: false
-    t.decimal  "cost",        null: false
-    t.string   "url",         null: false
-    t.datetime "start_date",  null: false
+    t.string   "title",              null: false
+    t.text     "description",        null: false
+    t.decimal  "cost",               null: false
+    t.string   "course_url",         null: false
+    t.datetime "start_date",         null: false
+    t.integer  "course_provider_id"
+    t.string   "subject",            null: false
+    t.string   "img_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
