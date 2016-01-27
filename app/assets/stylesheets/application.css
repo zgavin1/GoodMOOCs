@@ -49,10 +49,12 @@ body {
 header {
   width: 965px;
   margin: auto;
+  background: url('http://www.velocitylsat.com/sites/default/files/images/banner-lsat-course-overview.jpg')
 }
 
 input {
   border: 1px solid #ccc;
+  background-color: white;
 }
 
 input::-webkit-input-placeholder {
@@ -75,6 +77,7 @@ ul {
   letter-spacing: -1.75px;
   font-size: 44px;
   padding: 5px;
+  color: #463020;
 }
 
 .header-nav form {
@@ -95,7 +98,7 @@ ul {
 }
 
 .header-nav form button:hover {
-  background-color: #58371F;
+  background-color: #463020;
 }
 
 .header-nav form input {
@@ -133,7 +136,9 @@ ul {
 
 .catchphrase h1 {
   font-size: 50px;
-  color: #58371F;
+  color: #815845;
+  text-shadow: 1px 1px 1px #000;
+  text-rendering: geometricPrecision;
   vertical-align: middle;
   margin: 50px;
   text-align: center;
