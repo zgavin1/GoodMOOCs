@@ -26401,9 +26401,7 @@
 	      type: "GET",
 	      url: "api/courses",
 	      success: function (courses) {
-	        ApiActions.receiveAll(courses);
-	      }, failure: function () {
-	        alert("fetch courses failed");
+	        ApiActions.receiveCourses(courses);
 	      }
 	    });
 	  }
@@ -26419,12 +26417,13 @@
 	var CourseConstants = __webpack_require__(180);
 	
 	var ApiActions = {
-	  receiveAll: function (courses) {
+	  receiveCourses: function (courses) {
 	    AppDispatcher.dispatch({
 	      actionType: CourseConstants.COURSES_RECEIVED,
 	      courses: courses
 	    });
 	  }
+	
 	};
 	
 	module.exports = ApiActions;
