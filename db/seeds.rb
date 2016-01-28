@@ -9,9 +9,9 @@
 User.destroy_all
 
 
-pw = User.create!(username: "password", password: "password")
-llewyn = User.create!(username: "llewyn_davis", password: "folkmusic")
-homer = User.create!(username: "homer_simpson", password: "duffbeer")
+pw = User.create!(username: "password", password: "password", email: "password")
+llewyn = User.create!(username: "llewyn_davis", password: "folkmusic", email: "dylanismyidol@gmail.com")
+homer = User.create!(username: "homer_simpson", password: "duffbeer", email: "mmmdonuts@yahoo.com")
 
 
 CourseProvider.destroy_all
