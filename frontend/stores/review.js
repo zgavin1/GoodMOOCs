@@ -3,6 +3,7 @@ var AppDispatcher = require('../dispatcher/dispatcher');
 
 var _reviews = {};
 var ReviewStore = new Store(AppDispatcher);
+var ReviewConstants = require('../constants/review_constants');
 
 var resetReviews = function (reviewsArray) {
   _reviews = {};

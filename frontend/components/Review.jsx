@@ -8,7 +8,7 @@ var Review = React.createClass({
 
   render: function () {
     return (
-      <div classNmae="review">
+      <div className="review">
         <h3>Jeff rated it <span>**rating**</span></h3>
         <p>Thoughts here.</p>
       </div>

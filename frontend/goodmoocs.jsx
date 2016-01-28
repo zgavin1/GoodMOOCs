@@ -7,6 +7,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var CourseIndex = require('./components/CourseIndex');
+var CourseShow = require('./components/CourseShow');
+var ReviewForm = require('./components/ReviewForm');
 
 var App = React.createClass({
   render: function () {
@@ -21,9 +23,12 @@ var App = React.createClass({
 var routes = (
   <Route path="/" component={App}>
     <IndexRoute component={CourseIndex} />
+    <Route path="courses/:courseId" component={CourseShow}>
+      <Route path="review" components={ReviewForm}/>
+    </Route>
   </Route>
 );
 
 $(function () {
-  ReactDOM.render(<Router>{routes}</Router>, document.getElementById('root'));
+  ReactDOM.render(<Router>{routes}</Router>, root);
 });
