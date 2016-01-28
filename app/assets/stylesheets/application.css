@@ -120,11 +120,9 @@ ul {
   color: black;
   margin: 0 3px;
 }
-
 .demo-form {
 
 }
-
 .new-session-form {
 
 }
@@ -134,25 +132,73 @@ ul {
   font-weight: 300;
   font-family: Roboto;
 }
-
 .header-lower {
   width: 965px;
+  height: 295px;
   margin: auto;
+  padding-right: 30px;
 }
+.new-user-form-pane {
+  float: right;
+  padding-top: 10px;
+  text-align: left;
+}
+
+.new-user-form-pane > h2 {
+  font-size: 17px;
+  font-weight: lighter;
+  color: #eee;
+  margin-bottom: 8px;
+}
+
+.new-user-form input {
+  height: 19px;
+  width: 270px;
+  border: 1px solid #DCD6CC;
+  padding: 7px 5px;
+  font-size: 16px;
+  color: black;
+  margin-bottom: 4px;
+  border-radius: 5%;
+}
+
+.new-user-form input::-webkit-input-placeholder {
+  color: #76768f;
+}
+
+.new-user-form button {
+  background-color: #fdd05f;
+  color: black;
+  border: none;
+  padding: 8px 10px;
+  font-family: Lato;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 5%;
+}
+
 
 .catchphrase {
   float: left;
+  margin: 50px 0 0 100px;
 }
 
 .catchphrase h1 {
-  font-size: 50px;
+  font-size: 56px;
   color: #815845;
   text-shadow: 1px 1px 1px #000;
   text-rendering: geometricPrecision;
   vertical-align: middle;
-  margin: 50px;
   text-align: center;
 }
+
+.o-auth {
+  color: white;
+  background-color: #333333
+}
+
+/* BODY */
+
 
 .content {
   width: 100%;

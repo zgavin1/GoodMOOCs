@@ -39,14 +39,14 @@
         <div class="catchphrase">
           <h1>You'll love <br> your next class.</h1>
         </div>
-        <div class="new-user-form">
+        <div class="new-user-form-pane">
           <h2>New here? Create a free account!</h2>
-          <form action=" <%= users_url %>" method="post">
+          <form class="new-user-form" action=" <%= users_url %>" method="post">
             <%= auth_token_input %>
 
-            <input type="button" name="name" value="" placeholder="Name">
-
-            <input type="text" name="user[username]" value="" placeholder="Email Address">
+            <input type="text" name="user[username]" value="" placeholder="Name">
+            <br>
+            <input type="text" name="user[email]" value="" placeholder="Email Address">
 
             <br>
             <input type="password" name="user[password]" value="" placeholder="Password">
@@ -54,6 +54,10 @@
             <br>
             <button>Sign Up</button>
           </form>
+          <div class="o-auth">
+            or sign in using
+          </div>
+
         </div>
       </div>
     </div>
