@@ -24016,7 +24016,7 @@
 	var ReactDOM = __webpack_require__(205);
 	
 	var CourseStore = __webpack_require__(207);
-	var ApiUtil = __webpack_require__(228);
+	var ApiUtil = __webpack_require__(230);
 	
 	var CourseIndex = React.createClass({
 	  displayName: 'CourseIndex',
@@ -24123,11 +24123,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(208).Store;
-	var AppDispatcher = __webpack_require__(224);
+	var AppDispatcher = __webpack_require__(226);
 	
 	var _courses = {};
 	var CourseStore = new Store(AppDispatcher);
-	var CourseConstants = __webpack_require__(227);
+	var CourseConstants = __webpack_require__(229);
 	
 	CourseStore.all = function () {
 	  var courses = [];
@@ -24171,7 +24171,7 @@
 	
 	module.exports.Container = __webpack_require__(209);
 	module.exports.MapStore = __webpack_require__(213);
-	module.exports.Mixin = __webpack_require__(223);
+	module.exports.Mixin = __webpack_require__(225);
 	module.exports.ReduceStore = __webpack_require__(214);
 	module.exports.Store = __webpack_require__(215);
 
@@ -24573,7 +24573,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var FluxReduceStore = __webpack_require__(214);
-	var Immutable = __webpack_require__(222);
+	var Immutable = __webpack_require__(224);
 	
 	var invariant = __webpack_require__(211);
 	
@@ -24724,7 +24724,7 @@
 	
 	var FluxStore = __webpack_require__(215);
 	
-	var abstractMethod = __webpack_require__(221);
+	var abstractMethod = __webpack_require__(223);
 	var invariant = __webpack_require__(211);
 	
 	var FluxReduceStore = (function (_FluxStore) {
@@ -25033,8 +25033,8 @@
 	var EmitterSubscription = __webpack_require__(218);
 	var EventSubscriptionVendor = __webpack_require__(220);
 	
-	var emptyFunction = __webpack_require__(18);
-	var invariant = __webpack_require__(16);
+	var emptyFunction = __webpack_require__(222);
+	var invariant = __webpack_require__(221);
 	
 	/**
 	 * @class BaseEventEmitter
@@ -25334,7 +25334,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(16);
+	var invariant = __webpack_require__(221);
 	
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -25428,6 +25428,105 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule invariant
+	 */
+	
+	'use strict';
+	
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+	
+	function invariant(condition, format, a, b, c, d, e, f) {
+	  if (process.env.NODE_ENV !== 'production') {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  }
+	
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error(format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	      error.name = 'Invariant Violation';
+	    }
+	
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	}
+	
+	module.exports = invariant;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 222 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule emptyFunction
+	 */
+	
+	"use strict";
+	
+	function makeEmptyFunction(arg) {
+	  return function () {
+	    return arg;
+	  };
+	}
+	
+	/**
+	 * This function accepts and discards inputs; it has no side effects. This is
+	 * primarily useful idiomatically for overridable function endpoints which
+	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+	 */
+	function emptyFunction() {}
+	
+	emptyFunction.thatReturns = makeEmptyFunction;
+	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+	emptyFunction.thatReturnsThis = function () {
+	  return this;
+	};
+	emptyFunction.thatReturnsArgument = function (arg) {
+	  return arg;
+	};
+	
+	module.exports = emptyFunction;
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright (c) 2014-2015, Facebook, Inc.
 	 * All rights reserved.
 	 *
@@ -25451,7 +25550,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 222 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -30438,7 +30537,7 @@
 	}));
 
 /***/ },
-/* 223 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -30561,15 +30660,15 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 224 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Dispatcher = __webpack_require__(225).Dispatcher;
+	var Dispatcher = __webpack_require__(227).Dispatcher;
 	
 	module.exports = new Dispatcher();
 
 /***/ },
-/* 225 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -30581,11 +30680,11 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Dispatcher = __webpack_require__(226);
+	module.exports.Dispatcher = __webpack_require__(228);
 
 
 /***/ },
-/* 226 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -30822,7 +30921,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 227 */
+/* 229 */
 /***/ function(module, exports) {
 
 	var CourseConstants = {
@@ -30832,10 +30931,10 @@
 	module.exports = CourseConstants;
 
 /***/ },
-/* 228 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ApiActions = __webpack_require__(229);
+	var ApiActions = __webpack_require__(231);
 	
 	var ApiUtil = {
 	  fetchCourses: function () {
@@ -30851,9 +30950,20 @@
 	  fetchReviews: function () {
 	    $.ajax({
 	      type: "GET",
-	      url: "api/courses",
+	      url: "api/reviews",
 	      success: function () {
 	        ApiActions.receiveReviews(courses);
+	      }
+	    });
+	  },
+	
+	  postReview: function (review) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/reviews",
+	      data: review,
+	      success: function (review) {
+	        ApiActions.reviewPosted(review);
 	      }
 	    });
 	  }
@@ -30862,11 +30972,11 @@
 	module.exports = ApiUtil;
 
 /***/ },
-/* 229 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AppDispatcher = __webpack_require__(224);
-	var CourseConstants = __webpack_require__(227);
+	var AppDispatcher = __webpack_require__(226);
+	var CourseConstants = __webpack_require__(229);
 	
 	var ApiActions = {
 	  receiveCourses: function (courses) {

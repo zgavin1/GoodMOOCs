@@ -26,6 +26,10 @@ ReviewStore.__onDispatch = function (payload) {
       resetReviews(payload.reviews);
       ReviewStore.__emitChange();
       break;
+    case ReviewConstants.REVIEW_POSTED:
+      resetReviews(payload.reviews);
+      ReviewStore.__emitChange();
+      break;
   }
 };
 

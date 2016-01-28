@@ -1,5 +1,6 @@
 var ReviewConstants = {
-  REVIEW_CONSTANTS: "REVIEW_CONSTANTS"
+  REVIEWS_RECEIVED: "REVIEWS_RECEIVED",
+  REVIEW_POSTED: "REVIEW_POSTED"
 };
 
 module.exports = ReviewConstants;
