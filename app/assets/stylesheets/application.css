@@ -137,6 +137,7 @@ ul {
   height: 295px;
   margin: auto;
   padding-right: 30px;
+  position: relative;
 }
 .new-user-form-pane {
   float: right;
@@ -194,7 +195,17 @@ ul {
 
 .o-auth {
   color: white;
-  background-color: #333333
+  background-color: #333333;
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+
+  font-family: Lato;
+}
+
+.o-auth p {
+  margin: 10px;
+  font-size: 10px;
 }
 
 /* BODY */
