@@ -47,7 +47,6 @@ body {
 }
 
 header {
-  width: 965px;
   margin: auto;
   background: url('http://www.velocitylsat.com/sites/default/files/images/banner-lsat-course-overview.jpg')
 }
@@ -65,9 +64,19 @@ ul {
   list-style: none;
 }
 
-.header-nav {
+.site-header {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.header-upper {
   border-bottom: 1px solid #ccc;
   font-family: Lato;
+}
+
+.header-nav {
+  width: 965px;
+  margin: auto;
 }
 
 .header-nav-logo {
@@ -126,8 +135,9 @@ ul {
   font-family: Roboto;
 }
 
-.header-body {
-
+.header-lower {
+  width: 965px;
+  margin: auto;
 }
 
 .catchphrase {
@@ -142,4 +152,44 @@ ul {
   vertical-align: middle;
   margin: 50px;
   text-align: center;
+}
+
+.content {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #ffffff;
+}
+
+.landing-page-content {
+  width: 965px;
+  margin: 0 auto;
+  color: black;
+  font-family: Lato;
+}
+
+.landing-page-intro {
+  width: 635px;
+}
+.landing-page-selling-point:first-child {
+  float: left;
+  width: 290px;
+  margin: 0 30px 10px 0;
+}
+
+.landing-page-selling-point:last-child {
+  float: right;
+  width: 280px;
+  margin: 0 10px 10px 0;
+}
+
+.landing-page-selling-point {
+
+}
+
+
+.landing-page-selling-point > h3 {
+  font-size: 18px;
+}
+.landing-page-selling-point > p {
+  font-size: 13px;
 }

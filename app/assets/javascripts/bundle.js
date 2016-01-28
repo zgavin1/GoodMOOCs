@@ -84,7 +84,7 @@
 	    Router,
 	    null,
 	    routes
-	  ), document.getElementById('root'));
+	  ), document.getElementById('content'));
 	});
 
 /***/ },
@@ -24067,41 +24067,45 @@
 	
 	    return React.createElement(
 	      'div',
-	      { className: 'landing-page-sugguestions' },
+	      { className: 'landing-page-content group' },
 	      React.createElement(
 	        'div',
-	        { className: 'landing-page-selling-point' },
+	        { className: 'landing-page-intro group' },
 	        React.createElement(
-	          'h3',
-	          null,
-	          'Deciding what to read next?'
+	          'div',
+	          { className: 'landing-page-selling-point' },
+	          React.createElement(
+	            'h3',
+	            null,
+	            'Deciding what to read next?'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'You’re in the right place. Tell us what titles ',
+	            React.createElement('br', null),
+	            'or genres you’ve enjoyed in the past, and we’ll give ',
+	            React.createElement('br', null),
+	            'you surprisingly insightful recommendations.'
+	          )
 	        ),
 	        React.createElement(
-	          'p',
-	          null,
-	          'You’re in the right place. Tell us what titles ',
-	          React.createElement('br', null),
-	          'or genres you’ve enjoyed in the past, and we’ll give ',
-	          React.createElement('br', null),
-	          'you surprisingly insightful recommendations.'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'landing-page-selling-point' },
-	        React.createElement(
-	          'h3',
-	          null,
-	          'What are your friends reading?'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Chances are your friends are discussing their  ',
-	          React.createElement('br', null),
-	          'favorite (and least favorite) books on Goodreads.  ',
-	          React.createElement('br', null),
-	          'Want to learn more? Take the tour.'
+	          'div',
+	          { className: 'landing-page-selling-point' },
+	          React.createElement(
+	            'h3',
+	            null,
+	            'What are your friends reading?'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'Chances are your friends are discussing their  ',
+	            React.createElement('br', null),
+	            'favorite (and least favorite) books on Goodreads.  ',
+	            React.createElement('br', null),
+	            'Want to learn more? Take the tour.'
+	          )
 	        )
 	      ),
 	      React.createElement(
@@ -31022,7 +31026,7 @@
 	      React.createElement('br', null),
 	      course.description,
 	      React.createElement('br', null),
-	      'Rating: //',
+	      'Rating: ',
 	      course.average_rating || "No reviews yet",
 	      React.createElement('br', null),
 	      React.createElement('img', { src: course.img_url })

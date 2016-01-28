@@ -30,5 +30,5 @@ var routes = (
 );
 
 $(function () {
-  ReactDOM.render(<Router>{routes}</Router>, document.getElementById('root'));
+  ReactDOM.render(<Router>{routes}</Router>, document.getElementById('content'));
 });

@@ -11,7 +11,7 @@ var CourseIndexItem = React.createClass({
           <br/>
           {course.description}
           <br/>
-          Rating: //{course.average_rating || "No reviews yet"}
+          Rating: { course.average_rating || "No reviews yet"}
           <br/>
           <img src={course.img_url}/>
         </li>
