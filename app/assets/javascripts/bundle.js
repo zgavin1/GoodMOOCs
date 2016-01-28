@@ -31017,6 +31017,11 @@
 	  displayName: 'CourseIndexItem',
 	
 	  // mixins: [ReactRouter.history],
+	  componentWillReceiveProps: function (newProps) {
+	    debugger;
+	    this.forceUpdate();
+	  },
+	
 	  render: function () {
 	    var course = this.props.course;
 	    return React.createElement(

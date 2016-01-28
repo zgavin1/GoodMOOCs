@@ -3,6 +3,11 @@ var ReactRouter = require('react-router');
 
 var CourseIndexItem = React.createClass({
   // mixins: [ReactRouter.history],
+  componentWillReceiveProps: function (newProps) {
+    debugger
+    this.forceUpdate();
+  },
+
   render: function(){
     var course = this.props.course;
     return (

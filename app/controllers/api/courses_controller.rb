@@ -1,6 +1,6 @@
 class Api::CoursesController < ApplicationController
   def show
-    course = Course.find_by_id(params[:course][:id])
+    @course = Course.find(params[:id])
   end
 
   def create
@@ -12,6 +12,6 @@ class Api::CoursesController < ApplicationController
   def index
     @courses = Course.all
 
-    render json: @courses
+    # render json: @courses
   end
 end

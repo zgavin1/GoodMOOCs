@@ -1,1 +1,2 @@
-json.partial! 'api/courses/course', collection: @courses, as: :course
+
+json.array! @courses, partial: 'api/courses/course', as: :course
