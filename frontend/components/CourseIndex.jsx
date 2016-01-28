@@ -65,7 +65,7 @@ var CourseIndex = React.createClass({
           </div>
         </div>
 
-        <div>
+        <div className="discover group">
           <h3> What will <em>you</em> discover?</h3>
           <ul className="landing-page-course-index" >{ courses }</ul>
         </div>

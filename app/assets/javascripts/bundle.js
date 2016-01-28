@@ -24110,7 +24110,7 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        null,
+	        { className: 'discover group' },
 	        React.createElement(
 	          'h3',
 	          null,
@@ -31018,25 +31018,36 @@
 	
 	  // mixins: [ReactRouter.history],
 	  componentWillReceiveProps: function (newProps) {
-	    debugger;
 	    this.forceUpdate();
 	  },
+	
+	  //Render for front page, just image links
 	
 	  render: function () {
 	    var course = this.props.course;
 	    return React.createElement(
 	      'li',
-	      { onClick: this.props.onClick },
-	      course.title,
-	      React.createElement('br', null),
-	      course.description,
-	      React.createElement('br', null),
-	      'Rating: ',
-	      course.average_rating || "No reviews yet",
-	      React.createElement('br', null),
+	      { className: 'index-link', onClick: this.props.onClick },
 	      React.createElement('img', { src: course.img_url })
 	    );
 	  }
+	
+	  // Render for large lists with all info
+	
+	  // render: function(){
+	  //   var course = this.props.course;
+	  //   return (
+	  //       <li onClick={this.props.onClick}>
+	  //         {course.title}
+	  //         <br/>
+	  //         {course.description}
+	  //         <br/>
+	  //         Rating: { course.average_rating || "No reviews yet"}
+	  //         <br/>
+	  //         <img src={course.img_url}/>
+	  //       </li>
+	  //   );
+	  // }
 	});
 	
 	module.exports = CourseIndexItem;
