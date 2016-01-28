@@ -10,8 +10,6 @@ class Api::CoursesController < ApplicationController
   end
 
   def index
-    @courses = Course.all
-
-    # render json: @courses
+    @courses = Course.all.includes(:course_provider)
   end
 end
