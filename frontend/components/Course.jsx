@@ -6,13 +6,17 @@ var Course = React.createClass({
 
   render: function () {
     var course = this.props.course;
+    if ($.isEmptyObject(course)) {
+      return (<div></div>);
+    }
+
     return (
       <div>
         <img src={course.img_url}/>
         <h2>{ course.title }</h2>
         <h3> from
-          <a href={ course.course_provider.home_url }>
-            { course.course_provider.name }
+          <a href="#">
+            { course.course_provider_id}
           </a>
         </h3>
         <p>{course.description}</p>

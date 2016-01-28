@@ -23,8 +23,7 @@ var CourseShow = React.createClass({
   },
 
   componentDidMount: function () {
-    alert("hit mount");
-    this.courseStoreListener = CourseStore.addListener(this._courseChange);
+    this.courseListener = CourseStore.addListener(this._courseChange);
     ApiUtil.fetchCourses();
   },
 
@@ -35,16 +34,13 @@ var CourseShow = React.createClass({
   },
 
   componentWillUnmount: function () {
-    this.courseStoreListener.remove();
+    this.courseListener.remove();
   },
 
   render: function () {
     return (
       <div>
-        <Course
-          course={ this.state.course }
-          />
-        {this.props.children}
+        <Course course={ this.state.course }/>
       </div>
     );
   }

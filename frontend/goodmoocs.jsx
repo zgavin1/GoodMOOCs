@@ -21,14 +21,14 @@ var App = React.createClass({
 });
 
 var routes = (
-  <Route path="/" component={App}>
-    <IndexRoute component={CourseIndex} />
-    <Route path="courses/:courseId" component={CourseShow}>
-      <Route path="review" components={ReviewForm}/>
+  <Route path="/" component={ App }>
+    <IndexRoute component={ CourseIndex } />
+    <Route path="courses/:courseId" component={ CourseShow }>
+      <Route path="review" components={ ReviewForm }/>
     </Route>
   </Route>
 );
 
 $(function () {
-  ReactDOM.render(<Router>{routes}</Router>, root);
+  ReactDOM.render(<Router>{routes}</Router>, document.getElementById('root'));
 });

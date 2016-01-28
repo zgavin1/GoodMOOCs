@@ -84,7 +84,7 @@
 	    Router,
 	    null,
 	    routes
-	  ), root);
+	  ), document.getElementById('root'));
 	});
 
 /***/ },
@@ -31063,8 +31063,7 @@
 	  },
 	
 	  componentDidMount: function () {
-	    alert("hit mount");
-	    this.courseStoreListener = CourseStore.addListener(this._courseChange);
+	    this.courseListener = CourseStore.addListener(this._courseChange);
 	    ApiUtil.fetchCourses();
 	  },
 	
@@ -31075,17 +31074,14 @@
 	  },
 	
 	  componentWillUnmount: function () {
-	    this.courseStoreListener.remove();
+	    this.courseListener.remove();
 	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Course, {
-	        course: this.state.course
-	      }),
-	      this.props.children
+	      React.createElement(Course, { course: this.state.course })
 	    );
 	  }
 	});
@@ -31104,6 +31100,10 @@
 	
 	  render: function () {
 	    var course = this.props.course;
+	    if ($.isEmptyObject(course)) {
+	      return React.createElement('div', null);
+	    }
+	
 	    return React.createElement(
 	      'div',
 	      null,
@@ -31119,8 +31119,8 @@
 	        ' from',
 	        React.createElement(
 	          'a',
-	          { href: course.course_provider.home_url },
-	          course.course_provider.name
+	          { href: '#' },
+	          course.course_provider_id
 	        )
 	      ),
 	      React.createElement(
