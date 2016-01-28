@@ -24017,6 +24017,7 @@
 	
 	var CourseStore = __webpack_require__(207);
 	var ApiUtil = __webpack_require__(230);
+	var CourseIndexItem = __webpack_require__(232);
 	
 	var CourseIndex = React.createClass({
 	  displayName: 'CourseIndex',
@@ -24040,17 +24041,21 @@
 	    this.storeListener.remove();
 	  },
 	
+	  handleCourseClick: function (course) {
+	    this.props.history.pushState(null, "courses/" + course.id);
+	  },
+	
 	  render: function () {
+	    var handleCourseClick = this.handleCourseClick;
+	
 	    var courses = CourseStore.all().map(function (course) {
-	      return React.createElement(
-	        'li',
-	        { className: 'landing-page-course-index-item', key: course.id },
-	        React.createElement(
-	          'a',
-	          { href: course.course_url },
-	          React.createElement('img', { src: course.img_url })
-	        )
-	      );
+	      var boundClick = handleCourseClick.bind(null, course);
+	
+	      return React.createElement(CourseIndexItem, {
+	        className: 'landing-page-course-index-item',
+	        course: course,
+	        key: course.id,
+	        onClick: boundClick });
 	    });
 	
 	    return React.createElement(
@@ -30989,6 +30994,36 @@
 	};
 	
 	module.exports = ApiActions;
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var ReactRouter = __webpack_require__(1);
+	
+	var CourseIndexItem = React.createClass({
+	  displayName: 'CourseIndexItem',
+	
+	  // mixins: [ReactRouter.history],
+	  render: function () {
+	    var course = this.props.course;
+	    return React.createElement(
+	      'li',
+	      { onClick: this.props.onClick },
+	      course.title,
+	      React.createElement('br', null),
+	      course.description,
+	      React.createElement('br', null),
+	      'Rating: //',
+	      course.average_rating || "No reviews yet",
+	      React.createElement('br', null),
+	      React.createElement('img', { src: course.img_url })
+	    );
+	  }
+	});
+	
+	module.exports = CourseIndexItem;
 
 /***/ }
 /******/ ]);
