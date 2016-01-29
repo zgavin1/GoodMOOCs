@@ -9,14 +9,15 @@ var Course = React.createClass({
     if ($.isEmptyObject(course)) {
       return (<div></div>);
     }
+    debugger
 
     return (
       <div>
-        <img src={course.img_url}/>
+        <img src={course.image}/>
         <h2>{ course.title }</h2>
         <h3> from
           <a href="#">
-            { course.course_provider_id}
+            { course.course_provider_id }
           </a>
         </h3>
         <p>{course.description}</p>

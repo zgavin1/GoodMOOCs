@@ -24059,11 +24059,10 @@
 	  },
 	
 	  render: function () {
-	    var handleCourseClick = this.handleCourseClick;
 	
+	    var handleCourseClick = this.handleCourseClick;
 	    var courses = CourseStore.all().map(function (course) {
 	      var boundClick = handleCourseClick.bind(null, course);
-	
 	      return React.createElement(CourseIndexItem, {
 	        className: 'landing-page-course-index-item',
 	        course: course,
@@ -31034,7 +31033,7 @@
 	    return React.createElement(
 	      'li',
 	      { className: 'index-link', onClick: this.props.onClick },
-	      React.createElement('img', { src: course.img_url })
+	      React.createElement('img', { src: course.image_url })
 	    );
 	  }
 	
@@ -31130,11 +31129,12 @@
 	    if ($.isEmptyObject(course)) {
 	      return React.createElement('div', null);
 	    }
+	    debugger;
 	
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('img', { src: course.img_url }),
+	      React.createElement('img', { src: course.image }),
 	      React.createElement(
 	        'h2',
 	        null,

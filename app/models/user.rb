@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_attached_file :avatar, default_url: "stats.jpg"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
   validates :username, :session_token, :password_digest, presence: true
   validates :username, :session_token, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }

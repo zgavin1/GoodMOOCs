@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 
 var CourseStore = require('./../../stores/course');
 var ApiUtil = require('./../../util/api_util');
-var CourseIndexItem = require('./CourseIndexItem')
+var CourseIndexItem = require('./CourseIndexItem');
 
 var CourseIndex = React.createClass({
   getInitialState: function () {
@@ -30,11 +30,10 @@ var CourseIndex = React.createClass({
   },
 
   render: function () {
-    var handleCourseClick = this.handleCourseClick;
 
+    var handleCourseClick = this.handleCourseClick;
     var courses = CourseStore.all().map(function (course) {
       var boundClick = handleCourseClick.bind(null, course);
-
       return (
         <CourseIndexItem
           className="landing-page-course-index-item"

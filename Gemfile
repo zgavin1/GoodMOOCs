@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 
+#paperclip for hosting images
+gem "paperclip", "~> 4.3"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use postgresql as the database for Active Record
@@ -25,6 +27,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+
+#for aws security
+gem "figaro"
 
 # Use Unicorn as the app server
 # gem 'unicorn'

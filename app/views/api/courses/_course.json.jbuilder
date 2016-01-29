@@ -1,2 +1,3 @@
-json.extract! course, :id, :title, :description, :cost, :course_url, :start_date, :img_url, :subject, :course_provider_id
+json.extract! course, :id, :title, :description, :cost, :course_url, :start_date, :subject, :course_provider_id
+json.image_url asset_path(course.image.url(:original))
 json.average_rating course.average_rating

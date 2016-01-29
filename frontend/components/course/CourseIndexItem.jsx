@@ -14,7 +14,7 @@ var CourseIndexItem = React.createClass({
     var course = this.props.course;
     return (
       <li className="index-link" onClick={this.props.onClick}>
-        <img src={course.img_url}/>
+        <img src={ course.image_url }/>
       </li>
     );
   }

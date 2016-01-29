@@ -35,8 +35,7 @@ course1 = Course.create!(
   course_url: "https://www.udacity.com/courses/st101",
   start_date: DateTime.now,
   course_provider_id: udacity.id,
-  subject: "statistics",
-  img_url: "/app/assets/javascript/images/stats.jpg"
+  subject: "statistics"
 )
 
 course2 = Course.create!(
@@ -46,8 +45,7 @@ course2 = Course.create!(
   course_url: "https://www.edx.org/course/how-write-novel-part-1-plan-outline-ubcx-cw1-1x",
   start_date: DateTime.new(2016, 1, 20),
   course_provider_id: edx.id,
-  subject: "writing",
-  img_url: "/app/assets/javascript/images/OnceUponATime.jpg"
+  subject: "writing"
 )
 
 Review.destroy_all
