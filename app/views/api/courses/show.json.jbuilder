@@ -1,1 +1,1 @@
-json.partial! 'api/courses/course', @course: course
+json.partial! 'api/courses/course', course: @course

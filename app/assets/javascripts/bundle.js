@@ -75,7 +75,7 @@
 	  React.createElement(
 	    Route,
 	    { path: 'courses/:courseId', component: CourseShow },
-	    React.createElement(Route, { path: 'review', components: ReviewForm })
+	    React.createElement(Route, { path: 'review/:reviewId', components: ReviewForm })
 	  )
 	);
 	

@@ -24,7 +24,7 @@ var routes = (
   <Route path="/" component={ App }>
     <IndexRoute component={ CourseIndex } />
     <Route path="courses/:courseId" component={ CourseShow }>
-      <Route path="review" components={ ReviewForm }/>
+      <Route path="review/:reviewId" components={ ReviewForm }/>
     </Route>
   </Route>
 );

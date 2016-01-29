@@ -1,7 +1,6 @@
 class Api::ReviewsController < ApplicationController
   def show
-    debugger
-    @review = Course.find(params[:course][:id])
+    @review = Review.find(params[:id])
   end
 
   def create
