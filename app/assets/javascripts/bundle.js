@@ -54,9 +54,11 @@
 	
 	var CourseIndex = __webpack_require__(206);
 	var CourseShow = __webpack_require__(233);
-	var ReviewForm = __webpack_require__(235);
 	var CurrentUserStore = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./stores/currentUserStore\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	var SessionsApiUtil = __webpack_require__(242);
+	
+	var ReviewForm = __webpack_require__(235);
+	var SessionForm = __webpack_require__(244);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -84,7 +86,9 @@
 	    Route,
 	    { path: 'courses/:courseId', component: CourseShow },
 	    React.createElement(Route, { path: 'review/:reviewId', components: ReviewForm })
-	  )
+	  ),
+	  React.createElement(Route, { path: 'login', component: SessionForm }),
+	  React.createElement(Route, { path: 'users/new', component: UserForm })
 	);
 	
 	$(function () {
@@ -31163,7 +31167,6 @@
 	    if ($.isEmptyObject(course)) {
 	      return React.createElement('div', null);
 	    }
-	    debugger;
 	
 	    return React.createElement(
 	      'div',
@@ -31585,6 +31588,78 @@
 			});
 		}
 	};
+
+/***/ },
+/* 243 */,
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var SessionsApiUtl = __webpack_require__(242);
+	
+	var Session = React.createClass({
+	  displayName: 'Session',
+	
+	  onSubmit: function (e) {
+	    e.preventDefault();
+	
+	    debugger;
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'form',
+	      { onSubmit: this.submit },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Sign In'
+	      ),
+	      React.createElement(
+	        'label',
+	        null,
+	        'Username',
+	        React.createElement('input', { name: 'username' })
+	      ),
+	      React.createElement(
+	        'label',
+	        null,
+	        ' Password',
+	        React.createElement('input', { name: 'password' })
+	      ),
+	      React.createElement(
+	        'button',
+	        null,
+	        'Sign In'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Session;
+	
+	// My new session form from rails authentication
+	// <h2>Sign In</h2>
+	//
+	// <form action="<%= session_url %>" method="post">
+	//   <%= auth_token_input %>
+	//   <input type="hidden" name="user[username]" value="password">
+	//   <input type="hidden" name="user[password]" value="password">
+	//   <button>Demo User</button>
+	// </form>
+	//
+	// <br><br>
+	// <form action="<%= session_url %>" method="post">
+	//   <%= auth_token_input %>
+	//
+	//
+	//   <input type="text" name="user[username]" value="" placeholder="Username">
+	//
+	//   <br>
+	//   <input type="password" name="user[password]" value="" placeholder="Password">
+	//   <br>
+	//   <button>Submit</button>
+	// </form>
 
 /***/ }
 /******/ ]);

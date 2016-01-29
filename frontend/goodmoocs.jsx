@@ -8,9 +8,11 @@ var ReactDOM = require('react-dom');
 
 var CourseIndex = require('./components/course/CourseIndex');
 var CourseShow = require('./components/course/CourseShow');
-var ReviewForm = require('./components/review/ReviewForm');
 var CurrentUserStore = require('./stores/currentUserStore');
 var SessionsApiUtil = require('./util/sessions_api_util');
+
+var ReviewForm = require('./components/review/ReviewForm');
+var SessionForm = require('./components/sessions/New');
 
 var App = React.createClass({
   componentWillMount: function () {
@@ -34,6 +36,8 @@ var routes = (
     <Route path="courses/:courseId" component={ CourseShow }>
       <Route path="review/:reviewId" components={ ReviewForm }/>
     </Route>
+    <Route path="login" component={ SessionForm }/>
+    <Route path="users/new" component={ UserForm } />
   </Route>
 );
 

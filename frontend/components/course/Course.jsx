@@ -9,7 +9,6 @@ var Course = React.createClass({
     if ($.isEmptyObject(course)) {
       return (<div></div>);
     }
-    debugger
 
     return (
       <div>
