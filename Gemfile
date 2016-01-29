@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-
+#aws gem for s3
+gem 'aws-sdk', '~> 1.6'
 #paperclip for hosting images
 gem "paperclip", "~> 4.3"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
