@@ -86,6 +86,32 @@
 	    routes
 	  ), document.getElementById('content'));
 	});
+	
+	// make `_ensureLoggedIn` the `onEnter` prop of
+	// routes that requires User Auth (see line 17)
+	function _ensureLoggedIn(nextState, replace, callback) {
+	  // the third `callback` arg allows us to do async
+	  // operations before the route runs. Router will wait
+	  // for us to call it before actually routing
+	
+	  if (CurrentUserStore.userHasBeenFetched()) {
+	    _redirectIfNotLoggedIn(); // this function below
+	  } else {
+	      // currentUser has not been fetched
+	      // lets fetch them and then see if
+	      // we have to redirect or not
+	      SessionsApiUtil.fetchCurrentUser(_redirectIfNotLoggedIn);
+	    }
+	
+	  function _redirectIfNotLoggedIn() {
+	    if (!CurrentUserStore.isLoggedIn()) {
+	      replace({}, "/login");
+	    }
+	    callback(); // Always call the callback.
+	    // The router doesn't actually run the
+	    // route until you do call it.
+	  }
+	}
 
 /***/ },
 /* 1 */
