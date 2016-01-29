@@ -6,9 +6,9 @@ var IndexRoute = require('react-router').IndexRoute;
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var CourseIndex = require('./components/CourseIndex');
-var CourseShow = require('./components/CourseShow');
-var ReviewForm = require('./components/ReviewForm');
+var CourseIndex = require('./components/course/CourseIndex');
+var CourseShow = require('./components/course/CourseShow');
+var ReviewForm = require('./components/review/ReviewForm');
 
 var App = React.createClass({
   render: function () {

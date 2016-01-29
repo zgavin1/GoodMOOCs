@@ -31190,8 +31190,9 @@
 	var React = __webpack_require__(5);
 	var ReactRouter = __webpack_require__(1);
 	var CourseStore = __webpack_require__(209);
-	var Course = __webpack_require__(236);
 	var ApiUtil = __webpack_require__(232);
+	
+	var Course = __webpack_require__(236);
 	
 	var CourseShow = React.createClass({
 	  displayName: 'CourseShow',

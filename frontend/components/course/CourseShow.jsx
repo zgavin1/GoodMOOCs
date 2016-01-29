@@ -1,8 +1,9 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var CourseStore = require('./../../stores/course');
-var Course = require('./../../Course');
 var ApiUtil = require('./../../util/api_util');
+
+var Course = require('./Course');
 
 var CourseShow = React.createClass({
   getInitialState: function () {
