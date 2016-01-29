@@ -36,7 +36,7 @@ course1 = Course.create!(
   start_date: DateTime.now,
   course_provider_id: udacity.id,
   subject: "statistics",
-  img_url: "http://www.ahrinet.org/App_Content/ahri/images/Statistics/canstockphoto7351376-landingpage.jpg"
+  img_url: "/app/assets/javascript/images/stats.jpg"
 )
 
 course2 = Course.create!(
@@ -47,7 +47,7 @@ course2 = Course.create!(
   start_date: DateTime.new(2016, 1, 20),
   course_provider_id: edx.id,
   subject: "writing",
-  img_url: "http://massimomarinoauthor.com/wp-content/uploads/2014/07/OnceUponATime.jpg"
+  img_url: "/app/assets/javascript/images/OnceUponATime.jpg"
 )
 
 Review.destroy_all
