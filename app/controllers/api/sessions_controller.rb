@@ -20,7 +20,8 @@ class Api::SessionsController < ApplicationController
       # render :new, status: 401
       render json: ["Wrong username/password combo!"], status: 401
     else
-      sign_in!(@user)
+      debugger
+      sign_in(@user)
       # redirect_to root_url
       render "api/users/show"
     end

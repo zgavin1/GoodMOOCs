@@ -9,9 +9,9 @@ var UserConstants = require('../constants/user_constants');
 var resetUsers = function (usersArray) {
 	_users = {};
 	usersArray.forEach(function (user) {
-		_users{user.id} = user
+		_users[user.id] = user;
 	});
-	return _users
+	return _users;
 };
 
 UserStore._onDispatch = function (payload) {
@@ -21,7 +21,7 @@ UserStore._onDispatch = function (payload) {
 			UserStore.__emitChange();
 			break;
 	}
-}
+};
 
 
 module.exports = UserStore;

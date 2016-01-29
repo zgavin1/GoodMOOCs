@@ -21,10 +21,6 @@ CurrentUserStore.userHasBeenFetched = function () {
 
 CurrentUserStore.__onDispatch = function (payload) {
   if (payload.actionType === CurrentUserConstants.RECEIVE_CURRENT_USER) {
-    // do stuff
-    //maybe more stuff
-
-
     _currentUserHasBeenFetched = true;
     _currentUser = payload.currentUser;
     CurrentUserStore.__emitChange();

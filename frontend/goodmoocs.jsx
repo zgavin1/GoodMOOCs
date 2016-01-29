@@ -8,22 +8,23 @@ var ReactDOM = require('react-dom');
 
 var CourseIndex = require('./components/course/CourseIndex');
 var CourseShow = require('./components/course/CourseShow');
-var CurrentUserStore = require('./stores/currentUserStore');
+var CurrentUserStore = require('./stores/currentUser');
 var SessionsApiUtil = require('./util/sessions_api_util');
 
 var ReviewForm = require('./components/review/ReviewForm');
 var SessionForm = require('./components/sessions/New');
+var UserForm = require('./components/users/Form');
 
 var App = React.createClass({
-  componentWillMount: function () {
+  componentDidMount: function () {
     this.currentUserListener = CurrentUserStore.addListener(this.forceUpdate.bind(this));
-
     SessionsApiUtil.fetchCurrentUser();
   },
 
   render: function () {
     return (
       <div>
+        <h1>the app render</h1>
         {this.props.children}
       </div>
     );
@@ -31,7 +32,7 @@ var App = React.createClass({
 });
 
 var routes = (
-  <Route path="/" component={ App } onEnter={ _ensureLoggedIn }>
+  <Route path="/" component={ App }>
     <IndexRoute component={ CourseIndex } onEnter={ _ensureLoggedIn }/>
     <Route path="courses/:courseId" component={ CourseShow }>
       <Route path="review/:reviewId" components={ ReviewForm }/>
@@ -40,18 +41,12 @@ var routes = (
     <Route path="users/new" component={ UserForm } />
   </Route>
 );
-
-$(function () {
-  ReactDOM.render(<Router>{routes}</Router>, document.getElementById('content'));
-});
-
 // make `_ensureLoggedIn` the `onEnter` prop of
 // routes that requires User Auth (see line 17)
 function _ensureLoggedIn(nextState, replace, callback) {
   // the third `callback` arg allows us to do async
   // operations before the route runs. Router will wait
   // for us to call it before actually routing
-
   if (CurrentUserStore.userHasBeenFetched()) {
     _redirectIfNotLoggedIn(); // this function below
   } else {
@@ -65,8 +60,10 @@ function _ensureLoggedIn(nextState, replace, callback) {
     if (!CurrentUserStore.isLoggedIn()) {
       replace({}, "/login");
     }
-    callback(); // Always call the callback.
-                // The router doesn't actually run the
-                // route until you do call it.
+    callback();
   }
 }
+
+$(function () {
+  ReactDOM.render(<Router>{routes}</Router>, document.getElementById('content'));
+});

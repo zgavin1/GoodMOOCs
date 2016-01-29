@@ -1,22 +1,34 @@
 var React = require('react');
-var SessionsApiUtl = require('./../../util/sessions_api_util');
+var History = require('react-router').History;
+var SessionsApiUtil = require('./../../util/sessions_api_util');
 
 var Session = React.createClass({
+  mixins: [History],
+
   onSubmit: function (e) {
     e.preventDefault();
+    var fields = $(e.currentTarget).serializeArray();
+    var credentials = {};
 
-    debugger
+    fields.forEach(function (field) {
+      credentials[field.name] = field.value;
+    }.bind(this));
+
+    SessionsApiUtil.login(credentials, function () {
+      this.history.pushState({}, "/");
+    }.bind(this));
   },
 
 	render: function () {
+
 		return (
-      <form onSubmit={this.submit}>
+      <form onSubmit={this.onSubmit}>
         <h3>Sign In</h3>
         <label>Username
           <input name="username"></input>
         </label>
-        <label> Password
-          <input name="password"></input>
+        <label>Password
+          <input type="password" name="password"></input>
         </label>
         <button>Sign In</button>
       </form>

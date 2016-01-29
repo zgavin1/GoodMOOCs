@@ -19,7 +19,7 @@ var UserForm = React.createClass({
           <input name="email"></input>
         </label>
         <label> Password
-          <input name="password"></input>
+          <input type="password" name="password"></input>
         </label>
         <button>Sign Up</button>
 			</form>
