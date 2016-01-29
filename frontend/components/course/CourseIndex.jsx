@@ -47,18 +47,18 @@ var CourseIndex = React.createClass({
       <div className="landing-page-content group" >
         <div className="landing-page-intro group">
           <div className="landing-page-selling-point">
-            <h3>Deciding what to read next?</h3>
+            <h3>Deciding what to study next?</h3>
             <p>
-              You’re in the right place. Tell us what titles <br />
-              or genres you’ve enjoyed in the past, and we’ll give <br />
+              You’re in the right place. Tell us what courses <br />
+              or subjects you’ve enjoyed in the past, and we’ll give <br />
               you surprisingly insightful recommendations.
             </p>
           </div>
           <div className="landing-page-selling-point">
-            <h3>What are your friends reading?</h3>
+            <h3>What are your friends studying??</h3>
             <p>
               Chances are your friends are discussing their  <br />
-              favorite (and least favorite) books on Goodreads.  <br />
+            favorite (and least favorite) classes on GoodMOOCs.  <br />
               Want to learn more? Take the tour.
             </p>
           </div>
