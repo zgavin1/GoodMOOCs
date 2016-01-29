@@ -70,8 +70,8 @@
 	
 	var routes = React.createElement(
 	  Route,
-	  { path: '/', component: App },
-	  React.createElement(IndexRoute, { component: CourseIndex }),
+	  { path: '/', component: App, onEnter: _ensureLoggedIn },
+	  React.createElement(IndexRoute, { component: CourseIndex, onEnter: _ensureLoggedIn }),
 	  React.createElement(
 	    Route,
 	    { path: 'courses/:courseId', component: CourseShow },
