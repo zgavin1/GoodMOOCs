@@ -55,9 +55,17 @@
 	var CourseIndex = __webpack_require__(206);
 	var CourseShow = __webpack_require__(233);
 	var ReviewForm = __webpack_require__(235);
+	var CurrentUserStore = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./stores/currentUserStore\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var SessionsApiUtil = __webpack_require__(242);
 	
 	var App = React.createClass({
 	  displayName: 'App',
+	
+	  componentWillMount: function () {
+	    this.currentUserListener = CurrentUserStore.addListener(this.forceUpdate.bind(this));
+	
+	    SessionsApiUtil.fetchCurrentUser();
+	  },
 	
 	  render: function () {
 	    return React.createElement(
@@ -24108,14 +24116,14 @@
 	          React.createElement(
 	            'h3',
 	            null,
-	            'Deciding what to read next?'
+	            'Deciding what to study next?'
 	          ),
 	          React.createElement(
 	            'p',
 	            null,
-	            'You’re in the right place. Tell us what titles ',
+	            'You’re in the right place. Tell us what courses ',
 	            React.createElement('br', null),
-	            'or genres you’ve enjoyed in the past, and we’ll give ',
+	            'or subjects you’ve enjoyed in the past, and we’ll give ',
 	            React.createElement('br', null),
 	            'you surprisingly insightful recommendations.'
 	          )
@@ -24126,14 +24134,14 @@
 	          React.createElement(
 	            'h3',
 	            null,
-	            'What are your friends reading?'
+	            'What are your friends studying??'
 	          ),
 	          React.createElement(
 	            'p',
 	            null,
 	            'Chances are your friends are discussing their  ',
 	            React.createElement('br', null),
-	            'favorite (and least favorite) books on Goodreads.  ',
+	            'favorite (and least favorite) classes on GoodMOOCs.  ',
 	            React.createElement('br', null),
 	            'Want to learn more? Take the tour.'
 	          )
@@ -31544,6 +31552,39 @@
 	};
 	
 	module.exports = ReviewConstants;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports) {
+
+	
+	var SessionApiUtil = {
+		login: function (credentials, successCallback) {
+			$.ajax({
+				type: "POST",
+				url: "api/session",
+				data: credentials,
+				success: function () {
+					//
+					// successCallback && successCalback();
+				}
+			});
+		},
+	
+		logout: function () {
+			$.ajax({});
+		},
+	
+		fetchCurrentUser: function () {
+			$.ajax({
+				type: "GET",
+				url: "api/session",
+				success: function (currentUser) {
+					//
+				}
+			});
+		}
+	};
 
 /***/ }
 /******/ ]);

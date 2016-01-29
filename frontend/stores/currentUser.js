@@ -10,7 +10,7 @@ var _currentUserHasBeenFetched = false;
 CurrentUserStore.currentUser = function () {
   return $.extend({}, _currentUser);
 };
-  
+
 CurrentUserStore.isLoggedIn = function () {
   return !!_currentUser.id;
 };
@@ -30,5 +30,5 @@ CurrentUserStore.__onDispatch = function (payload) {
     CurrentUserStore.__emitChange();
   }
 };
-  
+
 module.exports = CurrentUserStore;
