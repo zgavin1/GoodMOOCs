@@ -49,7 +49,7 @@ body {
 
 header {
   margin: auto;
-  background: url('banner.jpg')
+  background: url('https://s3.amazonaws.com/goodmoocs-prod/banner.jpg?X-Amz-Date=20160129T171839Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=ef540a300b55d69801fc76ec51071c128b9be978aed54001f6120af22cfc7eb6&X-Amz-Credential=ASIAIVNOQ64E47XFJLLA/20160129/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=AQoDYXdzEMH//////////wEakAJThQJyDkq3ZlgTlzEEIWCzA5qobtwNfgzZRw41UzFyQE9EjPUXfMFmATE8K5L84JS2Vq9iUkRbJR8Em0UX0S7Vxwo7KjfpMEhPdIdXdnJhXgJVo05R5Oi3CKiCWstwpQVXXIOfRD5G19bGmY2rsciwhUe42MoKJ3%2Bl2gAC4gnBpiO3n4edpbMEDw2gwlV9tRyYsWlY6omgp037uZBRaj2Y7%2BS4Pw/hBgt8ovNGPwv0/Sida5d3BbR4DieereU2FrzbTDpnMaHIlfXqU4pBfNAKzCSb3DYC/T0fB9ZxPo%2BJgP3fxjyk/YzGj3RRICngkZ%2BnfgfixAvQ/VjSPdioyEpymltpDyIeVHMmu%2Bu2c6LDgSDVlq61BQ%3D%3D')
 }
 
 input {
