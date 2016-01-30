@@ -12,7 +12,7 @@ var CurrentUserStore = require('./stores/currentUser');
 var SessionsApiUtil = require('./util/sessions_api_util');
 
 var ReviewForm = require('./components/review/ReviewForm');
-var SessionForm = require('./components/sessions/New');
+var SessionForm = require('./components/sessions/new');
 var UserForm = require('./components/users/Form');
 
 var App = React.createClass({
