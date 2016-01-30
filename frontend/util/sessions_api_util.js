@@ -1,9 +1,7 @@
-var CurrentUserActions = require('../actions/current_user_actions');
-
+var CurrentUserActions = require('./../actions/current_user_actions');
 
 var SessionsApiUtil = {
 	login: function (credentials, successCallback) {
-    debugger
 		$.ajax({
 				type: "POST",
 				url: "api/session",
@@ -11,18 +9,21 @@ var SessionsApiUtil = {
         dataType: 'json',
 				success: function (currentUser) {
           CurrentUserActions.receiveCurrentUser(currentUser);
-          debugger
           successCallback && successCallback();
         }
 		});
 	},
 
-	logout: function () {
+	logout: function (callback) {
 		$.ajax({
       type: "DELETE",
       url: 'api/session',
       success: function () {
-
+      	CurrentUserActions.logoutCurrentUser();
+      	callback && callback()
+      },
+      error: function () {
+      	console.log("blah")
       }
 		});
 	},
@@ -32,9 +33,8 @@ var SessionsApiUtil = {
 			type: "GET",
 			url: "api/session",
 			success: function (currentUser) {
-        console.log("fetched cur user");
         CurrentUserActions.receiveCurrentUser(currentUser);
-        callback && callback();
+        callback && callback(currentUser);
 			}
 		});
 	}

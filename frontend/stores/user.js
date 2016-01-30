@@ -14,7 +14,15 @@ var resetUsers = function (usersArray) {
 	return _users;
 };
 
-UserStore._onDispatch = function (payload) {
+UserStore.all = function () {
+	var users = [];
+	Object.keys(_users).forEach(function (userId) {
+		users.push(_users[userId]);
+	});
+	return users;
+}
+
+UserStore.__onDispatch = function (payload) {
 	switch (payload.actionType) {
 		case UserConstants.USERS_RECEIVED:
 			resetUsers(payload.users);
@@ -22,6 +30,14 @@ UserStore._onDispatch = function (payload) {
 			break;
 	}
 };
+
+UserStore.findUserById = function (id) {
+	if (_users[id]) {
+		return _users[id];
+	}
+
+	return undefined
+}
 
 
 module.exports = UserStore;

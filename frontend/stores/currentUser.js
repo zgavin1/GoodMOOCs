@@ -1,7 +1,7 @@
 var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher');
 
-var _current_user = {};
+var _currentUser = {};
 var CurrentUserStore = new Store(AppDispatcher);
 var CurrentUserConstants = require('../constants/current_user_constants');
 
@@ -23,6 +23,10 @@ CurrentUserStore.__onDispatch = function (payload) {
   if (payload.actionType === CurrentUserConstants.RECEIVE_CURRENT_USER) {
     _currentUserHasBeenFetched = true;
     _currentUser = payload.currentUser;
+    CurrentUserStore.__emitChange();
+  } else if (payload.actionType === CurrentUserConstants.LOGOUT_USER) {
+    _currentUserHasBeenFetched = false;
+    _currentUser = {};
     CurrentUserStore.__emitChange();
   }
 };

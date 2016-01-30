@@ -19,9 +19,11 @@
     "react-router": "^1.0.3",
     "webpack": "^1.12.12"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^1.12.12"
+    },
   "scripts": {
-    "postinstall": "./node_modules/.bin/webpack",
+    "postinstall": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

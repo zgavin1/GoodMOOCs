@@ -14,13 +14,11 @@ class Api::SessionsController < ApplicationController
       params[:username],
       params[:password]
     )
-
     if @user.nil?
       # flash.now[:alert] = "Wrong email/password combo"
       # render :new, status: 401
       render json: ["Wrong username/password combo!"], status: 401
     else
-      debugger
       sign_in(@user)
       # redirect_to root_url
       render "api/users/show"
@@ -29,6 +27,6 @@ class Api::SessionsController < ApplicationController
 
   def destroy
     sign_out!
-    # redirect_to new_session_url
+    render json: {}
   end
 end

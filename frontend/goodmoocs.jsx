@@ -13,7 +13,10 @@ var SessionsApiUtil = require('./util/sessions_api_util');
 
 var ReviewForm = require('./components/review/ReviewForm');
 var SessionForm = require('./components/sessions/new');
+var UserShow = require('./components/users/Show')
 var UserForm = require('./components/users/Form');
+
+var Header = require('./components/Header');
 
 var App = React.createClass({
   componentDidMount: function () {
@@ -24,7 +27,7 @@ var App = React.createClass({
   render: function () {
     return (
       <div>
-        <h1>the app render</h1>
+        <Header />
         {this.props.children}
       </div>
     );
@@ -37,8 +40,9 @@ var routes = (
     <Route path="courses/:courseId" component={ CourseShow }>
       <Route path="review/:reviewId" components={ ReviewForm }/>
     </Route>
-    <Route path="login" component={ SessionForm }/>
+    <Route path="login" component={ SessionForm } />
     <Route path="users/new" component={ UserForm } />
+    <Route path="users/:userId" component={ UserShow } />
   </Route>
 );
 // make `_ensureLoggedIn` the `onEnter` prop of

@@ -59,7 +59,10 @@
 	
 	var ReviewForm = __webpack_require__(241);
 	var SessionForm = __webpack_require__(248);
+	var UserShow = __webpack_require__(250);
 	var UserForm = __webpack_require__(249);
+	
+	var Header = __webpack_require__(251);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -73,11 +76,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'the app render'
-	      ),
+	      React.createElement(Header, null),
 	      this.props.children
 	    );
 	  }
@@ -93,7 +92,8 @@
 	    React.createElement(Route, { path: 'review/:reviewId', components: ReviewForm })
 	  ),
 	  React.createElement(Route, { path: 'login', component: SessionForm }),
-	  React.createElement(Route, { path: 'users/new', component: UserForm })
+	  React.createElement(Route, { path: 'users/new', component: UserForm }),
+	  React.createElement(Route, { path: 'users/:userId', component: UserShow })
 	);
 	// make `_ensureLoggedIn` the `onEnter` prop of
 	// routes that requires User Auth (see line 17)
@@ -31331,7 +31331,7 @@
 	var Store = __webpack_require__(210).Store;
 	var AppDispatcher = __webpack_require__(228);
 	
-	var _current_user = {};
+	var _currentUser = {};
 	var CurrentUserStore = new Store(AppDispatcher);
 	var CurrentUserConstants = __webpack_require__(238);
 	
@@ -31354,6 +31354,10 @@
 	    _currentUserHasBeenFetched = true;
 	    _currentUser = payload.currentUser;
 	    CurrentUserStore.__emitChange();
+	  } else if (payload.actionType === CurrentUserConstants.LOGOUT_USER) {
+	    _currentUserHasBeenFetched = false;
+	    _currentUser = {};
+	    CurrentUserStore.__emitChange();
 	  }
 	};
 	
@@ -31364,7 +31368,8 @@
 /***/ function(module, exports) {
 
 	var CurrentUserConstants = {
-	  RECEIVE_CURRENT_USER: "RECEIVE_CURRENT_USER"
+	  RECEIVE_CURRENT_USER: "RECEIVE_CURRENT_USER",
+	  LOGOUT_USER: "LOGOUT_USER"
 	};
 	
 	module.exports = CurrentUserConstants;
@@ -31377,7 +31382,6 @@
 	
 	var SessionsApiUtil = {
 		login: function (credentials, successCallback) {
-			debugger;
 			$.ajax({
 				type: "POST",
 				url: "api/session",
@@ -31385,17 +31389,22 @@
 				dataType: 'json',
 				success: function (currentUser) {
 					CurrentUserActions.receiveCurrentUser(currentUser);
-					debugger;
 					successCallback && successCallback();
 				}
 			});
 		},
 	
-		logout: function () {
+		logout: function (callback) {
 			$.ajax({
 				type: "DELETE",
 				url: 'api/session',
-				success: function () {}
+				success: function () {
+					CurrentUserActions.logoutCurrentUser();
+					callback && callback();
+				},
+				error: function () {
+					console.log("blah");
+				}
 			});
 		},
 	
@@ -31404,9 +31413,8 @@
 				type: "GET",
 				url: "api/session",
 				success: function (currentUser) {
-					console.log("fetched cur user");
 					CurrentUserActions.receiveCurrentUser(currentUser);
-					callback && callback();
+					callback && callback(currentUser);
 				}
 			});
 		}
@@ -31426,6 +31434,12 @@
 			AppDispatcher.dispatch({
 				actionType: CurrentUserConstants.RECEIVE_CURRENT_USER,
 				currentUser: currentUser
+			});
+		},
+	
+		logoutCurrentUser: function () {
+			AppDispatcher.dispatch({
+				actionType: CurrentUserConstants.LOGOUT_USER
 			});
 		}
 	};
@@ -31926,6 +31940,253 @@
 	});
 	
 	module.exports = UserForm;
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var UserStore = __webpack_require__(252);
+	var UsersApiUtil = __webpack_require__(254);
+	
+	var UserShow = React.createClass({
+		displayName: 'UserShow',
+	
+		getInitialState: function () {
+			return this.getStateFromStore();
+		},
+	
+		componentDidMount: function () {
+			this.userListener = UserStore.addListener(this.onChange);
+			UsersApiUtil.fetchUser(this.props.params.id);
+		},
+	
+		onChange: function () {
+			this.setState(this.getStateFromStore());
+		},
+	
+		componentWillUnmount: function () {
+			this.userListener.remove();
+		},
+	
+		getStateFromStore: function () {
+			return {
+				user: UserStore.findByUserId(parseInt(this.props.params.userId))
+			};
+		},
+	
+		render: function () {
+			var user = this.state.user;
+	
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'h2',
+					null,
+					user.username
+				),
+				React.createElement('img', { src: user.avatar })
+			);
+		}
+	
+	});
+	
+	module.exports = UserShow;
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var SessionsApiUtil = __webpack_require__(239);
+	var CurrentUserStore = __webpack_require__(237);
+	var History = __webpack_require__(1).History;
+	
+	var Header = React.createClass({
+	  displayName: 'Header',
+	
+	  mixins: [History],
+	
+	  getInitialState: function () {
+	    return {
+	      currentUser: {}
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    CurrentUserStore.addListener(this._onChange);
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ currentUser: CurrentUserStore.currentUser() });
+	  },
+	
+	  logout: function () {
+	    SessionsApiUtil.logout(function () {
+	      this.history.pushState({}, "/");
+	    }.bind(this));
+	
+	    this.setState({ currentUser: {} });
+	  },
+	
+	  render: function () {
+	    if (CurrentUserStore.isLoggedIn()) {
+	      // if we're logged in....
+	      return React.createElement(
+	        'div',
+	        null,
+	        'Logged in as',
+	        this.state.currentUser.email,
+	        React.createElement(
+	          'button',
+	          { onClick: this.logout },
+	          'LOG OUT'
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'a',
+	          { href: '#/login' },
+	          'Login'
+	        )
+	      );
+	    }
+	  }
+	
+	});
+	
+	module.exports = Header;
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(210).Store;
+	var AppDispatcher = __webpack_require__(228);
+	
+	var _users = {};
+	var UserStore = new Store(AppDispatcher);
+	var UserConstants = __webpack_require__(253);
+	
+	var resetUsers = function (usersArray) {
+		_users = {};
+		usersArray.forEach(function (user) {
+			_users[user.id] = user;
+		});
+		return _users;
+	};
+	
+	UserStore.all = function () {
+		var users = [];
+		Object.keys(_users).forEach(function (userId) {
+			users.push(_users[userId]);
+		});
+		return users;
+	};
+	
+	UserStore.__onDispatch = function (payload) {
+		switch (payload.actionType) {
+			case UserConstants.USERS_RECEIVED:
+				resetUsers(payload.users);
+				UserStore.__emitChange();
+				break;
+		}
+	};
+	
+	UserStore.findUserById = function (id) {
+		if (_users[id]) {
+			return _users[id];
+		}
+	
+		return undefined;
+	};
+	
+	module.exports = UserStore;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports) {
+
+	var UserConstants = {
+		USERS_RECEIVED: "USERS_RECEIVED",
+		RECEIVE_USER: "CREATE_USER"
+	};
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UserActions = __webpack_require__(255);
+	var CurrentUserActions = __webpack_require__(240);
+	
+	var UsersApiUtil = {
+	  fetchUsers: function () {
+	    $.ajax({
+	      url: '/api/users',
+	      type: 'GET',
+	      dataType: 'json',
+	      success: function (users) {
+	        UserActions.receiveUsers(users);
+	      }
+	    });
+	  },
+	
+	  fetchUser: function (id) {
+	    $.ajax({
+	      url: '/api/users/' + id,
+	      type: 'GET',
+	      dataType: 'json',
+	      success: function (user) {
+	        UserActions.receiveUser(user);
+	      }
+	    });
+	  },
+	
+	  createUser: function (attrs, callback) {
+	    $.ajax({
+	      url: '/api/users',
+	      type: 'POST',
+	      dataType: 'json',
+	      data: attrs,
+	      success: function (user) {
+	        UserActions.receiveUser(user);
+	        CurrentUserActions.receive(user);
+	        callback && callback();
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = UsersApiUtil;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(228);
+	var UserConstants = __webpack_require__(253);
+	
+	var UserActions = {
+	  receiveUsers: function (users) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.USERS_RECEIVED,
+	      users: users
+	    });
+	  },
+	
+	  createUser: function (user) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.USER_RECEIVED,
+	      user: user
+	    });
+	  }
+	};
+	
+	module.exports = UserActions;
 
 /***/ }
 /******/ ]);
