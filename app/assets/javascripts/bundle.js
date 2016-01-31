@@ -32069,16 +32069,115 @@
 	
 	  render: function () {
 	    if (CurrentUserStore.isLoggedIn()) {
-	      // if we're logged in....
 	      return React.createElement(
-	        'div',
-	        null,
-	        'Logged in as',
-	        this.state.currentUser.email,
+	        'header',
+	        { className: 'logged-in-header' },
 	        React.createElement(
-	          'button',
-	          { onClick: this.logout },
-	          'LOG OUT'
+	          'div',
+	          { className: 'site-header' },
+	          React.createElement(
+	            'div',
+	            { className: 'header-nav logged-in-nav group' },
+	            React.createElement(
+	              'h1',
+	              { className: 'header-nav-logo-small' },
+	              React.createElement(
+	                'a',
+	                { href: '#/' },
+	                'good',
+	                React.createElement(
+	                  'strong',
+	                  null,
+	                  'moocs'
+	                )
+	              )
+	            ),
+	            React.createElement('input', { className: 'site-search', type: 'text', placeholder: 'this will be a site search' }),
+	            React.createElement(
+	              'ul',
+	              { className: 'logged-in-site-nav' },
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: '#/' },
+	                  'Home'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: '#/' },
+	                  'My Courses'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: '#/' },
+	                  'Friends'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: '#/' },
+	                  'Recommendations'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: '#/' },
+	                  'Explore'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement('a', { className: 'dropDownOpener', href: '#' })
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'user-nav group' },
+	              React.createElement(
+	                'span',
+	                { className: 'badge' },
+	                'g'
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                React.createElement('i', { className: 'fa fa-envelope' })
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                React.createElement('i', { className: 'fa fa-users' })
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                React.createElement('i', { className: 'fa fa-user' })
+	              ),
+	              React.createElement('a', { className: 'dropDownOpener', href: '#' })
+	            ),
+	            React.createElement(
+	              'button',
+	              { onClick: this.logout },
+	              'LOG OUT'
+	            )
+	          )
 	        )
 	      );
 	    } else {

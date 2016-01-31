@@ -135,10 +135,11 @@ img {
 }
 
 
-.header-nav-logo strong {
+.header-nav-logo strong, .header-nav-logo-small strong {
   font-weight: 300;
   font-family: Roboto;
 }
+
 .header-lower {
   width: 965px;
   height: 295px;
@@ -277,4 +278,105 @@ img {
   width: 100px;
   margin: 10px;
   float: left;
+}
+
+
+/* LOGGED IN STYLE */
+
+.logged-in-header {
+  background: image-url('booksbanner.jpg')
+}
+
+.site-search {
+  float: left;
+  margin: 17px 5px;
+  width: 155px;
+  height: 13px;
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.logged-in-nav {
+  padding-top: 40px;
+  margin-bottom: 10px;
+}
+
+.header-nav-logo-small {
+  float: left;
+  font-family: Roboto;
+  font-weight: 100;
+  letter-spacing: -1.75px;
+  font-size: 34px;
+  padding: 5px;
+  color: #463020;
+}
+
+
+.logged-in-site-nav {
+  float: left;
+  padding-left: 0;
+  margin-bottom: 10px;
+  margin-top: 13px;
+}
+
+.logged-in-site-nav > li {
+  float: left;
+  padding: 6px;
+}
+
+.logged-in-site-nav > li > a {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.logged-in-site-nav > li > a:hover {
+  text-decoration: underline;
+}
+
+.logged-in-site-nav > li:last-child {
+  padding-top: 8px;
+}
+
+.user-nav {
+  float: right;
+  margin: 20px 0 12px 0;
+}
+
+.user-nav span {
+  padding: 0px 4px 2px 5px;
+  float: left;
+}
+
+.user-nav a {
+  float: left;
+  margin-left: 4px;
+}
+
+.fa-envelope, .fa-users, .fa-user {
+  color: #DFD8C6;
+}
+
+.user-nav .fa-user {
+  font-size: x-large;
+}
+
+.user-nav span {
+
+}
+
+.dropDownOpener {
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: #DFD8C6;
+  border-radius: 4px;
+}
+
+.badge {
+  padding: 1px 6px;
+  border-radius: 50%;
+  background-color: #DFD8C6;
+  color: white;
+  position: relative;
 }

@@ -5,6 +5,9 @@ var History = require('react-router').History
 var SessionForm = require('./sessions/new');
 var UserForm = require('./users/Form');
 
+
+
+
 var Header = React.createClass({
   mixins: [History],
 
@@ -31,13 +34,46 @@ var Header = React.createClass({
   },
 
   render: function() {
-    if (CurrentUserStore.isLoggedIn()) { // if we're logged in....
+    if (CurrentUserStore.isLoggedIn()) {
       return (
-        <div>
-          Logged in as
-          { this.state.currentUser.email }
-          <button onClick={ this.logout }>LOG OUT</button>
-        </div>
+        <header className="logged-in-header">
+          <div className="site-header">
+            <div className="header-nav logged-in-nav group">
+              <h1 className="header-nav-logo-small">
+                <a href="#/">good<strong>moocs</strong></a>
+              </h1>
+              <input className="site-search" type="text" placeholder="this will be a site search"/>
+              <ul className="logged-in-site-nav">
+                <li>
+                  <a href="#/">Home</a>
+                </li>
+                <li>
+                  <a href="#/">My Courses</a>
+                </li>
+                <li>
+                  <a href="#/">Friends</a>
+                </li>
+                <li>
+                  <a href="#/">Recommendations</a>
+                </li>
+                <li>
+                  <a href="#/">Explore</a>
+                </li>
+                <li>
+                  <a className="dropDownOpener" href="#"></a>
+                </li>
+              </ul>
+              <div className="user-nav group">
+                <span className="badge">g</span>
+                <span><i className="fa fa-envelope"></i></span>
+                <span><i className="fa fa-users"></i></span>
+                <span><i className="fa fa-user"></i></span>
+                <a className="dropDownOpener" href="#"></a>
+              </div>
+              <button onClick={ this.logout }>LOG OUT</button>
+            </div>
+          </div>
+        </header>
       );
     } else {
       return (
