@@ -85,7 +85,7 @@
 	var routes = React.createElement(
 	  Route,
 	  { path: '/', component: App },
-	  React.createElement(IndexRoute, { component: CourseIndex, onEnter: _ensureLoggedIn }),
+	  React.createElement(IndexRoute, { component: CourseIndex }),
 	  React.createElement(
 	    Route,
 	    { path: 'courses/:courseId', component: CourseShow },
@@ -31818,8 +31818,21 @@
 	    fields.forEach(function (field) {
 	      credentials[field.name] = field.value;
 	    }.bind(this));
+	    debugger;
 	
 	    SessionsApiUtil.login(credentials, function () {
+	      this.history.pushState({}, "/");
+	    }.bind(this));
+	  },
+	
+	  demoSession: function (e) {
+	    e.preventDefault();
+	
+	    SessionsApiUtil.login({
+	      username: "password",
+	      password: "password",
+	      email: "password"
+	    }, function () {
 	      this.history.pushState({}, "/");
 	    }.bind(this));
 	  },
@@ -31827,58 +31840,55 @@
 	  render: function () {
 	
 	    return React.createElement(
-	      'form',
-	      { onSubmit: this.onSubmit },
+	      'div',
+	      { className: 'header-upper' },
 	      React.createElement(
-	        'h3',
-	        null,
-	        'Sign In'
-	      ),
-	      React.createElement(
-	        'label',
-	        null,
-	        'Username',
-	        React.createElement('input', { name: 'username' })
-	      ),
-	      React.createElement(
-	        'label',
-	        null,
-	        'Password',
-	        React.createElement('input', { type: 'password', name: 'password' })
-	      ),
-	      React.createElement(
-	        'button',
-	        null,
-	        'Sign In'
+	        'div',
+	        { className: 'header-nav group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'header-nav-logo' },
+	          React.createElement(
+	            'a',
+	            { href: '#' },
+	            'good',
+	            React.createElement(
+	              'strong',
+	              null,
+	              'moocs'
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'new-session-form' },
+	          React.createElement(
+	            'form',
+	            { className: 'new-session-form group', onSubmit: this.onSubmit },
+	            React.createElement('input', { type: 'text', name: 'username', placeholder: 'Username' }),
+	            React.createElement('input', { type: 'password', name: 'password', placeholder: 'Password' }),
+	            React.createElement(
+	              'button',
+	              null,
+	              'Sign In'
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          'form',
+	          { className: 'demo-form group', onSubmit: this.demoSession },
+	          React.createElement(
+	            'button',
+	            null,
+	            'Demo User'
+	          )
+	        )
 	      )
 	    );
 	  }
 	});
 	
 	module.exports = Session;
-	
-	// My new session form from rails authentication
-	// <h2>Sign In</h2>
-	//
-	// <form action="<%= session_url %>" method="post">
-	//   <%= auth_token_input %>
-	//   <input type="hidden" name="user[username]" value="password">
-	//   <input type="hidden" name="user[password]" value="password">
-	//   <button>Demo User</button>
-	// </form>
-	//
-	// <br><br>
-	// <form action="<%= session_url %>" method="post">
-	//   <%= auth_token_input %>
-	//
-	//
-	//   <input type="text" name="user[username]" value="" placeholder="Username">
-	//
-	//   <br>
-	//   <input type="password" name="user[password]" value="" placeholder="Password">
-	//   <br>
-	//   <button>Submit</button>
-	// </form>
 
 /***/ },
 /* 249 */
@@ -31898,35 +31908,67 @@
 	
 	  render: function () {
 	    return React.createElement(
-	      'form',
-	      { onSubmit: this.submit },
+	      'div',
+	      { className: 'header-lower group' },
 	      React.createElement(
-	        'h3',
-	        null,
-	        'Sign Up '
+	        'div',
+	        { className: 'catchphrase' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'You`ll love ',
+	          React.createElement('br', null),
+	          ' your next class.'
+	        )
 	      ),
 	      React.createElement(
-	        'label',
-	        null,
-	        'Username',
-	        React.createElement('input', { name: 'username' })
-	      ),
-	      React.createElement(
-	        'label',
-	        null,
-	        ' Email',
-	        React.createElement('input', { name: 'email' })
-	      ),
-	      React.createElement(
-	        'label',
-	        null,
-	        ' Password',
-	        React.createElement('input', { type: 'password', name: 'password' })
-	      ),
-	      React.createElement(
-	        'button',
-	        null,
-	        'Sign Up'
+	        'div',
+	        { className: 'new-user-form-pane' },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'New here? Create a free account!'
+	        ),
+	        React.createElement(
+	          'form',
+	          { className: 'new-user-form', onSubmit: this.submit },
+	          React.createElement('input', { type: 'text', name: 'username', value: '', placeholder: 'Name' }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', name: 'email', value: '', placeholder: 'Email Address' }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'password', name: 'password', value: '', placeholder: 'Password' }),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'button',
+	            null,
+	            'Sign Up'
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'o-auth' },
+	          'or sign in using',
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement('i', { className: 'fa fa-facebook-square' })
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement('i', { className: 'fa fa-twitter-square' })
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement('i', { className: 'fa fa-google' })
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement('i', { className: 'fa fa-amazon' })
+	          )
+	        )
 	      )
 	    );
 	  }
@@ -31995,6 +32037,8 @@
 	var SessionsApiUtil = __webpack_require__(239);
 	var CurrentUserStore = __webpack_require__(237);
 	var History = __webpack_require__(1).History;
+	var SessionForm = __webpack_require__(248);
+	var UserForm = __webpack_require__(249);
 	
 	var Header = React.createClass({
 	  displayName: 'Header',
@@ -32039,12 +32083,13 @@
 	      );
 	    } else {
 	      return React.createElement(
-	        'div',
+	        'header',
 	        null,
 	        React.createElement(
-	          'a',
-	          { href: '#/login' },
-	          'Login'
+	          'div',
+	          { className: 'site-header' },
+	          React.createElement(SessionForm, null),
+	          React.createElement(UserForm, null)
 	        )
 	      );
 	    }

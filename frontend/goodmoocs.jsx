@@ -13,7 +13,7 @@ var SessionsApiUtil = require('./util/sessions_api_util');
 
 var ReviewForm = require('./components/review/ReviewForm');
 var SessionForm = require('./components/sessions/new');
-var UserShow = require('./components/users/Show')
+var UserShow = require('./components/users/Show');
 var UserForm = require('./components/users/Form');
 
 var Header = require('./components/Header');
@@ -36,7 +36,7 @@ var App = React.createClass({
 
 var routes = (
   <Route path="/" component={ App }>
-    <IndexRoute component={ CourseIndex } onEnter={ _ensureLoggedIn }/>
+    <IndexRoute component={ CourseIndex } />
     <Route path="courses/:courseId" component={ CourseShow }>
       <Route path="review/:reviewId" components={ ReviewForm }/>
     </Route>

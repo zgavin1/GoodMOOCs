@@ -2,6 +2,8 @@ var React = require('react');
 var SessionsApiUtil = require('./../util/sessions_api_util');
 var CurrentUserStore = require('./../stores/currentUser');
 var History = require('react-router').History
+var SessionForm = require('./sessions/new');
+var UserForm = require('./users/Form');
 
 var Header = React.createClass({
   mixins: [History],
@@ -38,10 +40,14 @@ var Header = React.createClass({
         </div>
       );
     } else {
-      return ( 
-        <div>
-          <a href="#/login">Login</a> 
-        </div>
+      return (
+        <header>
+          <div className="site-header">
+            <SessionForm />
+            <UserForm />
+          </div>
+        </header>
+
       );
     }
     
