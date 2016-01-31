@@ -95,20 +95,13 @@
 	  React.createElement(Route, { path: 'users/new', component: UserForm }),
 	  React.createElement(Route, { path: 'users/:userId', component: UserShow })
 	);
-	// make `_ensureLoggedIn` the `onEnter` prop of
-	// routes that requires User Auth (see line 17)
+	
 	function _ensureLoggedIn(nextState, replace, callback) {
-	  // the third `callback` arg allows us to do async
-	  // operations before the route runs. Router will wait
-	  // for us to call it before actually routing
 	  if (CurrentUserStore.userHasBeenFetched()) {
-	    _redirectIfNotLoggedIn(); // this function below
+	    _redirectIfNotLoggedIn();
 	  } else {
-	      // currentUser has not been fetched
-	      // lets fetch them and then see if
-	      // we have to redirect or not
-	      SessionsApiUtil.fetchCurrentUser(_redirectIfNotLoggedIn);
-	    }
+	    SessionsApiUtil.fetchCurrentUser(_redirectIfNotLoggedIn);
+	  }
 	
 	  function _redirectIfNotLoggedIn() {
 	    if (!CurrentUserStore.isLoggedIn()) {
