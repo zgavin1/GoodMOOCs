@@ -163,9 +163,9 @@ course11 = Course.create!(
 course12 = Course.create!(
   title: "Italian Language and Culture: Advanced",
   description: "Enhance your knowledge of the Italian language and learn about Italy’s culture and history including theater, opera and the poet Dante.",
-  cost: 50.00;
+  cost: 50.00,
   course_url: "https://www.edx.org/course/italian-language-culture-advanced-wellesleyx-italian3x",
-  start_date: DateTime.now
+  start_date: DateTime.now,
   course_provider_id: edx.id,
   subject: "language"
 )
@@ -173,9 +173,9 @@ course12 = Course.create!(
 course13 = Course.create!(
   title: "Italian Language and Culture: Intermediate",
   description: "Improve your Italian language skills and expand your vocabulary while you learn about Italian art, literature and contemporary society.",
-  cost: 50.00;
+  cost: 50.00,
   course_url: "https://www.edx.org/course/italian-language-culture-intermediate-wellesleyx-italian2x",
-  start_date: DateTime.now
+  start_date: DateTime.now,
   course_provider_id: edx.id,
   subject: "language"
 )
@@ -183,9 +183,9 @@ course13 = Course.create!(
 course14 = Course.create!(
   title: "Italian Language and Culture: Beginner",
   description: "Learn the basics of the Italian language and culture through videos, podcasts, interviews, and much more.",
-  cost: 50.00;
+  cost: 50.00,
   course_url: "https://www.edx.org/course/italian-language-culture-beginner-wellesleyx-italian1x",
-  start_date: DateTime.now
+  start_date: DateTime.now,
   course_provider_id: edx.id,
   subject: "language"
 )
@@ -193,9 +193,9 @@ course14 = Course.create!(
 course15 = Course.create!(
   title: "Basic Mandarin Chinese – Level 1",
   description: "Take the first step towards learning Mandarin Chinese, the most commonly spoken language in the world. ",
-  cost: 50.00;
+  cost: 50.00,
   course_url: "https://www.edx.org/course/basic-mandarin-chinese-level-1-mandarinx-mx101x",
-  start_date: DateTime.now
+  start_date: DateTime.now,
   course_provider_id: edx.id,
   subject: "language"
 )
@@ -203,9 +203,9 @@ course15 = Course.create!(
 course16 = Course.create!(
   title: "Basic Mandarin Chinese – Level 2",
   description: "Learn Mandarin Chinese with practice in extensive vocabulary, phrases and sentence structures used in daily communication in Mandarin Chinese.",
-  cost: 50.00;
+  cost: 50.00,
   course_url: "https://www.edx.org/course/basic-mandarin-chinese-level-2-mandarinx-mx102x",
-  start_date: DateTime.now
+  start_date: DateTime.now,
   course_provider_id: edx.id,
   subject: "language"
 )
@@ -213,7 +213,7 @@ course16 = Course.create!(
 course17 = Course.create!(
   title: "Preparing for the AP English Language and Composition Exam",
   description: "This course focuses on the development and revision of evidence-based analytic and argumentative writing and the rhetorical analysis of nonfiction texts.",
-  cost: 25.00;
+  cost: 25.00,
   course_url: "https://www.edx.org/course/preparing-ap-english-language-tennessee-board-regents-engcompx",
   start_date: DateTime.now,
   course_provider_id: edx.id,
@@ -223,7 +223,7 @@ course17 = Course.create!(
 course18 = Course.create!(
   title: "Introduction to Dutch",
   description: "Learn to speak, write and understand basic Dutch, with this free, three-week, introductory foreign language course.",
-  cost: 0.00;
+  cost: 0.00,
   course_url: "https://www.futurelearn.com/courses/dutch?utm_campaign=Courses+feed&utm_medium=courses-feed&utm_source=courses-feed",
   start_date: DateTime.now,
   course_provider_id: futurelearn.id,
@@ -250,8 +250,8 @@ course20 = Course.create!(
   subject: "programming"
 )
 
-course21 = Course.create!(
-  )
+# course21 = Course.create!(
+#   )
 
 
 
