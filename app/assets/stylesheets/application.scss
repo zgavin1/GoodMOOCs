@@ -439,3 +439,73 @@ img {
 .avg-rating {
   display: inline;
 }
+
+
+// COURSE SHOW
+
+.course-show-body {
+  width: 965px;
+  margin: auto;
+  font-family: Merriweather;
+}
+
+.course-show-left {
+  width: 625px;
+}
+
+.course-img-col {
+  width: 140px;
+  float: left
+}
+
+.course-img {
+  width: 140px;
+  float: left;
+  margin-bottom: 10px;
+  box-shadow: 1px 6px 8px #888888;
+}
+
+.course-info-col {
+  width: 465px;
+  float: left;
+  padding: 0 10px;
+}
+
+.course-title {
+  font-size: 20px;
+  margin: 0 0 10px 0;
+}
+
+.course-provider-name > a {
+  font-size: 24px;
+}
+
+.course-provider-name {
+  display: inline;
+}
+
+
+
+//  Star Ratings
+
+.rating {
+unicode-bidi: bidi-override;
+direction: rtl;
+text-align: center;
+}
+.rating > span {
+display: inline-block;
+position: relative;
+width: 1.1em;
+}
+.rating > span:hover,
+.rating > span:hover ~ span {
+color: transparent;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+ content: "\2605";
+ position: absolute;
+ left: 0;
+ color: gold;
+}

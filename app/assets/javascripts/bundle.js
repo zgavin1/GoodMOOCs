@@ -31147,33 +31147,92 @@
 	
 	  render: function () {
 	    var course = this.props.course;
+	
 	    if ($.isEmptyObject(course)) {
 	      return React.createElement('div', null);
 	    }
 	
 	    return React.createElement(
 	      'div',
-	      null,
-	      React.createElement('img', { src: course.image }),
+	      { className: 'course-show-body' },
 	      React.createElement(
-	        'h2',
-	        null,
-	        course.title
-	      ),
-	      React.createElement(
-	        'h3',
-	        null,
-	        ' from',
+	        'div',
+	        { className: 'course-show-left group' },
 	        React.createElement(
-	          'a',
-	          { href: '#' },
-	          course.course_provider_id
+	          'div',
+	          { className: 'course-img-col group' },
+	          React.createElement('img', { className: 'course-img', src: course.image_url }),
+	          React.createElement(
+	            'a',
+	            { className: 'want-to-read' },
+	            'Want to Read'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'Rate this book'
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'course-info-col' },
+	          React.createElement(
+	            'h1',
+	            { className: 'course-title' },
+	            course.title
+	          ),
+	          'from ',
+	          React.createElement(
+	            'h3',
+	            { className: 'course-provider-name' },
+	            React.createElement(
+	              'a',
+	              { href: '#' },
+	              course.course_provider.name
+	            )
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'div',
+	            { className: 'rating' },
+	            React.createElement(
+	              'span',
+	              null,
+	              '☆'
+	            ),
+	            React.createElement(
+	              'span',
+	              null,
+	              '☆'
+	            ),
+	            React.createElement(
+	              'span',
+	              null,
+	              '☆'
+	            ),
+	            React.createElement(
+	              'span',
+	              null,
+	              '☆'
+	            ),
+	            React.createElement(
+	              'span',
+	              null,
+	              '☆'
+	            )
+	          ),
+	          React.createElement(
+	            'a',
+	            null,
+	            'avg rating: ',
+	            course.average_rating
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            course.description
+	          )
 	        )
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        course.description
 	      )
 	    );
 	  }
