@@ -14,7 +14,8 @@ var SessionsApiUtil = require('./util/sessions_api_util');
 var ReviewForm = require('./components/review/ReviewForm');
 var SessionForm = require('./components/sessions/new');
 var UserShow = require('./components/users/Show');
-var UserForm = require('./components/users/Form');
+var NewUserForm = require('./components/users/Form');
+var EditUserForm = require('./components/users/EditForm');
 
 var UserIndex = require('./components/users/Index');
 
@@ -43,9 +44,10 @@ var routes = (
       <Route path="review/:reviewId" components={ ReviewForm }/>
     </Route>
     <Route path="login" component={ SessionForm } />
-    <Route path="users/new" component={ UserForm } />
+    <Route path="users/new" component={ NewUserForm } />
     <Route path="users/:id" component={ UserShow } />
     <Route path="users" component={ UserIndex } />
+    <Route path="users/:id/edit" component={ EditUserForm } onEnter={_ensureLoggedIn}/>
   </Route>
 );
 

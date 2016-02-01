@@ -1,21 +1,30 @@
 var React = require('react');
 var UsersApiUtil = require('./../../util/user_api_util');
 var History = require('react-router').History;
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
-var UserForm = React.createClass({
-  mixins: [History],
+var NewUserForm = React.createClass({
+  mixins: [History, LinkedStateMixin],
+
+  getInitialState: function () {
+    return ({
+      username: "",
+      email: "",
+      password: "",
+    });
+  },
 
   onSubmit: function (e) {
     e.preventDefault();
 
-    var fields = $(e.currentTarget).serializeArray();
-    var credentials = {user: {}};
+    // var fields = $(e.currentTarget).serializeArray();
+    // var credentials = {user: {}};
 
-    fields.forEach(function (field) {
-      credentials.user[field.name] = field.value;
-    }.bind(this));
+    // fields.forEach(function (field) {
+    //   credentials.user[field.name] = field.value;
+    // }.bind(this));
 
-    UsersApiUtil.createUser(credentials, function () {
+    UsersApiUtil.createUser(this.state, function () {
       this.history.pushState({}, "/");
     }.bind(this));
   },
@@ -30,12 +39,12 @@ var UserForm = React.createClass({
           <h2>New here? Create a free account!</h2>
           <form className="new-user-form" onSubmit={this.onSubmit}>
 
-            <input type="text" name="username" placeholder="Name" />
+            <input type="text" placeholder="Name" valueLink={this.linkState('username')} />
             <br/>
-            <input type="text" name="email" placeholder="Email Address" />
+            <input type="text" placeholder="Email Address" valueLink={this.linkState('email')} />
 
             <br/>
-            <input type="password" name="password" placeholder="Password" />
+            <input type="password" placeholder="Password" valueLink={this.linkState('password')} />
 
             <br/>
             <button>Sign Up</button>
@@ -54,4 +63,4 @@ var UserForm = React.createClass({
   }
 });
 
-module.exports = UserForm;
+module.exports = NewUserForm;

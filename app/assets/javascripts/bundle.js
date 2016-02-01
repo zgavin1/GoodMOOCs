@@ -60,7 +60,8 @@
 	var ReviewForm = __webpack_require__(239);
 	var SessionForm = __webpack_require__(246);
 	var UserShow = __webpack_require__(247);
-	var UserForm = __webpack_require__(252);
+	var NewUserForm = __webpack_require__(252);
+	var EditUserForm = __webpack_require__(256);
 	
 	var UserIndex = __webpack_require__(254);
 	
@@ -94,9 +95,10 @@
 	    React.createElement(Route, { path: 'review/:reviewId', components: ReviewForm })
 	  ),
 	  React.createElement(Route, { path: 'login', component: SessionForm }),
-	  React.createElement(Route, { path: 'users/new', component: UserForm }),
+	  React.createElement(Route, { path: 'users/new', component: NewUserForm }),
 	  React.createElement(Route, { path: 'users/:id', component: UserShow }),
-	  React.createElement(Route, { path: 'users', component: UserIndex })
+	  React.createElement(Route, { path: 'users', component: UserIndex }),
+	  React.createElement(Route, { path: 'users/:id/edit', component: EditUserForm, onEnter: _ensureLoggedIn })
 	);
 	
 	function _ensureLoggedIn(nextState, replace, callback) {
@@ -31763,49 +31765,108 @@
 	var UsersApiUtil = __webpack_require__(250);
 	
 	var UserShow = React.createClass({
-		displayName: 'UserShow',
+	  displayName: 'UserShow',
 	
-		getInitialState: function () {
-			return this.getStateFromStore();
-		},
+	  getInitialState: function () {
+	    return this.getStateFromStore();
+	  },
 	
-		componentDidMount: function () {
-			this.userListener = UserStore.addListener(this.onChange);
-			// UsersApiUtil.fetchUsers();
-			UsersApiUtil.fetchUser(this.props.params.id);
-		},
+	  componentDidMount: function () {
+	    this.userListener = UserStore.addListener(this.onChange);
+	    UsersApiUtil.fetchUser(this.props.params.id);
+	  },
 	
-		onChange: function () {
-			this.setState(this.getStateFromStore());
-		},
+	  onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
 	
-		componentWillUnmount: function () {
-			this.userListener.remove();
-		},
+	  componentWillUnmount: function () {
+	    this.userListener.remove();
+	  },
 	
-		getStateFromStore: function () {
-			return {
-				user: UserStore.findUserById(parseInt(this.props.params.id))
-			};
-		},
+	  getStateFromStore: function () {
+	    return {
+	      user: UserStore.findUserById(parseInt(this.props.params.id))
+	    };
+	  },
 	
-		render: function () {
-			var user = this.state.user;
-			if (!user) {
-				return React.createElement('div', null);
-			}
+	  render: function () {
+	    var user = this.state.user;
+	    if (!user) {
+	      return React.createElement('div', null);
+	    }
 	
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'h2',
-					null,
-					user.username
-				),
-				React.createElement('img', { src: user.avatar })
-			);
-		}
+	    var user_ratings = user.reviews;
+	    var ratings_total = 0;
+	    for (var i = 0; i < user_ratings.length; i++) {
+	      ratings_total += user_ratings[i].rating;
+	    }
+	
+	    var average_rating = Math.ceil(ratings_total / user_ratings.length * 10) / 10;
+	
+	    var user_reviews_count = 0;
+	    for (var j = 0; j < user_ratings.length; j++) {
+	      if (user_ratings[j].body.length > 1) {
+	        user_reviews_count += 1;
+	      }
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'user-show-content' },
+	      React.createElement(
+	        'div',
+	        { className: 'user-info group' },
+	        React.createElement(
+	          'div',
+	          { className: 'user-info-left group' },
+	          React.createElement('img', { className: 'user-avatar', src: user.avatar }),
+	          React.createElement(
+	            'div',
+	            { className: 'user-review-stats' },
+	            React.createElement(
+	              'p',
+	              { className: 'user-show-hover' },
+	              user_ratings.length,
+	              ' ratings ',
+	              React.createElement(
+	                'span',
+	                { className: 'avg-rating user-show-hover' },
+	                '(',
+	                average_rating,
+	                ' avg)'
+	              )
+	            ),
+	            React.createElement(
+	              'p',
+	              { className: 'user-show-hover' },
+	              user_reviews_count,
+	              ' reviews'
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'user-info-right group' },
+	          React.createElement(
+	            'div',
+	            { className: 'user-info-details' },
+	            React.createElement(
+	              'h2',
+	              null,
+	              user.username,
+	              ' ',
+	              React.createElement(
+	                'a',
+	                { href: "#/users/" + user.id + "/edit", className: 'user-show-hover edit-button' },
+	                '(edit profile)'
+	              )
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
 	
 	});
 	
@@ -31924,6 +31985,22 @@
 	        console.log("user created error");
 	      }
 	    });
+	  },
+	
+	  updateUser: function (attrs, callback) {
+	    $.ajax({
+	      url: '/api/users/' + attrs.user.id,
+	      type: 'PUT',
+	      dataType: 'json',
+	      data: attrs,
+	      success: function (user) {
+	        UserActions.receiveUser(user);
+	        callback && callback();
+	      },
+	      error: function (data) {
+	        console.log("edit error");
+	      }
+	    });
 	  }
 	};
 	
@@ -31961,23 +32038,32 @@
 	var React = __webpack_require__(5);
 	var UsersApiUtil = __webpack_require__(250);
 	var History = __webpack_require__(1).History;
+	var LinkedStateMixin = __webpack_require__(240);
 	
-	var UserForm = React.createClass({
-	  displayName: 'UserForm',
+	var NewUserForm = React.createClass({
+	  displayName: 'NewUserForm',
 	
-	  mixins: [History],
+	  mixins: [History, LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return {
+	      username: "",
+	      email: "",
+	      password: ""
+	    };
+	  },
 	
 	  onSubmit: function (e) {
 	    e.preventDefault();
 	
-	    var fields = $(e.currentTarget).serializeArray();
-	    var credentials = { user: {} };
+	    // var fields = $(e.currentTarget).serializeArray();
+	    // var credentials = {user: {}};
 	
-	    fields.forEach(function (field) {
-	      credentials.user[field.name] = field.value;
-	    }.bind(this));
+	    // fields.forEach(function (field) {
+	    //   credentials.user[field.name] = field.value;
+	    // }.bind(this));
 	
-	    UsersApiUtil.createUser(credentials, function () {
+	    UsersApiUtil.createUser(this.state, function () {
 	      this.history.pushState({}, "/");
 	    }.bind(this));
 	  },
@@ -32008,11 +32094,11 @@
 	        React.createElement(
 	          'form',
 	          { className: 'new-user-form', onSubmit: this.onSubmit },
-	          React.createElement('input', { type: 'text', name: 'username', placeholder: 'Name' }),
+	          React.createElement('input', { type: 'text', placeholder: 'Name', valueLink: this.linkState('username') }),
 	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', name: 'email', placeholder: 'Email Address' }),
+	          React.createElement('input', { type: 'text', placeholder: 'Email Address', valueLink: this.linkState('email') }),
 	          React.createElement('br', null),
-	          React.createElement('input', { type: 'password', name: 'password', placeholder: 'Password' }),
+	          React.createElement('input', { type: 'password', placeholder: 'Password', valueLink: this.linkState('password') }),
 	          React.createElement('br', null),
 	          React.createElement(
 	            'button',
@@ -32050,7 +32136,7 @@
 	  }
 	});
 	
-	module.exports = UserForm;
+	module.exports = NewUserForm;
 
 /***/ },
 /* 253 */
@@ -32325,6 +32411,111 @@
 	});
 	
 	module.exports = UserIndexItem;
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var UsersApiUtil = __webpack_require__(250);
+	var History = __webpack_require__(1).History;
+	var LinkedStateMixin = __webpack_require__(240);
+	var UserStore = __webpack_require__(248);
+	
+	var EditUserForm = React.createClass({
+	  displayName: 'EditUserForm',
+	
+	  mixins: [History, LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return this.getStateFromStore();
+	  },
+	
+	  componentDidMount: function () {
+	    this.userListener = UserStore.addListener(this.onChange);
+	    UsersApiUtil.fetchUser(this.props.params.id);
+	  },
+	
+	  onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.userListener.remove();
+	  },
+	
+	  getStateFromStore: function () {
+	    var user = UserStore.findUserById(parseInt(this.props.params.id));
+	    return user || {};
+	  },
+	
+	  onSubmit: function (e) {
+	    e.preventDefault();
+	    // var fields = $(e.currentTarget).serializeArray();
+	    // var credentials = {user: {}};
+	    //
+	    // fields.forEach(function (field) {
+	    //   credentials.user[field.name] = field.value;
+	    // }.bind(this));
+	
+	    // Need to pass id;
+	
+	    var user_params = { user: this.state };
+	
+	    UsersApiUtil.updateUser(user_params, function () {
+	      this.history.pushState({}, "/");
+	    }.bind(this));
+	  },
+	
+	  render: function () {
+	    var user = this.state;
+	    if (!user) {
+	      return React.createElement('div', null);
+	    }
+	    // Need to include updating user avatar
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'edit-page' },
+	      React.createElement(
+	        'div',
+	        { className: 'edit-user-header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Account settings.'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'edit-user-form-pane' },
+	        React.createElement(
+	          'form',
+	          { className: 'edit-user-form', onSubmit: this.onSubmit },
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Name',
+	            React.createElement('input', { type: 'text', valueLink: this.linkState('username') })
+	          ),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Email Address',
+	            React.createElement('input', { type: 'text', valueLink: this.linkState('email') })
+	          ),
+	          React.createElement(
+	            'button',
+	            null,
+	            'Save Profile Settings'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = EditUserForm;
 
 /***/ }
 /******/ ]);

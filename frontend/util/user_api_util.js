@@ -42,6 +42,22 @@ var UsersApiUtil = {
         console.log("user created error");
       }
     });
+  },
+
+  updateUser: function (attrs, callback) {
+    $.ajax({
+      url: '/api/users/' + attrs.user.id,
+      type: 'PUT',
+      dataType: 'json',
+      data: attrs,
+      success: function (user) {
+        UserActions.receiveUser(user);
+        callback && callback();
+      },
+      error: function (data) {
+        console.log("edit error");
+      }
+    });
   }
 };
 

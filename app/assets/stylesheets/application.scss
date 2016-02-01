@@ -380,3 +380,62 @@ img {
   color: white;
   position: relative;
 }
+
+/* User Show */
+.user-show-content {
+  width: 965px;
+  margin: auto;
+  font-family: Merriweather;
+}
+
+.user-info {
+  width: 625px;
+}
+
+.user-info-left {
+  float: left;
+  width: 145px;
+}
+
+.user-avatar {
+  width: 140px;
+  float: left;
+}
+
+.user-info-right {
+  float: right;
+  padding: 5px;
+}
+
+.user-info-details {
+  width: 460px;
+  border-bottom: 1px solid #ccc;
+  color: #382110;
+  float: left;
+}
+
+.user-info-details > h2 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.user-review-stats > p {
+  color: #00635d;
+  font-size: 10px;
+  margin: 3px 0 3px 0;
+}
+
+.user-show-hover:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.edit-button {
+  display: inline;
+  font-size: 10px;
+  color: #00635d;
+}
+
+.avg-rating {
+  display: inline;
+}
