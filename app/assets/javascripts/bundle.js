@@ -59,10 +59,10 @@
 	
 	var ReviewForm = __webpack_require__(241);
 	var SessionForm = __webpack_require__(248);
-	var UserShow = __webpack_require__(250);
-	var UserForm = __webpack_require__(249);
+	var UserShow = __webpack_require__(249);
+	var UserForm = __webpack_require__(254);
 	
-	var Header = __webpack_require__(251);
+	var Header = __webpack_require__(255);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -85,7 +85,7 @@
 	var routes = React.createElement(
 	  Route,
 	  { path: '/', component: App },
-	  React.createElement(IndexRoute, { component: CourseIndex }),
+	  React.createElement(IndexRoute, { component: CourseIndex, onEnter: _ensureLoggedIn }),
 	  React.createElement(
 	    Route,
 	    { path: 'courses/:courseId', component: CourseShow },
@@ -31812,13 +31812,14 @@
 	
 	  onSubmit: function (e) {
 	    e.preventDefault();
+	
+	    debugger;
 	    var fields = $(e.currentTarget).serializeArray();
 	    var credentials = {};
 	
 	    fields.forEach(function (field) {
 	      credentials[field.name] = field.value;
 	    }.bind(this));
-	    debugger;
 	
 	    SessionsApiUtil.login(credentials, function () {
 	      this.history.pushState({}, "/");
@@ -31828,6 +31829,7 @@
 	  demoSession: function (e) {
 	    e.preventDefault();
 	
+	    debugger;
 	    SessionsApiUtil.login({
 	      username: "password",
 	      password: "password",
@@ -31838,7 +31840,6 @@
 	  },
 	
 	  render: function () {
-	
 	    return React.createElement(
 	      'div',
 	      { className: 'header-upper' },
@@ -31895,94 +31896,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
-	var UsersApiUtl = __webpack_require__(239);
-	
-	var UserForm = React.createClass({
-	  displayName: 'UserForm',
-	
-	  submit: function (e) {
-	    e.preventDefault();
-	
-	    debugger;
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'header-lower group' },
-	      React.createElement(
-	        'div',
-	        { className: 'catchphrase' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'You`ll love ',
-	          React.createElement('br', null),
-	          ' your next class.'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'new-user-form-pane' },
-	        React.createElement(
-	          'h2',
-	          null,
-	          'New here? Create a free account!'
-	        ),
-	        React.createElement(
-	          'form',
-	          { className: 'new-user-form', onSubmit: this.submit },
-	          React.createElement('input', { type: 'text', name: 'username', value: '', placeholder: 'Name' }),
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', name: 'email', value: '', placeholder: 'Email Address' }),
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'password', name: 'password', value: '', placeholder: 'Password' }),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'button',
-	            null,
-	            'Sign Up'
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'o-auth' },
-	          'or sign in using',
-	          React.createElement(
-	            'span',
-	            null,
-	            React.createElement('i', { className: 'fa fa-facebook-square' })
-	          ),
-	          React.createElement(
-	            'span',
-	            null,
-	            React.createElement('i', { className: 'fa fa-twitter-square' })
-	          ),
-	          React.createElement(
-	            'span',
-	            null,
-	            React.createElement('i', { className: 'fa fa-google' })
-	          ),
-	          React.createElement(
-	            'span',
-	            null,
-	            React.createElement('i', { className: 'fa fa-amazon' })
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = UserForm;
-
-/***/ },
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(5);
-	var UserStore = __webpack_require__(252);
-	var UsersApiUtil = __webpack_require__(254);
+	var UserStore = __webpack_require__(250);
+	var UsersApiUtil = __webpack_require__(252);
 	
 	var UserShow = React.createClass({
 		displayName: 'UserShow',
@@ -32030,7 +31945,247 @@
 	module.exports = UserShow;
 
 /***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(210).Store;
+	var AppDispatcher = __webpack_require__(228);
+	
+	var _users = {};
+	var UserStore = new Store(AppDispatcher);
+	var UserConstants = __webpack_require__(251);
+	
+	var resetUsers = function (usersArray) {
+		_users = {};
+		usersArray.forEach(function (user) {
+			_users[user.id] = user;
+		});
+		return _users;
+	};
+	
+	var _addUser = function (newUser) {
+		_users[newUser.id] = newUser;
+	};
+	
+	UserStore.all = function () {
+		var users = [];
+		Object.keys(_users).forEach(function (userId) {
+			users.push(_users[userId]);
+		});
+		return users;
+	};
+	
+	UserStore.__onDispatch = function (payload) {
+		switch (payload.actionType) {
+			case UserConstants.USERS_RECEIVED:
+				resetUsers(payload.users);
+				UserStore.__emitChange();
+				break;
+			case UserConstants.USER_RECEIVED:
+				_addUser(payload.user);
+				UserStore.__emitChange();
+				break;
+		}
+	};
+	
+	UserStore.findUserById = function (id) {
+		if (_users[id]) {
+			return _users[id];
+		}
+		return undefined;
+	};
+	
+	module.exports = UserStore;
+
+/***/ },
 /* 251 */
+/***/ function(module, exports) {
+
+	var UserConstants = {
+		USERS_RECEIVED: "USERS_RECEIVED",
+		RECEIVE_USER: "CREATE_USER"
+	};
+	
+	module.exports = UserConstants;
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UserActions = __webpack_require__(253);
+	var CurrentUserActions = __webpack_require__(240);
+	
+	var UsersApiUtil = {
+	  fetchUsers: function () {
+	    $.ajax({
+	      url: '/api/users',
+	      type: 'GET',
+	      dataType: 'json',
+	      success: function (users) {
+	        UserActions.receiveUsers(users);
+	      },
+	      error: function (users) {
+	        console.log("fetching error");
+	      }
+	    });
+	  },
+	
+	  fetchUser: function (id) {
+	    $.ajax({
+	      url: '/api/users/' + id,
+	      type: 'GET',
+	      dataType: 'json',
+	      success: function (user) {
+	        UserActions.receiveUser(user);
+	      }
+	    });
+	  },
+	
+	  createUser: function (attrs, callback) {
+	    $.ajax({
+	      url: '/api/users',
+	      type: 'POST',
+	      dataType: 'json',
+	      data: attrs,
+	      success: function (user) {
+	        UserActions.receiveUser(user);
+	        CurrentUserActions.receiveCurrentUser(user);
+	        callback && callback();
+	      },
+	      error: function (user) {
+	        console.log("user created error");
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = UsersApiUtil;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(228);
+	var UserConstants = __webpack_require__(251);
+	
+	var UserActions = {
+	  receiveUsers: function (users) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.USERS_RECEIVED,
+	      users: users
+	    });
+	  },
+	
+	  receiveUser: function (user) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.USER_RECEIVED,
+	      user: user
+	    });
+	  }
+	};
+	
+	module.exports = UserActions;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var UsersApiUtil = __webpack_require__(252);
+	var History = __webpack_require__(1).History;
+	
+	var UserForm = React.createClass({
+	  displayName: 'UserForm',
+	
+	  mixins: [History],
+	
+	  onSubmit: function (e) {
+	    e.preventDefault();
+	
+	    var fields = $(e.currentTarget).serializeArray();
+	    var credentials = { user: {} };
+	
+	    fields.forEach(function (field) {
+	      credentials["user"][field.name] = field.value;
+	    }.bind(this));
+	
+	    UsersApiUtil.createUser(credentials, function () {
+	      this.history.pushState({}, "/");
+	    }.bind(this));
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'header-lower group' },
+	      React.createElement(
+	        'div',
+	        { className: 'catchphrase' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'You`ll love ',
+	          React.createElement('br', null),
+	          ' your next class.'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'new-user-form-pane' },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'New here? Create a free account!'
+	        ),
+	        React.createElement(
+	          'form',
+	          { className: 'new-user-form', onSubmit: this.onSubmit },
+	          React.createElement('input', { type: 'text', name: 'username', placeholder: 'Name' }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', name: 'email', placeholder: 'Email Address' }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'password', name: 'password', placeholder: 'Password' }),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'button',
+	            null,
+	            'Sign Up'
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'o-auth' },
+	          'or sign in using',
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement('i', { className: 'fa fa-facebook-square' })
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement('i', { className: 'fa fa-twitter-square' })
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement('i', { className: 'fa fa-google' })
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement('i', { className: 'fa fa-amazon' })
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = UserForm;
+
+/***/ },
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -32038,7 +32193,7 @@
 	var CurrentUserStore = __webpack_require__(237);
 	var History = __webpack_require__(1).History;
 	var SessionForm = __webpack_require__(248);
-	var UserForm = __webpack_require__(249);
+	var UserForm = __webpack_require__(254);
 	
 	var Header = React.createClass({
 	  displayName: 'Header',
@@ -32197,133 +32352,6 @@
 	});
 	
 	module.exports = Header;
-
-/***/ },
-/* 252 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(210).Store;
-	var AppDispatcher = __webpack_require__(228);
-	
-	var _users = {};
-	var UserStore = new Store(AppDispatcher);
-	var UserConstants = __webpack_require__(253);
-	
-	var resetUsers = function (usersArray) {
-		_users = {};
-		usersArray.forEach(function (user) {
-			_users[user.id] = user;
-		});
-		return _users;
-	};
-	
-	UserStore.all = function () {
-		var users = [];
-		Object.keys(_users).forEach(function (userId) {
-			users.push(_users[userId]);
-		});
-		return users;
-	};
-	
-	UserStore.__onDispatch = function (payload) {
-		switch (payload.actionType) {
-			case UserConstants.USERS_RECEIVED:
-				resetUsers(payload.users);
-				UserStore.__emitChange();
-				break;
-		}
-	};
-	
-	UserStore.findUserById = function (id) {
-		if (_users[id]) {
-			return _users[id];
-		}
-	
-		return undefined;
-	};
-	
-	module.exports = UserStore;
-
-/***/ },
-/* 253 */
-/***/ function(module, exports) {
-
-	var UserConstants = {
-		USERS_RECEIVED: "USERS_RECEIVED",
-		RECEIVE_USER: "CREATE_USER"
-	};
-
-/***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var UserActions = __webpack_require__(255);
-	var CurrentUserActions = __webpack_require__(240);
-	
-	var UsersApiUtil = {
-	  fetchUsers: function () {
-	    $.ajax({
-	      url: '/api/users',
-	      type: 'GET',
-	      dataType: 'json',
-	      success: function (users) {
-	        UserActions.receiveUsers(users);
-	      }
-	    });
-	  },
-	
-	  fetchUser: function (id) {
-	    $.ajax({
-	      url: '/api/users/' + id,
-	      type: 'GET',
-	      dataType: 'json',
-	      success: function (user) {
-	        UserActions.receiveUser(user);
-	      }
-	    });
-	  },
-	
-	  createUser: function (attrs, callback) {
-	    $.ajax({
-	      url: '/api/users',
-	      type: 'POST',
-	      dataType: 'json',
-	      data: attrs,
-	      success: function (user) {
-	        UserActions.receiveUser(user);
-	        CurrentUserActions.receive(user);
-	        callback && callback();
-	      }
-	    });
-	  }
-	};
-	
-	module.exports = UsersApiUtil;
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(228);
-	var UserConstants = __webpack_require__(253);
-	
-	var UserActions = {
-	  receiveUsers: function (users) {
-	    AppDispatcher.dispatch({
-	      actionType: UserConstants.USERS_RECEIVED,
-	      users: users
-	    });
-	  },
-	
-	  createUser: function (user) {
-	    AppDispatcher.dispatch({
-	      actionType: UserConstants.USER_RECEIVED,
-	      user: user
-	    });
-	  }
-	};
-	
-	module.exports = UserActions;
 
 /***/ }
 /******/ ]);

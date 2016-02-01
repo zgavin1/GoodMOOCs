@@ -7,13 +7,14 @@ var Session = React.createClass({
 
   onSubmit: function (e) {
     e.preventDefault();
+
+    debugger
     var fields = $(e.currentTarget).serializeArray();
     var credentials = {};
 
     fields.forEach(function (field) {
       credentials[field.name] = field.value;
     }.bind(this));
-    debugger
 
     SessionsApiUtil.login(credentials, function () {
       this.history.pushState({}, "/");
@@ -23,6 +24,7 @@ var Session = React.createClass({
   demoSession: function (e) {
     e.preventDefault();
 
+    debugger
     SessionsApiUtil.login({
       username: "password",
       password: "password",
@@ -33,7 +35,6 @@ var Session = React.createClass({
   },
 
 	render: function () {
-
 		return (
       <div className="header-upper">
         <div className="header-nav group">

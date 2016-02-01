@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     resources :courses
     resources :reviews
     resource :session, only: [:create, :destroy, :show]
-    resources :users, only: [:show, :index]
+    resources :users, only: [:show, :index, :new, :create]
   end
 end

@@ -21,7 +21,7 @@ class Api::SessionsController < ApplicationController
     else
       sign_in(@user)
       # redirect_to root_url
-      render "api/users/show"
+      render json: "api/users/show"
     end
   end
 

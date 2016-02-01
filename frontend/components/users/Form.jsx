@@ -1,11 +1,23 @@
 var React = require('react');
-var UsersApiUtl = require('./../../util/sessions_api_util');
+var UsersApiUtil = require('./../../util/user_api_util');
+var History = require('react-router').History;
 
 var UserForm = React.createClass({
-  submit: function (e) {
+  mixins: [History],
+
+  onSubmit: function (e) {
     e.preventDefault();
 
-    debugger
+    var fields = $(e.currentTarget).serializeArray();
+    var credentials = {user: {}};
+
+    fields.forEach(function (field) {
+      credentials["user"][field.name] = field.value;
+    }.bind(this));
+
+    UsersApiUtil.createUser(credentials, function () {
+      this.history.pushState({}, "/");
+    }.bind(this));
   },
 
 	render: function () {
@@ -16,14 +28,14 @@ var UserForm = React.createClass({
         </div>
         <div className="new-user-form-pane">
           <h2>New here? Create a free account!</h2>
-          <form className="new-user-form" onSubmit={this.submit}>
+          <form className="new-user-form" onSubmit={this.onSubmit}>
 
-            <input type="text" name="username" value="" placeholder="Name" />
+            <input type="text" name="username" placeholder="Name" />
             <br/>
-            <input type="text" name="email" value="" placeholder="Email Address" />
+            <input type="text" name="email" placeholder="Email Address" />
 
             <br/>
-            <input type="password" name="password" value="" placeholder="Password" />
+            <input type="password" name="password" placeholder="Password" />
 
             <br/>
             <button>Sign Up</button>

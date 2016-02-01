@@ -36,7 +36,7 @@ var App = React.createClass({
 
 var routes = (
   <Route path="/" component={ App }>
-    <IndexRoute component={ CourseIndex } />
+    <IndexRoute component={ CourseIndex } onEnter={_ensureLoggedIn}/>
     <Route path="courses/:courseId" component={ CourseShow }>
       <Route path="review/:reviewId" components={ ReviewForm }/>
     </Route>
