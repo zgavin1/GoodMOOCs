@@ -1,12 +1,9 @@
 var React = require('react');
 var SessionsApiUtil = require('./../util/sessions_api_util');
 var CurrentUserStore = require('./../stores/currentUser');
-var History = require('react-router').History
+var History = require('react-router').History;
 var SessionForm = require('./sessions/new');
 var UserForm = require('./users/Form');
-
-
-
 
 var Header = React.createClass({
   mixins: [History],
@@ -24,16 +21,18 @@ var Header = React.createClass({
   _onChange: function () {
     this.setState({currentUser: CurrentUserStore.currentUser()});
   },
-  
+
   logout: function () {
     SessionsApiUtil.logout(function () {
       this.history.pushState({}, "/");
     }.bind(this));
 
-    this.setState({currentUser: {}})
+    this.setState({currentUser: {}});
   },
 
   render: function() {
+
+
     if (CurrentUserStore.isLoggedIn()) {
       return (
         <header className="logged-in-header">
@@ -51,7 +50,7 @@ var Header = React.createClass({
                   <a href="#/">My Courses</a>
                 </li>
                 <li>
-                  <a href="#/">Friends</a>
+                  <a href="#/users">Friends</a>
                 </li>
                 <li>
                   <a href="#/">Recommendations</a>
@@ -67,7 +66,7 @@ var Header = React.createClass({
                 <span className="badge">g</span>
                 <span><i className="fa fa-envelope"></i></span>
                 <span><i className="fa fa-users"></i></span>
-                <span><i className="fa fa-user"></i></span>
+                <span><a href={"#/users/" + this.state.currentUser.id}><i className="fa fa-user"></i></a></span>
                 <a className="dropDownOpener" href="#"></a>
               </div>
               <button onClick={ this.logout }>LOG OUT</button>
@@ -86,7 +85,7 @@ var Header = React.createClass({
 
       );
     }
-    
+
   },
 
 });

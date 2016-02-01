@@ -16,6 +16,8 @@ var SessionForm = require('./components/sessions/new');
 var UserShow = require('./components/users/Show');
 var UserForm = require('./components/users/Form');
 
+var UserIndex = require('./components/users/Index');
+
 var Header = require('./components/Header');
 
 var App = React.createClass({
@@ -36,13 +38,14 @@ var App = React.createClass({
 
 var routes = (
   <Route path="/" component={ App }>
-    <IndexRoute component={ CourseIndex } onEnter={_ensureLoggedIn}/>
+    <IndexRoute component={ CourseIndex } />
     <Route path="courses/:courseId" component={ CourseShow }>
       <Route path="review/:reviewId" components={ ReviewForm }/>
     </Route>
     <Route path="login" component={ SessionForm } />
     <Route path="users/new" component={ UserForm } />
-    <Route path="users/:userId" component={ UserShow } />
+    <Route path="users/:id" component={ UserShow } />
+    <Route path="users" component={ UserIndex } />
   </Route>
 );
 

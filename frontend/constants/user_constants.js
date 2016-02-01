@@ -1,6 +1,6 @@
 var UserConstants = {
 	USERS_RECEIVED: "USERS_RECEIVED",
-	RECEIVE_USER: "CREATE_USER"
-}
+	USER_RECEIVED: "USER_RECEIVED"
+};
 
-module.exports = UserConstants
+module.exports = UserConstants;

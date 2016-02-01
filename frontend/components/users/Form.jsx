@@ -12,7 +12,7 @@ var UserForm = React.createClass({
     var credentials = {user: {}};
 
     fields.forEach(function (field) {
-      credentials["user"][field.name] = field.value;
+      credentials.user[field.name] = field.value;
     }.bind(this));
 
     UsersApiUtil.createUser(credentials, function () {
@@ -24,7 +24,7 @@ var UserForm = React.createClass({
 		return (
       <div className="header-lower group">
         <div className="catchphrase">
-          <h1>You`ll love <br/> your next class.</h1>
+          <h1>You'll love <br/> your next class.</h1>
         </div>
         <div className="new-user-form-pane">
           <h2>New here? Create a free account!</h2>

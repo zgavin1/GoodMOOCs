@@ -9,6 +9,7 @@ var UserShow = React.createClass({
 
 	componentDidMount: function () {
 		this.userListener = UserStore.addListener(this.onChange);
+    // UsersApiUtil.fetchUsers();
     UsersApiUtil.fetchUser(this.props.params.id);
 	},
 
@@ -20,17 +21,17 @@ var UserShow = React.createClass({
 		this.userListener.remove();
 	},
 
-
 	getStateFromStore: function () {
 		return {
-			user: UserStore.findByUserId(parseInt(this.props.params.userId))
+			user: UserStore.findUserById(parseInt(this.props.params.id))
 		};
 	},
 
-
-
   render: function () {
     var user = this.state.user;
+    if (!user) {
+      return <div></div>;
+    }
 
     return (
       <div>

@@ -6,9 +6,8 @@ var Session = React.createClass({
   mixins: [History],
 
   onSubmit: function (e) {
-    e.preventDefault();
-
     debugger
+    e.preventDefault();
     var fields = $(e.currentTarget).serializeArray();
     var credentials = {};
 
@@ -23,15 +22,16 @@ var Session = React.createClass({
 
   demoSession: function (e) {
     e.preventDefault();
-
-    debugger
-    SessionsApiUtil.login({
-      username: "password",
-      password: "password",
-      email: "password"
-    }, function () {
-      this.history.pushState({}, "/");
-    }.bind(this))
+    SessionsApiUtil.login(
+      {
+        username: "password",
+        password: "password",
+        email: "password"
+      },
+      function () {
+        this.history.pushState({}, "/");
+      }.bind(this)
+    );
   },
 
 	render: function () {
@@ -43,15 +43,11 @@ var Session = React.createClass({
           </h1>
           <div className="new-session-form">
             <form className="new-session-form group" onSubmit={this.onSubmit}>
-
               <input type="text" name="username" placeholder="Username" />
-
               <input type="password" name="password" placeholder="Password" />
-
-              <button>Sign In</button>
+              <button type="submit">Sign In</button>
             </form>
           </div>
-
           <form className="demo-form group" onSubmit={this.demoSession}>
             <button>Demo User</button>
           </form>

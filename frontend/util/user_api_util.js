@@ -39,7 +39,7 @@ var UsersApiUtil = {
         callback && callback();
       },
       error: function (user) {
-        console.log("user created error")
+        console.log("user created error");
       }
     });
   }
