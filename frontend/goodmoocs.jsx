@@ -8,6 +8,7 @@ var ReactDOM = require('react-dom');
 
 var CourseIndex = require('./components/course/CourseIndex');
 var CourseShow = require('./components/course/CourseShow');
+var CourseSuggestions = require('./components/course/CourseSuggestions');
 var CurrentUserStore = require('./stores/currentUser');
 var SessionsApiUtil = require('./util/sessions_api_util');
 
@@ -28,9 +29,17 @@ var App = React.createClass({
   },
 
   render: function () {
+    var content;
+    if ( !CurrentUserStore.isLoggedIn() ) {
+      content = <CourseIndex />;
+    } else {
+      content = <div></div>;
+    }
+
     return (
       <div>
         <Header />
+        { content }
         {this.props.children}
       </div>
     );
@@ -39,7 +48,7 @@ var App = React.createClass({
 
 var routes = (
   <Route path="/" component={ App }>
-    <IndexRoute component={ CourseIndex } />
+    <IndexRoute component={ CourseSuggestions } onEnter={_ensureLoggedIn} />
     <Route path="courses/:courseId" component={ CourseShow }>
       <Route path="review/:reviewId" components={ ReviewForm }/>
     </Route>

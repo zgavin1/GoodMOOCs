@@ -1,5 +1,6 @@
 var React = require('react');
 var UserStore = require('./../../stores/user');
+var CurrentUserStore = require('./../../stores/currentUser');
 var UsersApiUtil = require('./../../util/user_api_util');
 
 var UserShow = React.createClass({
@@ -33,18 +34,27 @@ var UserShow = React.createClass({
     }
 
     var user_ratings = user.reviews;
-    var ratings_total = 0;
-    for (var i = 0; i < user_ratings.length; i++) {
-      ratings_total += user_ratings[i].rating;
+    var average_rating;
+    var user_reviews_count;
+
+    if (user_ratings >= 1) {
+      var ratings_total = 0;
+      for (var i = 0; i < user_ratings.length; i++) {
+        ratings_total += user_ratings[i].rating;
+      }
+
+      average_rating = Math.ceil((ratings_total / user_ratings.length) * 10)/10;
+
+      for (var j = 0; j < user_ratings.length; j++) {
+        if (user_ratings[j].body.length > 1) {
+          user_reviews_count += 1;
+        }
+      }
     }
 
-    var average_rating = Math.ceil((ratings_total / user_ratings.length) * 10)/10;
-
-    var user_reviews_count = 0;
-    for (var j = 0; j < user_ratings.length; j++) {
-      if (user_ratings[j].body.length > 1) {
-        user_reviews_count += 1;
-      }
+    var edit_permission;
+    if (CurrentUserStore.currentUser().id === user.id) {
+      edit_permission = <a href={ "#/users/" + user.id + "/edit" } className="user-show-hover edit-button">(edit profile)</a>;
     }
 
     return (
@@ -59,7 +69,7 @@ var UserShow = React.createClass({
           </div>
           <div className="user-info-right group">
             <div className="user-info-details">
-              <h2>{user.username} <a href={ "#/users/" + user.id + "/edit" } className="user-show-hover edit-button">(edit profile)</a></h2>
+              <h2>{user.username} { edit_permission } </h2>
             </div>
           </div>
         </div>

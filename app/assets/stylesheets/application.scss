@@ -394,7 +394,7 @@ img {
 
 .user-info-left {
   float: left;
-  width: 145px;
+  width: 140px;
 }
 
 .user-avatar {
@@ -469,6 +469,7 @@ img {
   width: 465px;
   float: left;
   padding: 0 10px;
+  font-size: 14px;
 }
 
 .course-title {
@@ -477,35 +478,121 @@ img {
 }
 
 .course-provider-name > a {
-  font-size: 24px;
+  font-size: 14px;
 }
 
 .course-provider-name {
   display: inline;
+  font-size: 14px;
 }
 
-
+.rating-stats a {
+  font-size: 11px;
+}
 
 //  Star Ratings
 
 .rating {
-unicode-bidi: bidi-override;
-direction: rtl;
-text-align: center;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: center;
 }
 .rating > span {
-display: inline-block;
-position: relative;
-width: 1.1em;
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
 }
 .rating > span:hover,
 .rating > span:hover ~ span {
-color: transparent;
+  color: transparent;
 }
 .rating > span:hover:before,
 .rating > span:hover ~ span:before {
- content: "\2605";
- position: absolute;
- left: 0;
- color: gold;
+   content: "\2605";
+   position: absolute;
+   left: 0;
+   color: #fa604a;
 }
+
+// Course Suggestions
+
+.course-suggestions {
+  width: 965px;
+  margin: auto;
+  font-family: Merriweather;
+}
+
+.course-suggestions-left {
+  width: 605px;
+  float: left;
+  padding: 10px;
+}
+
+.suggestions-header {
+  border-bottom: 1px solid #ccc;
+  width: 605px;
+}
+
+.suggestions-header > a {
+  padding: 20px;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.course-suggestions-index {
+  float: left;
+  padding-left: 0px;
+}
+
+.suggestion {
+  width: 590px;
+  float: left;
+  height: 120px;
+}
+
+.suggestion-img {
+  width: 100px;
+}
+
+.suggestion-info {
+  float: left;
+  width: 470px;
+  padding: 0 10px 5px 10px;;
+}
+
+.suggestion-info > h2 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+}
+
+.suggestion-info > h3 {
+  margin: 0 0 5px 0;
+  font-size: 12px;
+}
+
+.suggestion-info > p {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

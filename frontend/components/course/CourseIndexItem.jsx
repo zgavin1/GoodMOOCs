@@ -2,19 +2,32 @@ var React = require('react');
 var ReactRouter = require('react-router');
 
 var CourseIndexItem = React.createClass({
-  // mixins: [ReactRouter.history],
-  // componentWillReceiveProps: function (newProps) {
-  //   this.forceUpdate();
-  // },
-
-
-//Render for front page, just image links
-
   render: function () {
     var course = this.props.course;
+
+    if (this.props.className === "landing-page-course-index-item") {
+      return (
+        <li className={this.props.className + " index-link"} onClick={this.props.onClick}>
+          <a href={"#/courses/" + course.id}><img className="course-img" src={ course.image_url }/></a>
+        </li>
+      );
+    }
+//
+// above is the return for the anonymous (logged out) user course index
+// below is the return for suggestions
+
     return (
-      <li className="index-link" onClick={this.props.onClick}>
-        <img src={ course.image_url }/>
+      <li className={this.props.className + " suggestion"} onClick={this.props.onClick}>
+        <a href={"#/courses/" + course.id}><img className="course-img suggestion-img" src={ course.image_url }/></a>
+        <div className="suggestion-info">
+          <h2>
+            <a href={"#/courses/" + course.id}>{course.title}</a>
+          </h2>
+          <h3>
+            <a>from {course.course_provider.name}</a>
+          </h3>
+          <p>{course.description}</p>
+        </div>
       </li>
     );
   }

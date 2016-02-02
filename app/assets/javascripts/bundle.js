@@ -54,6 +54,7 @@
 	
 	var CourseIndex = __webpack_require__(206);
 	var CourseShow = __webpack_require__(233);
+	var CourseSuggestions = __webpack_require__(257);
 	var CurrentUserStore = __webpack_require__(235);
 	var SessionsApiUtil = __webpack_require__(237);
 	
@@ -76,10 +77,18 @@
 	  },
 	
 	  render: function () {
+	    var content;
+	    if (!CurrentUserStore.isLoggedIn()) {
+	      content = React.createElement(CourseIndex, null);
+	    } else {
+	      content = React.createElement('div', null);
+	    }
+	
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(Header, null),
+	      content,
 	      this.props.children
 	    );
 	  }
@@ -88,7 +97,7 @@
 	var routes = React.createElement(
 	  Route,
 	  { path: '/', component: App },
-	  React.createElement(IndexRoute, { component: CourseIndex }),
+	  React.createElement(IndexRoute, { component: CourseSuggestions, onEnter: _ensureLoggedIn }),
 	  React.createElement(
 	    Route,
 	    { path: 'courses/:courseId', component: CourseShow },
@@ -31058,19 +31067,60 @@
 	var CourseIndexItem = React.createClass({
 	  displayName: 'CourseIndexItem',
 	
-	  // mixins: [ReactRouter.history],
-	  // componentWillReceiveProps: function (newProps) {
-	  //   this.forceUpdate();
-	  // },
-	
-	  //Render for front page, just image links
-	
 	  render: function () {
 	    var course = this.props.course;
+	
+	    if (this.props.className === "landing-page-course-index-item") {
+	      return React.createElement(
+	        'li',
+	        { className: this.props.className + " index-link", onClick: this.props.onClick },
+	        React.createElement(
+	          'a',
+	          { href: "#/courses/" + course.id },
+	          React.createElement('img', { className: 'course-img', src: course.image_url })
+	        )
+	      );
+	    }
+	    //
+	    // above is the return for the anonymous (logged out) user course index
+	    // below is the return for suggestions
+	
 	    return React.createElement(
 	      'li',
-	      { className: 'index-link', onClick: this.props.onClick },
-	      React.createElement('img', { src: course.image_url })
+	      { className: this.props.className + " suggestion", onClick: this.props.onClick },
+	      React.createElement(
+	        'a',
+	        { href: "#/courses/" + course.id },
+	        React.createElement('img', { className: 'course-img suggestion-img', src: course.image_url })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'suggestion-info' },
+	        React.createElement(
+	          'h2',
+	          null,
+	          React.createElement(
+	            'a',
+	            { href: "#/courses/" + course.id },
+	            course.title
+	          )
+	        ),
+	        React.createElement(
+	          'h3',
+	          null,
+	          React.createElement(
+	            'a',
+	            null,
+	            'from ',
+	            course.course_provider.name
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          course.description
+	        )
+	      )
 	    );
 	  }
 	
@@ -31152,6 +31202,13 @@
 	      return React.createElement('div', null);
 	    }
 	
+	    var num_reviews = 0;
+	    for (var i = 0; i < course.reviews.length; i++) {
+	      if (course.reviews[i].body.length > 1) {
+	        num_reviews += 1;
+	      }
+	    }
+	
 	    return React.createElement(
 	      'div',
 	      { className: 'course-show-body' },
@@ -31194,38 +31251,57 @@
 	          React.createElement('br', null),
 	          React.createElement(
 	            'div',
-	            { className: 'rating' },
+	            { className: 'rating-stats' },
 	            React.createElement(
-	              'span',
-	              null,
-	              '☆'
+	              'div',
+	              { className: 'rating' },
+	              React.createElement(
+	                'span',
+	                null,
+	                '☆'
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                '☆'
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                '☆'
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                '☆'
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                '☆'
+	              )
 	            ),
+	            React.createElement('dot', null),
 	            React.createElement(
-	              'span',
+	              'a',
 	              null,
-	              '☆'
+	              'avg rating: ',
+	              course.average_rating
 	            ),
+	            React.createElement('dot', null),
 	            React.createElement(
-	              'span',
+	              'a',
 	              null,
-	              '☆'
+	              course.reviews.length,
+	              ' Ratings'
 	            ),
+	            React.createElement('dot', null),
 	            React.createElement(
-	              'span',
+	              'a',
 	              null,
-	              '☆'
-	            ),
-	            React.createElement(
-	              'span',
-	              null,
-	              '☆'
+	              num_reviews,
+	              ' Reviews'
 	            )
-	          ),
-	          React.createElement(
-	            'a',
-	            null,
-	            'avg rating: ',
-	            course.average_rating
 	          ),
 	          React.createElement(
 	            'p',
@@ -31821,6 +31897,7 @@
 
 	var React = __webpack_require__(5);
 	var UserStore = __webpack_require__(248);
+	var CurrentUserStore = __webpack_require__(235);
 	var UsersApiUtil = __webpack_require__(250);
 	
 	var UserShow = React.createClass({
@@ -31856,18 +31933,31 @@
 	    }
 	
 	    var user_ratings = user.reviews;
-	    var ratings_total = 0;
-	    for (var i = 0; i < user_ratings.length; i++) {
-	      ratings_total += user_ratings[i].rating;
+	    var average_rating;
+	    var user_reviews_count;
+	
+	    if (user_ratings >= 1) {
+	      var ratings_total = 0;
+	      for (var i = 0; i < user_ratings.length; i++) {
+	        ratings_total += user_ratings[i].rating;
+	      }
+	
+	      average_rating = Math.ceil(ratings_total / user_ratings.length * 10) / 10;
+	
+	      for (var j = 0; j < user_ratings.length; j++) {
+	        if (user_ratings[j].body.length > 1) {
+	          user_reviews_count += 1;
+	        }
+	      }
 	    }
 	
-	    var average_rating = Math.ceil(ratings_total / user_ratings.length * 10) / 10;
-	
-	    var user_reviews_count = 0;
-	    for (var j = 0; j < user_ratings.length; j++) {
-	      if (user_ratings[j].body.length > 1) {
-	        user_reviews_count += 1;
-	      }
+	    var edit_permission;
+	    if (CurrentUserStore.currentUser().id === user.id) {
+	      edit_permission = React.createElement(
+	        'a',
+	        { href: "#/users/" + user.id + "/edit", className: 'user-show-hover edit-button' },
+	        '(edit profile)'
+	      );
 	    }
 	
 	    return React.createElement(
@@ -31915,11 +32005,8 @@
 	              null,
 	              user.username,
 	              ' ',
-	              React.createElement(
-	                'a',
-	                { href: "#/users/" + user.id + "/edit", className: 'user-show-hover edit-button' },
-	                '(edit profile)'
-	              )
+	              edit_permission,
+	              ' '
 	            )
 	          )
 	        )
@@ -32575,6 +32662,89 @@
 	});
 	
 	module.exports = EditUserForm;
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var ReactDOM = __webpack_require__(205);
+	
+	var CourseStore = __webpack_require__(207);
+	var ApiUtil = __webpack_require__(230);
+	var CourseIndexItem = __webpack_require__(232);
+	var History = __webpack_require__(1).History;
+	
+	var CourseSuggestions = React.createClass({
+	  displayName: 'CourseSuggestions',
+	
+	  mixins: [History],
+	
+	  getInitialState: function () {
+	    return {
+	      courses: CourseStore.all()
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.storeListener = CourseStore.addListener(this._onChange);
+	    ApiUtil.fetchCourses();
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ courses: CourseStore.all() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.storeListener.remove();
+	  },
+	
+	  handleCourseClick: function (course) {
+	    this.history.pushState(null, "courses/" + course.id);
+	  },
+	
+	  render: function () {
+	    if (!this.state.courses) {
+	      return React.createElement('div', null);
+	    }
+	    // var handleCourseClick = this.handleCourseClick;
+	    var courses = this.state.courses;
+	    var suggestions = courses.map(function (course) {
+	      // var boundClick = handleCourseClick.bind(null, course);
+	      if (course.average_rating >= 3) {
+	        return React.createElement(CourseIndexItem, {
+	          className: 'suggestion',
+	          key: course.id,
+	          course: course });
+	      }
+	    });
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'course-suggestions' },
+	      React.createElement(
+	        'div',
+	        { className: 'course-suggestions-left' },
+	        React.createElement(
+	          'h1',
+	          { className: 'suggestions-header' },
+	          React.createElement(
+	            'a',
+	            { href: '/' },
+	            'Right now, this simply displays highly rated courses'
+	          )
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'course-suggestions-index group' },
+	          suggestions
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = CourseSuggestions;
 
 /***/ }
 /******/ ]);

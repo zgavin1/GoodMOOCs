@@ -9,6 +9,13 @@ var Course = React.createClass({
       return (<div></div>);
     }
 
+    var num_reviews = 0;
+    for (var i = 0; i < course.reviews.length; i++) {
+      if (course.reviews[i].body.length > 1) {
+        num_reviews += 1;
+      }
+    }
+
     return (
       <div className="course-show-body">
         <div className="course-show-left group">
@@ -25,10 +32,17 @@ var Course = React.createClass({
               </a>
             </h3>
             <br/>
+            <div className="rating-stats">
               <div className="rating">
                 <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
               </div>
-            <a>avg rating: {course.average_rating}</a>
+              <dot/>
+              <a>avg rating: {course.average_rating}</a>
+              <dot/>
+              <a>{course.reviews.length} Ratings</a>
+              <dot/>
+              <a>{num_reviews} Reviews</a>
+            </div>
             <p>{course.description}</p>
           </div>
         </div>
