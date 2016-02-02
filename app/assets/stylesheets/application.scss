@@ -244,6 +244,7 @@ img {
 .landing-page-intro {
   width: 635px;
 }
+
 .landing-page-selling-point:first-child {
   float: left;
   width: 290px;
@@ -264,7 +265,7 @@ img {
   font-size: 18px;
 }
 .landing-page-selling-point > p {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .discover {
@@ -279,13 +280,22 @@ img {
   padding-left: 0px;
 }
 
-.index-link {
-  width: 100px;
-  margin: 10px;
+.landing-page-course-index-item {
+  margin: 9px;
   float: left;
+  text-align: center;
+  width: 138px;
+  height: 150px
 }
 
-
+.landing-page-course-index-item a p {
+  padding: 0 2px 0 4px;
+  font-size: 11px;
+  margin: 0;
+}
+.landing-page-course-index-item a p:hover {
+  text-decoration: underline;
+}
 /* LOGGED IN STYLE */
 
 .logged-in-header {
@@ -534,8 +544,7 @@ img {
 
 .course-img {
   width: 140px;
-  float: left;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   box-shadow: 1px 6px 8px #888888;
 }
 
@@ -569,7 +578,7 @@ img {
 .rating {
   unicode-bidi: bidi-override;
   direction: rtl;
-  text-align: center;
+  text-align: left;
 }
 .rating > span {
   display: inline-block;

@@ -33,23 +33,19 @@ var UserShow = React.createClass({
       return <div></div>;
     }
 
-    var user_ratings = user.reviews || 0;
+    var user_ratings = user.reviews || [];
 
-    var average_rating;
-    var user_reviews_count;
+    var ratings_total = 0;
+    for (var i = 0; i < user_ratings.length; i++) {
+      ratings_total += user_ratings[i].rating;
+    }
+    var average_rating = parseFloat(Math.ceil((ratings_total / user_ratings.length) * 100)/100);
 
-    if (user_ratings >= 1) {
-      var ratings_total = 0;
-      for (var i = 0; i < user_ratings.length; i++) {
-        ratings_total += user_ratings[i].rating;
-      }
+		var user_reviews_count = 0;
 
-      average_rating = Math.ceil((ratings_total / user_ratings.length) * 10)/10;
-
-      for (var j = 0; j < user_ratings.length; j++) {
-        if (user_ratings[j].body.length > 1) {
-          user_reviews_count += 1;
-        }
+    for (var j = 0; j < user_ratings.length; j++) {
+      if (user_ratings[j].body.length > 1) {
+        user_reviews_count += 1;
       }
     }
 

@@ -76,9 +76,11 @@ var routes = (
       <Route path="users/:id/edit" component={ EditUserForm } />
     </Route>
 
-    <Route path="login" component={ CourseIndex } />
+    <Route path="login" component={ CourseIndex } onEnter={ _ensureLoggedOut }/>
   </Route>
 );
+// this function prevents logged out users from visiting the home
+// route where their lack of credentials would cause site errors
 
 function _ensureLoggedIn(nextState, replace, callback) {
   if (CurrentUserStore.userHasBeenFetched()) {
@@ -90,6 +92,23 @@ function _ensureLoggedIn(nextState, replace, callback) {
   function _redirectIfNotLoggedIn() {
     if (!CurrentUserStore.isLoggedIn()) {
       replace({}, "/login");
+    }
+    callback();
+  }
+}
+
+// this function prevents logged in users frmo visiting the login route
+
+function _ensureLoggedOut(nextState, replace, callback) {
+  if (CurrentUserStore.userHasBeenFetched()) {
+    _redirectIfLoggedIn();
+  } else {
+    SessionsApiUtil.fetchCurrentUser(_redirectIfLoggedIn);
+  }
+
+  function _redirectIfLoggedIn() {
+    if (CurrentUserStore.isLoggedIn()) {
+      replace({}, "/");
     }
     callback();
   }

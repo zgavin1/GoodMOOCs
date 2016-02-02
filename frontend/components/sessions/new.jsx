@@ -6,7 +6,6 @@ var Session = React.createClass({
   mixins: [History],
 
   onSubmit: function (e) {
-    debugger
     e.preventDefault();
     var fields = $(e.currentTarget).serializeArray();
     var credentials = {};

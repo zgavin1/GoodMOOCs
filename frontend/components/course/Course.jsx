@@ -16,6 +16,8 @@ var Course = React.createClass({
       }
     }
 
+    var avgRating = parseFloat(Math.ceil(course.average_rating * 100)/100);
+
     return (
       <div className="course-show-body">
         <div className="course-show-left group">
@@ -40,7 +42,7 @@ var Course = React.createClass({
                 <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
               </div>
                <dot>·</dot>
-              <a>avg rating: {course.average_rating}</a>
+              <a>avg rating: {avgRating}</a>
                <dot>·</dot>
               <a>{course.reviews.length} Ratings</a>
                <dot>·</dot>

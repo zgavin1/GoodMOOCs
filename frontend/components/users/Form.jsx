@@ -16,8 +16,9 @@ var NewUserForm = React.createClass({
 
   onSubmit: function (e) {
     e.preventDefault();
+    var params = { user: this.state };
 
-    UsersApiUtil.createUser(this.state, function () {
+    UsersApiUtil.createUser(params, function () {
       this.history.pushState({}, "/");
     }.bind(this));
   },

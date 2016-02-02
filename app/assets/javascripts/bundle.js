@@ -123,8 +123,10 @@
 	    React.createElement(Route, { path: 'users/:id', component: UserShow }),
 	    React.createElement(Route, { path: 'users/:id/edit', component: EditUserForm })
 	  ),
-	  React.createElement(Route, { path: 'login', component: CourseIndex })
+	  React.createElement(Route, { path: 'login', component: CourseIndex, onEnter: _ensureLoggedOut })
 	);
+	// this function prevents logged out users from visiting the home
+	// route where their lack of credentials would cause site errors
 	
 	function _ensureLoggedIn(nextState, replace, callback) {
 	  if (CurrentUserStore.userHasBeenFetched()) {
@@ -136,6 +138,23 @@
 	  function _redirectIfNotLoggedIn() {
 	    if (!CurrentUserStore.isLoggedIn()) {
 	      replace({}, "/login");
+	    }
+	    callback();
+	  }
+	}
+	
+	// this function prevents logged in users frmo visiting the login route
+	
+	function _ensureLoggedOut(nextState, replace, callback) {
+	  if (CurrentUserStore.userHasBeenFetched()) {
+	    _redirectIfLoggedIn();
+	  } else {
+	    SessionsApiUtil.fetchCurrentUser(_redirectIfLoggedIn);
+	  }
+	
+	  function _redirectIfLoggedIn() {
+	    if (CurrentUserStore.isLoggedIn()) {
+	      replace({}, "/");
 	    }
 	    callback();
 	  }
@@ -24207,7 +24226,7 @@
 	          ),
 	          React.createElement(
 	            'ul',
-	            { className: 'landing-page-course-index' },
+	            { className: 'landing-page-course-index group' },
 	            courses
 	          )
 	        )
@@ -31111,6 +31130,15 @@
 	          'a',
 	          { href: "#/courses/" + course.id },
 	          React.createElement('img', { className: 'course-img', src: course.image_url })
+	        ),
+	        React.createElement(
+	          'a',
+	          { href: "#/courses/" + course.id },
+	          React.createElement(
+	            'p',
+	            null,
+	            course.title
+	          )
 	        )
 	      );
 	    }
@@ -31242,6 +31270,8 @@
 	      }
 	    }
 	
+	    var avgRating = parseFloat(Math.ceil(course.average_rating * 100) / 100);
+	
 	    return React.createElement(
 	      'div',
 	      { className: 'course-show-body' },
@@ -31352,7 +31382,7 @@
 	              'a',
 	              null,
 	              'avg rating: ',
-	              course.average_rating
+	              avgRating
 	            ),
 	            React.createElement(
 	              'dot',
@@ -31531,6 +31561,7 @@
 	
 	var SessionsApiUtil = {
 		login: function (credentials, successCallback) {
+			debugger;
 			$.ajax({
 				type: "POST",
 				url: "api/session",
@@ -31971,7 +32002,6 @@
 	  mixins: [History],
 	
 	  onSubmit: function (e) {
-	    debugger;
 	    e.preventDefault();
 	    var fields = $(e.currentTarget).serializeArray();
 	    var credentials = {};
@@ -32089,23 +32119,19 @@
 	      return React.createElement('div', null);
 	    }
 	
-	    var user_ratings = user.reviews || 0;
+	    var user_ratings = user.reviews || [];
 	
-	    var average_rating;
-	    var user_reviews_count;
+	    var ratings_total = 0;
+	    for (var i = 0; i < user_ratings.length; i++) {
+	      ratings_total += user_ratings[i].rating;
+	    }
+	    var average_rating = parseFloat(Math.ceil(ratings_total / user_ratings.length * 100) / 100);
 	
-	    if (user_ratings >= 1) {
-	      var ratings_total = 0;
-	      for (var i = 0; i < user_ratings.length; i++) {
-	        ratings_total += user_ratings[i].rating;
-	      }
+	    var user_reviews_count = 0;
 	
-	      average_rating = Math.ceil(ratings_total / user_ratings.length * 10) / 10;
-	
-	      for (var j = 0; j < user_ratings.length; j++) {
-	        if (user_ratings[j].body.length > 1) {
-	          user_reviews_count += 1;
-	        }
+	    for (var j = 0; j < user_ratings.length; j++) {
+	      if (user_ratings[j].body.length > 1) {
+	        user_reviews_count += 1;
 	      }
 	    }
 	
@@ -32359,8 +32385,9 @@
 	
 	  onSubmit: function (e) {
 	    e.preventDefault();
+	    var params = { user: this.state };
 	
-	    UsersApiUtil.createUser(this.state, function () {
+	    UsersApiUtil.createUser(params, function () {
 	      this.history.pushState({}, "/");
 	    }.bind(this));
 	  },

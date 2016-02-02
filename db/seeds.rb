@@ -10,8 +10,15 @@ User.destroy_all
 
 
 pw = User.create!(username: "password", password: "password", email: "password")
-llewyn = User.create!(username: "llewyn_davis", password: "folkmusic", email: "dylanismyidol@gmail.com")
-homer = User.create!(username: "homer_simpson", password: "duffbeer", email: "mmmdonuts@yahoo.com")
+llewyn = User.create!(username: "Llewyn Davis", password: "folkmusic", email: "dylanismyidol@gmail.com")
+homer = User.create!(username: "Homer Simpson", password: "duffbeer", email: "mmmdonuts@yahoo.com")
+willhunting = User.create!(username: "Will Hunting", password: "mathispower")
+barrybonds = User.create!(username: "Barry Bonds", password: "homerunking")
+spongebob = User.create!(username: "Spongebob Squarepants", password: "bikinibottom")
+jonsnow = User.create!(username: "Jon Snow", password: "secrettarg")
+stevejobs = User.create!(username: "Steve Jobs", password: "iphones4ever")
+
+
 
 
 CourseProvider.destroy_all
@@ -253,60 +260,749 @@ course20 = Course.create!(
 # course21 = Course.create!(
 #   )
 
-
-
-
-
-
 Review.destroy_all
 
-rev1 = Review.create!(
+Review.create!(
   user_id: llewyn.id,
   course_id: course2.id,
   rating: 4,
   body: "They wouldn't let me just write lyrics! I'm a musician, that's my PROFESSION."
 )
 
-rev2 = Review.create!(
+Review.create!(
   user_id: homer.id,
   course_id: course1.id,
   rating: 1,
   body: "I understood some of the words."
 )
 
-rev3 = Review.create!(
+Review.create!(
   user_id: pw.id,
   course_id: course1.id,
   rating: 5,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
-rev4 = Review.create!(
+Review.create!(
   user_id: pw.id,
   course_id: course2.id,
   rating: 1,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
 )
-rev5 = Review.create!(
+Review.create!(
   user_id: pw.id,
   course_id: course3.id,
   rating: 2,
   body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
 )
-rev6 = Review.create!(
+
+
+Review.create!(
   user_id: pw.id,
   course_id: course4.id,
   rating: 3,
   body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
 )
-rev7 = Review.create!(
+Review.create!(
   user_id: pw.id,
   course_id: course5.id,
   rating: 4,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
 )
-rev8 = Review.create!(
+Review.create!(
   user_id: pw.id,
   course_id: course6.id,
   rating: 5,
-  body: "I'm course tester and this was a fantastic course. Udemy does a great job teaching Java, and this is an intersting topic"
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: pw.id,
+  course_id: course7.id,
+  rating: 1,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: pw.id,
+  course_id: course8.id,
+  rating: 2,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+Review.create!(
+  user_id: pw.id,
+  course_id: course9.id,
+  rating: 3,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: pw.id,
+  course_id: course10.id,
+  rating: 4,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+Review.create!(
+  user_id: pw.id,
+  course_id: course11.id,
+  rating: 5,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: pw.id,
+  course_id: course12.id,
+  rating: 1,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: pw.id,
+  course_id: course13.id,
+  rating: 2,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: pw.id,
+  course_id: course14.id,
+  rating: 3,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: pw.id,
+  course_id: course15.id,
+  rating: 4,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+rev3 = Review.create!(
+  user_id: pw.id,
+  course_id: course16.id,
+  rating: 5,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: pw.id,
+  course_id: course17.id,
+  rating: 1,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: pw.id,
+  course_id: course18.id,
+  rating: 2,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: pw.id,
+  course_id: course19.id,
+  rating: 3,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: pw.id,
+  course_id: course20.id,
+  rating: 4,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+
+
+
+
+
+
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course1.id,
+  rating: 5,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course2.id,
+  rating: 3,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course3.id,
+  rating: 1,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course4.id,
+  rating: 5,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course5.id,
+  rating: 1,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course6.id,
+  rating: 3,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course7.id,
+  rating: 3,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course8.id,
+  rating: 4,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course9.id,
+  rating: 5,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course10.id,
+  rating: 1,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course11.id,
+  rating: 1,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course12.id,
+  rating: 1,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course13.id,
+  rating: 5,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course14.id,
+  rating: 4,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course15.id,
+  rating: 2,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+rev3 = Review.create!(
+  user_id: willhunting.id,
+  course_id: course16.id,
+  rating: 2,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course17.id,
+  rating: 5,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course18.id,
+  rating: 2,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course19.id,
+  rating: 2,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: willhunting.id,
+  course_id: course20.id,
+  rating: 5,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+
+
+
+
+
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course1.id,
+  rating: 2,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course2.id,
+  rating: 3,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course3.id,
+  rating: 1,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course4.id,
+  rating: 4,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course5.id,
+  rating: 5,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course6.id,
+  rating: 4,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course7.id,
+  rating: 1,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course8.id,
+  rating: 3,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course9.id,
+  rating: 5,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course10.id,
+  rating: 3,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course11.id,
+  rating: 3,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course12.id,
+  rating: 3,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+
+
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course14.id,
+  rating: 4,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course15.id,
+  rating: 2,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+rev3 = Review.create!(
+  user_id: stevejobs.id,
+  course_id: course16.id,
+  rating: 2,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course17.id,
+  rating: 5,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course18.id,
+  rating: 2,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course19.id,
+  rating: 2,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: stevejobs.id,
+  course_id: course20.id,
+  rating: 3,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+
+
+
+
+
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course1.id,
+  rating: 5,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course2.id,
+  rating: 1,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course3.id,
+  rating: 2,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course4.id,
+  rating: 4,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course5.id,
+  rating: 3,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course6.id,
+  rating: 5,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course7.id,
+  rating: 2,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course8.id,
+  rating: 4,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course9.id,
+  rating: 2,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course10.id,
+  rating: 1,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course11.id,
+  rating: 1,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course12.id,
+  rating: 1,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course13.id,
+  rating: 5,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course14.id,
+  rating: 4,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course15.id,
+  rating: 2,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+rev3 = Review.create!(
+  user_id: barrybonds.id,
+  course_id: course16.id,
+  rating: 2,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course17.id,
+  rating: 1,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course18.id,
+  rating: 3,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: course19.id,
+  rating: 3,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+
+
+
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course2.id,
+  rating: 3,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course3.id,
+  rating: 2,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course7.id,
+  rating: 5,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course8.id,
+  rating: 2,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course9.id,
+  rating: 2,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course10.id,
+  rating: 1,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course11.id,
+  rating: 1,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course12.id,
+  rating: 1,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course13.id,
+  rating: 2,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course14.id,
+  rating: 4,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course15.id,
+  rating: 1,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+rev3 = Review.create!(
+  user_id: jonsnow.id,
+  course_id: course16.id,
+  rating: 1,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course17.id,
+  rating: 1,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course18.id,
+  rating: 1,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course19.id,
+  rating: 2,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: jonsnow.id,
+  course_id: course20.id,
+  rating: 4,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+
+
+
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course1.id,
+  rating: 5,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course2.id,
+  rating: 5,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course3.id,
+  rating: 5,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course4.id,
+  rating: 5,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course5.id,
+  rating: 5,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course6.id,
+  rating: 5,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course7.id,
+  rating: 2,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course8.id,
+  rating: 4,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course9.id,
+  rating: 2,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course10.id,
+  rating: 3,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course14.id,
+  rating: 4,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course15.id,
+  rating: 2,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
+)
+rev3 = Review.create!(
+  user_id: spongebob.id,
+  course_id: course16.id,
+  rating: 4,
+  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course17.id,
+  rating: 5,
+  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course18.id,
+  rating: 5,
+  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
+)
+
+
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course19.id,
+  rating: 5,
+  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
+)
+Review.create!(
+  user_id: spongebob.id,
+  course_id: course20.id,
+  rating: 5,
+  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
 )
