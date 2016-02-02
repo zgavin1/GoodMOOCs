@@ -39,10 +39,13 @@ var UsersIndex = React.createClass({
     }.bind(this));
 
     return (
-      <div className="user-index-pane">
-        <div className="user-index-left">
-          <h2 className="user-index-title">Users</h2>
-          <ul className="user-list group">{ users }</ul>
+      <div className="users-pane group">
+        <h2 className="users-title">Users</h2>
+        <div className="users-pane-left">
+          <ul className="users-list group">{ users }</ul>
+        </div>
+        <div className="users-pane-right">
+          <div> More user features</div>
         </div>
       </div>
     );

@@ -32586,19 +32586,28 @@
 	
 	    return React.createElement(
 	      'div',
-	      { className: 'user-index-pane' },
+	      { className: 'users-pane group' },
+	      React.createElement(
+	        'h2',
+	        { className: 'users-title' },
+	        'Users'
+	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'user-index-left' },
-	        React.createElement(
-	          'h2',
-	          { className: 'user-index-title' },
-	          'Users'
-	        ),
+	        { className: 'users-pane-left' },
 	        React.createElement(
 	          'ul',
-	          { className: 'user-list group' },
+	          { className: 'users-list group' },
 	          users
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'users-pane-right' },
+	        React.createElement(
+	          'div',
+	          null,
+	          ' More user features'
 	        )
 	      )
 	    );
@@ -32628,8 +32637,7 @@
 	    var user = this.props.user;
 	    return React.createElement(
 	      'li',
-	      {
-	        className: this.props.className + " group" },
+	      { className: this.props.className + " group" },
 	      React.createElement('img', { className: 'user-img', src: user.avatar }),
 	      React.createElement(
 	        'h2',
@@ -32639,6 +32647,11 @@
 	          { className: 'user-name-container', href: "#/users/" + user.id },
 	          user.username
 	        )
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        ' More info about the user can go here. '
 	      )
 	    );
 	  }
