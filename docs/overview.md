@@ -1,4 +1,18 @@
+# To add to app.yml on each clone
+
+development:
+  s3_bucket: "goodmoocs-dev"
+
+production:
+  s3_bucket: "goodmoocs-prod"
+
+s3_access_key_id: "XXXX"
+s3_secret_access_key: "XXXX"
+
+
 # GoodMoocs
+
+
 
 [Heroku link][heroku] **NB:** This should be a link to your production site
 - Working link to be added during first day of capstones.

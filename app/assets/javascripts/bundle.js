@@ -54,19 +54,19 @@
 	
 	var CourseIndex = __webpack_require__(206);
 	var CourseShow = __webpack_require__(233);
-	var CourseSuggestions = __webpack_require__(257);
-	var CurrentUserStore = __webpack_require__(235);
-	var SessionsApiUtil = __webpack_require__(237);
+	var CourseSuggestions = __webpack_require__(235);
+	var CurrentUserStore = __webpack_require__(236);
+	var SessionsApiUtil = __webpack_require__(238);
 	
-	var ReviewForm = __webpack_require__(239);
-	var SessionForm = __webpack_require__(246);
-	var UserShow = __webpack_require__(247);
-	var NewUserForm = __webpack_require__(252);
-	var EditUserForm = __webpack_require__(256);
+	var ReviewForm = __webpack_require__(240);
+	var SessionForm = __webpack_require__(247);
+	var UserShow = __webpack_require__(248);
+	var NewUserForm = __webpack_require__(253);
+	var EditUserForm = __webpack_require__(254);
 	
-	var UserIndex = __webpack_require__(254);
+	var UserIndex = __webpack_require__(255);
 	
-	var Header = __webpack_require__(253);
+	var Header = __webpack_require__(257);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -31330,12 +31330,95 @@
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(5);
+	var ReactDOM = __webpack_require__(205);
+	
+	var CourseStore = __webpack_require__(207);
+	var ApiUtil = __webpack_require__(230);
+	var CourseIndexItem = __webpack_require__(232);
+	var History = __webpack_require__(1).History;
+	
+	var CourseSuggestions = React.createClass({
+	  displayName: 'CourseSuggestions',
+	
+	  mixins: [History],
+	
+	  getInitialState: function () {
+	    return {
+	      courses: CourseStore.all()
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.storeListener = CourseStore.addListener(this._onChange);
+	    ApiUtil.fetchCourses();
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ courses: CourseStore.all() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.storeListener.remove();
+	  },
+	
+	  handleCourseClick: function (course) {
+	    this.history.pushState(null, "courses/" + course.id);
+	  },
+	
+	  render: function () {
+	    if (!this.state.courses) {
+	      return React.createElement('div', null);
+	    }
+	    // var handleCourseClick = this.handleCourseClick;
+	    var courses = this.state.courses;
+	    var suggestions = courses.map(function (course) {
+	      // var boundClick = handleCourseClick.bind(null, course);
+	      if (course.average_rating >= 3) {
+	        return React.createElement(CourseIndexItem, {
+	          className: 'suggestion',
+	          key: course.id,
+	          course: course });
+	      }
+	    });
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'course-suggestions' },
+	      React.createElement(
+	        'div',
+	        { className: 'course-suggestions-left' },
+	        React.createElement(
+	          'h1',
+	          { className: 'suggestions-header' },
+	          React.createElement(
+	            'a',
+	            { href: '/' },
+	            'Right now, this simply displays highly rated courses'
+	          )
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'course-suggestions-index group' },
+	          suggestions
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = CourseSuggestions;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Store = __webpack_require__(208).Store;
 	var AppDispatcher = __webpack_require__(226);
 	
 	var _currentUser = {};
 	var CurrentUserStore = new Store(AppDispatcher);
-	var CurrentUserConstants = __webpack_require__(236);
+	var CurrentUserConstants = __webpack_require__(237);
 	
 	var _currentUserHasBeenFetched = false;
 	
@@ -31366,7 +31449,7 @@
 	module.exports = CurrentUserStore;
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports) {
 
 	var CurrentUserConstants = {
@@ -31377,10 +31460,10 @@
 	module.exports = CurrentUserConstants;
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var CurrentUserActions = __webpack_require__(238);
+	var CurrentUserActions = __webpack_require__(239);
 	
 	var SessionsApiUtil = {
 		login: function (credentials, successCallback) {
@@ -31429,11 +31512,11 @@
 	module.exports = SessionsApiUtil;
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(226);
-	var CurrentUserConstants = __webpack_require__(236);
+	var CurrentUserConstants = __webpack_require__(237);
 	
 	var CurrentUserActions = {
 		receiveCurrentUser: function (currentUser) {
@@ -31453,14 +31536,14 @@
 	module.exports = CurrentUserActions;
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
-	var LinkedStateMixin = __webpack_require__(240);
+	var LinkedStateMixin = __webpack_require__(241);
 	var ReactDOM = __webpack_require__(205);
 	
-	var ReviewStore = __webpack_require__(244);
+	var ReviewStore = __webpack_require__(245);
 	var ApiUtil = __webpack_require__(230);
 	
 	var ReviewForm = React.createClass({
@@ -31528,13 +31611,13 @@
 	module.exports = ReviewForm;
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(241);
+	module.exports = __webpack_require__(242);
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31551,8 +31634,8 @@
 	
 	'use strict';
 	
-	var ReactLink = __webpack_require__(242);
-	var ReactStateSetters = __webpack_require__(243);
+	var ReactLink = __webpack_require__(243);
+	var ReactStateSetters = __webpack_require__(244);
 	
 	/**
 	 * A simple mixin around ReactLink.forState().
@@ -31575,7 +31658,7 @@
 	module.exports = LinkedStateMixin;
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31649,7 +31732,7 @@
 	module.exports = ReactLink;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports) {
 
 	/**
@@ -31758,7 +31841,7 @@
 	module.exports = ReactStateSetters;
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(208).Store;
@@ -31766,7 +31849,7 @@
 	
 	var _reviews = {};
 	var ReviewStore = new Store(AppDispatcher);
-	var ReviewConstants = __webpack_require__(245);
+	var ReviewConstants = __webpack_require__(246);
 	
 	var resetReviews = function (reviewsArray) {
 	  _reviews = {};
@@ -31800,7 +31883,7 @@
 	module.exports = ReviewStore;
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports) {
 
 	var ReviewConstants = {
@@ -31811,12 +31894,12 @@
 	module.exports = ReviewConstants;
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
 	var History = __webpack_require__(1).History;
-	var SessionsApiUtil = __webpack_require__(237);
+	var SessionsApiUtil = __webpack_require__(238);
 	
 	var Session = React.createClass({
 	  displayName: 'Session',
@@ -31902,13 +31985,13 @@
 	module.exports = Session;
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
-	var UserStore = __webpack_require__(248);
-	var CurrentUserStore = __webpack_require__(235);
-	var UsersApiUtil = __webpack_require__(250);
+	var UserStore = __webpack_require__(249);
+	var CurrentUserStore = __webpack_require__(236);
+	var UsersApiUtil = __webpack_require__(251);
 	
 	var UserShow = React.createClass({
 	  displayName: 'UserShow',
@@ -32029,7 +32112,7 @@
 	module.exports = UserShow;
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(208).Store;
@@ -32037,7 +32120,7 @@
 	
 	var _users = {};
 	var UserStore = new Store(AppDispatcher);
-	var UserConstants = __webpack_require__(249);
+	var UserConstants = __webpack_require__(250);
 	
 	var resetUsers = function (usersArray) {
 		_users = {};
@@ -32083,7 +32166,7 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports) {
 
 	var UserConstants = {
@@ -32094,11 +32177,11 @@
 	module.exports = UserConstants;
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserActions = __webpack_require__(251);
-	var CurrentUserActions = __webpack_require__(238);
+	var UserActions = __webpack_require__(252);
+	var CurrentUserActions = __webpack_require__(239);
 	
 	var UsersApiUtil = {
 	  fetchUsers: function () {
@@ -32163,11 +32246,11 @@
 	module.exports = UsersApiUtil;
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(226);
-	var UserConstants = __webpack_require__(249);
+	var UserConstants = __webpack_require__(250);
 	
 	var UserActions = {
 	  receiveUsers: function (users) {
@@ -32188,13 +32271,13 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
-	var UsersApiUtil = __webpack_require__(250);
+	var UsersApiUtil = __webpack_require__(251);
 	var History = __webpack_require__(1).History;
-	var LinkedStateMixin = __webpack_require__(240);
+	var LinkedStateMixin = __webpack_require__(241);
 	
 	var NewUserForm = React.createClass({
 	  displayName: 'NewUserForm',
@@ -32295,15 +32378,220 @@
 	module.exports = NewUserForm;
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
-	var SessionsApiUtil = __webpack_require__(237);
-	var CurrentUserStore = __webpack_require__(235);
+	var UsersApiUtil = __webpack_require__(251);
 	var History = __webpack_require__(1).History;
-	var SessionForm = __webpack_require__(246);
-	var UserForm = __webpack_require__(252);
+	var LinkedStateMixin = __webpack_require__(241);
+	var UserStore = __webpack_require__(249);
+	
+	var EditUserForm = React.createClass({
+	  displayName: 'EditUserForm',
+	
+	  mixins: [History, LinkedStateMixin],
+	
+	  getInitialState: function () {
+	    return this.getStateFromStore();
+	  },
+	
+	  componentDidMount: function () {
+	    this.userListener = UserStore.addListener(this.onChange);
+	    UsersApiUtil.fetchUser(this.props.params.id);
+	  },
+	
+	  onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.userListener.remove();
+	  },
+	
+	  getStateFromStore: function () {
+	    var user = UserStore.findUserById(parseInt(this.props.params.id));
+	    return user || {};
+	  },
+	
+	  onSubmit: function (e) {
+	    e.preventDefault();
+	    // var fields = $(e.currentTarget).serializeArray();
+	    // var credentials = {user: {}};
+	    //
+	    // fields.forEach(function (field) {
+	    //   credentials.user[field.name] = field.value;
+	    // }.bind(this));
+	
+	    // Need to pass id;
+	
+	    var user_params = { user: this.state };
+	
+	    UsersApiUtil.updateUser(user_params, function () {
+	      this.history.pushState({}, "/");
+	    }.bind(this));
+	  },
+	
+	  render: function () {
+	    var user = this.state;
+	    if (!user) {
+	      return React.createElement('div', null);
+	    }
+	    // Need to include updating user avatar
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'edit-page' },
+	      React.createElement(
+	        'div',
+	        { className: 'edit-user-header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Account settings.'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'edit-user-form-pane' },
+	        React.createElement(
+	          'form',
+	          { className: 'edit-user-form', onSubmit: this.onSubmit },
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Name',
+	            React.createElement('input', { type: 'text', valueLink: this.linkState('username') })
+	          ),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Email Address',
+	            React.createElement('input', { type: 'text', valueLink: this.linkState('email') })
+	          ),
+	          React.createElement(
+	            'button',
+	            null,
+	            'Save Profile Settings'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = EditUserForm;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var ReactDOM = __webpack_require__(205);
+	
+	var UserStore = __webpack_require__(249);
+	var UserApiUtil = __webpack_require__(251);
+	var UserShow = __webpack_require__(248);
+	var UserIndexItem = __webpack_require__(256);
+	
+	var UsersIndex = React.createClass({
+	  displayName: 'UsersIndex',
+	
+	  getInitialState: function () {
+	    return {
+	      users: UserStore.all()
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.userStoreListener = UserStore.addListener(this._onChange);
+	    UserApiUtil.fetchUsers();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.userStoreListener.remove();
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ users: UserStore.all() });
+	  },
+	
+	  render: function () {
+	    var handleClick = this.handleClick;
+	
+	    var users = UserStore.all().map(function (user) {
+	      return React.createElement(UserIndexItem, {
+	        className: 'user-list-item',
+	        user: user,
+	        key: user.id });
+	    }.bind(this));
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'user-index-pane' },
+	      'Here are our users!',
+	      React.createElement(
+	        'ul',
+	        { className: 'user-list' },
+	        users
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = UsersIndex;
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var ReactRouter = __webpack_require__(1);
+	
+	var UserIndexItem = React.createClass({
+	  displayName: 'UserIndexItem',
+	
+	  // mixins: [ReactRouter.history],
+	  componentWillReceiveProps: function (newProps) {
+	    this.forceUpdate();
+	  },
+	
+	  //Render for front page, just image links
+	
+	  render: function () {
+	    var user = this.props.user;
+	    return React.createElement(
+	      'li',
+	      {
+	        className: 'user-index-item-link',
+	        onClick: this.props.clickFunction },
+	      React.createElement(
+	        'a',
+	        { href: "#/users/" + user.id },
+	        React.createElement(
+	          'h2',
+	          null,
+	          user.username
+	        )
+	      ),
+	      React.createElement('img', { src: user.avatar })
+	    );
+	  }
+	
+	});
+	
+	module.exports = UserIndexItem;
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var SessionsApiUtil = __webpack_require__(238);
+	var CurrentUserStore = __webpack_require__(236);
+	var History = __webpack_require__(1).History;
+	var SessionForm = __webpack_require__(247);
+	var UserForm = __webpack_require__(253);
 	
 	var Header = React.createClass({
 	  displayName: 'Header',
@@ -32578,294 +32866,6 @@
 	});
 	
 	module.exports = Header;
-
-/***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(5);
-	var ReactDOM = __webpack_require__(205);
-	
-	var UserStore = __webpack_require__(248);
-	var UserApiUtil = __webpack_require__(250);
-	var UserShow = __webpack_require__(247);
-	var UserIndexItem = __webpack_require__(255);
-	
-	var UsersIndex = React.createClass({
-	  displayName: 'UsersIndex',
-	
-	  getInitialState: function () {
-	    return {
-	      users: UserStore.all()
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.userStoreListener = UserStore.addListener(this._onChange);
-	    UserApiUtil.fetchUsers();
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.userStoreListener.remove();
-	  },
-	
-	  _onChange: function () {
-	    this.setState({ users: UserStore.all() });
-	  },
-	
-	  render: function () {
-	    var handleClick = this.handleClick;
-	
-	    var users = UserStore.all().map(function (user) {
-	      return React.createElement(UserIndexItem, {
-	        className: 'user-list-item',
-	        user: user,
-	        key: user.id });
-	    }.bind(this));
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'user-index-pane' },
-	      'Here are our users!',
-	      React.createElement(
-	        'ul',
-	        { className: 'user-list' },
-	        users
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = UsersIndex;
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(5);
-	var ReactRouter = __webpack_require__(1);
-	
-	var UserIndexItem = React.createClass({
-	  displayName: 'UserIndexItem',
-	
-	  // mixins: [ReactRouter.history],
-	  componentWillReceiveProps: function (newProps) {
-	    this.forceUpdate();
-	  },
-	
-	  //Render for front page, just image links
-	
-	  render: function () {
-	    var user = this.props.user;
-	    return React.createElement(
-	      'li',
-	      {
-	        className: 'user-index-item-link',
-	        onClick: this.props.clickFunction },
-	      React.createElement(
-	        'a',
-	        { href: "#/users/" + user.id },
-	        React.createElement(
-	          'h2',
-	          null,
-	          user.username
-	        )
-	      ),
-	      React.createElement('img', { src: user.avatar })
-	    );
-	  }
-	
-	});
-	
-	module.exports = UserIndexItem;
-
-/***/ },
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(5);
-	var UsersApiUtil = __webpack_require__(250);
-	var History = __webpack_require__(1).History;
-	var LinkedStateMixin = __webpack_require__(240);
-	var UserStore = __webpack_require__(248);
-	
-	var EditUserForm = React.createClass({
-	  displayName: 'EditUserForm',
-	
-	  mixins: [History, LinkedStateMixin],
-	
-	  getInitialState: function () {
-	    return this.getStateFromStore();
-	  },
-	
-	  componentDidMount: function () {
-	    this.userListener = UserStore.addListener(this.onChange);
-	    UsersApiUtil.fetchUser(this.props.params.id);
-	  },
-	
-	  onChange: function () {
-	    this.setState(this.getStateFromStore());
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.userListener.remove();
-	  },
-	
-	  getStateFromStore: function () {
-	    var user = UserStore.findUserById(parseInt(this.props.params.id));
-	    return user || {};
-	  },
-	
-	  onSubmit: function (e) {
-	    e.preventDefault();
-	    // var fields = $(e.currentTarget).serializeArray();
-	    // var credentials = {user: {}};
-	    //
-	    // fields.forEach(function (field) {
-	    //   credentials.user[field.name] = field.value;
-	    // }.bind(this));
-	
-	    // Need to pass id;
-	
-	    var user_params = { user: this.state };
-	
-	    UsersApiUtil.updateUser(user_params, function () {
-	      this.history.pushState({}, "/");
-	    }.bind(this));
-	  },
-	
-	  render: function () {
-	    var user = this.state;
-	    if (!user) {
-	      return React.createElement('div', null);
-	    }
-	    // Need to include updating user avatar
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'edit-page' },
-	      React.createElement(
-	        'div',
-	        { className: 'edit-user-header' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Account settings.'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'edit-user-form-pane' },
-	        React.createElement(
-	          'form',
-	          { className: 'edit-user-form', onSubmit: this.onSubmit },
-	          React.createElement(
-	            'label',
-	            null,
-	            ' Name',
-	            React.createElement('input', { type: 'text', valueLink: this.linkState('username') })
-	          ),
-	          React.createElement(
-	            'label',
-	            null,
-	            ' Email Address',
-	            React.createElement('input', { type: 'text', valueLink: this.linkState('email') })
-	          ),
-	          React.createElement(
-	            'button',
-	            null,
-	            'Save Profile Settings'
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = EditUserForm;
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(5);
-	var ReactDOM = __webpack_require__(205);
-	
-	var CourseStore = __webpack_require__(207);
-	var ApiUtil = __webpack_require__(230);
-	var CourseIndexItem = __webpack_require__(232);
-	var History = __webpack_require__(1).History;
-	
-	var CourseSuggestions = React.createClass({
-	  displayName: 'CourseSuggestions',
-	
-	  mixins: [History],
-	
-	  getInitialState: function () {
-	    return {
-	      courses: CourseStore.all()
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.storeListener = CourseStore.addListener(this._onChange);
-	    ApiUtil.fetchCourses();
-	  },
-	
-	  _onChange: function () {
-	    this.setState({ courses: CourseStore.all() });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.storeListener.remove();
-	  },
-	
-	  handleCourseClick: function (course) {
-	    this.history.pushState(null, "courses/" + course.id);
-	  },
-	
-	  render: function () {
-	    if (!this.state.courses) {
-	      return React.createElement('div', null);
-	    }
-	    // var handleCourseClick = this.handleCourseClick;
-	    var courses = this.state.courses;
-	    var suggestions = courses.map(function (course) {
-	      // var boundClick = handleCourseClick.bind(null, course);
-	      if (course.average_rating >= 3) {
-	        return React.createElement(CourseIndexItem, {
-	          className: 'suggestion',
-	          key: course.id,
-	          course: course });
-	      }
-	    });
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'course-suggestions' },
-	      React.createElement(
-	        'div',
-	        { className: 'course-suggestions-left' },
-	        React.createElement(
-	          'h1',
-	          { className: 'suggestions-header' },
-	          React.createElement(
-	            'a',
-	            { href: '/' },
-	            'Right now, this simply displays highly rated courses'
-	          )
-	        ),
-	        React.createElement(
-	          'ul',
-	          { className: 'course-suggestions-index group' },
-	          suggestions
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = CourseSuggestions;
 
 /***/ }
 /******/ ]);
