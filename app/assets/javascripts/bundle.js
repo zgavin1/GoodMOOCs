@@ -76,6 +76,16 @@
 	    SessionsApiUtil.fetchCurrentUser();
 	  },
 	
+	  // want to click anywhere on page to close dropdown menu
+	  // mainClick: function (e) {
+	  //   e.preventDefault();
+	  //   var undd = $('.user-nav-dropdown');
+	  //
+	  //   if (!undd.hasClass('hidden')) {
+	  //     undd.addClass('hidden');
+	  //   }
+	  // },
+	
 	  render: function () {
 	    var content;
 	    if (!CurrentUserStore.isLoggedIn()) {
@@ -86,7 +96,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'main', oncClick: this.mainClick },
 	      React.createElement(Header, null),
 	      content,
 	      this.props.children
@@ -32322,6 +32332,28 @@
 	    this.setState({ currentUser: {} });
 	  },
 	
+	  navDropDownToggle: function (e) {
+	    e.preventDefault();
+	    var ndd = $('.nav-dropdown');
+	
+	    if (ndd.hasClass('hidden')) {
+	      ndd.removeClass('hidden');
+	    } else {
+	      ndd.addClass('hidden');
+	    }
+	  },
+	
+	  userDropDownToggle: function (e) {
+	    e.preventDefault();
+	    var udd = $('.user-dropdown');
+	
+	    if (udd.hasClass('hidden')) {
+	      udd.removeClass('hidden');
+	    } else {
+	      udd.addClass('hidden');
+	    }
+	  },
+	
 	  render: function () {
 	
 	    if (CurrentUserStore.isLoggedIn()) {
@@ -32400,7 +32432,54 @@
 	              React.createElement(
 	                'li',
 	                null,
-	                React.createElement('a', { className: 'dropDownOpener', href: '#' })
+	                React.createElement(
+	                  'a',
+	                  { className: 'dropDownOpener', href: '#', onClick: this.navDropDownToggle },
+	                  React.createElement('i', { className: 'fa fa-caret-down' })
+	                )
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'nav-dropdown hidden' },
+	              React.createElement(
+	                'a',
+	                null,
+	                'Some'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Links'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Will'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Go'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Here'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Soon'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                React.createElement(
+	                  'button',
+	                  { onClick: this.logout },
+	                  'LOG OUT'
+	                )
 	              )
 	            ),
 	            React.createElement(
@@ -32430,12 +32509,54 @@
 	                  React.createElement('i', { className: 'fa fa-user' })
 	                )
 	              ),
-	              React.createElement('a', { className: 'dropDownOpener', href: '#' })
+	              React.createElement(
+	                'a',
+	                { className: 'dropDownOpener', href: '#', onClick: this.userDropDownToggle },
+	                React.createElement('i', { className: 'fa fa-caret-down' })
+	              )
 	            ),
 	            React.createElement(
-	              'button',
-	              { onClick: this.logout },
-	              'LOG OUT'
+	              'div',
+	              { className: 'user-dropdown hidden' },
+	              React.createElement(
+	                'a',
+	                null,
+	                'Some'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Links'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Will'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Go'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Here'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Soon'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                React.createElement(
+	                  'button',
+	                  { onClick: this.logout },
+	                  'LOG OUT'
+	                )
+	              )
 	            )
 	          )
 	        )

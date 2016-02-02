@@ -30,6 +30,29 @@ var Header = React.createClass({
     this.setState({currentUser: {}});
   },
 
+  navDropDownToggle: function (e) {
+    e.preventDefault();
+    var ndd = $('.nav-dropdown');
+
+    if (ndd.hasClass('hidden')) {
+      ndd.removeClass('hidden');
+    } else {
+      ndd.addClass('hidden');
+    }
+  },
+
+  userDropDownToggle: function (e) {
+    e.preventDefault();
+    var udd = $('.user-dropdown');
+
+    if (udd.hasClass('hidden')) {
+      udd.removeClass('hidden');
+    } else {
+      udd.addClass('hidden');
+    }
+
+  },
+
   render: function() {
 
 
@@ -43,33 +66,38 @@ var Header = React.createClass({
               </h1>
               <input className="site-search" type="text" placeholder="this will be a site search"/>
               <ul className="logged-in-site-nav">
-                <li>
-                  <a href="#/">Home</a>
-                </li>
-                <li>
-                  <a href="#/">My Courses</a>
-                </li>
-                <li>
-                  <a href="#/users">Friends</a>
-                </li>
-                <li>
-                  <a href="#/">Recommendations</a>
-                </li>
-                <li>
-                  <a href="#/">Explore</a>
-                </li>
-                <li>
-                  <a className="dropDownOpener" href="#"></a>
-                </li>
+                <li><a href="#/">Home</a></li>
+                <li><a href="#/">My Courses</a></li>
+                <li><a href="#/users">Friends</a></li>
+                <li><a href="#/">Recommendations</a></li>
+                <li><a href="#/">Explore</a></li>
+                <li><a className="dropDownOpener" href="#" onClick={this.navDropDownToggle}><i className="fa fa-caret-down"></i></a></li>
               </ul>
+              <div className="nav-dropdown hidden">
+                <a>Some</a>
+                <a>Links</a>
+                <a>Will</a>
+                <a>Go</a>
+                <a>Here</a>
+                <a>Soon</a>
+                <a><button onClick={ this.logout }>LOG OUT</button></a>
+              </div>
               <div className="user-nav group">
                 <span className="badge">g</span>
                 <span><i className="fa fa-envelope"></i></span>
                 <span><i className="fa fa-users"></i></span>
                 <span><a href={"#/users/" + this.state.currentUser.id}><i className="fa fa-user"></i></a></span>
-                <a className="dropDownOpener" href="#"></a>
+                <a className="dropDownOpener" href="#" onClick={this.userDropDownToggle}><i className="fa fa-caret-down"></i></a>
               </div>
-              <button onClick={ this.logout }>LOG OUT</button>
+              <div className="user-dropdown hidden">
+                <a>Some</a>
+                <a>Links</a>
+                <a>Will</a>
+                <a>Go</a>
+                <a>Here</a>
+                <a>Soon</a>
+                <a><button onClick={ this.logout }>LOG OUT</button></a>
+              </div>
             </div>
           </div>
         </header>

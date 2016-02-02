@@ -28,6 +28,17 @@ var App = React.createClass({
     SessionsApiUtil.fetchCurrentUser();
   },
 
+
+// want to click anywhere on page to close dropdown menu
+  // mainClick: function (e) {
+  //   e.preventDefault();
+  //   var undd = $('.user-nav-dropdown');
+  //
+  //   if (!undd.hasClass('hidden')) {
+  //     undd.addClass('hidden');
+  //   }
+  // },
+
   render: function () {
     var content;
     if ( !CurrentUserStore.isLoggedIn() ) {
@@ -37,7 +48,7 @@ var App = React.createClass({
     }
 
     return (
-      <div>
+      <div className="main" oncClick={this.mainClick}>
         <Header />
         { content }
         {this.props.children}

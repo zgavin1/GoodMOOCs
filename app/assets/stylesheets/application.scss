@@ -49,7 +49,7 @@ body {
 
 header {
   margin: auto;
-  background: image-url('banner.jpg')
+  background: image-url('banner.jpg');
 }
 
 input {
@@ -71,6 +71,10 @@ img {
   background-color: transparent;
 }
 
+.hidden {
+  display: none;
+}
+
 .site-header {
   width: 100%;
   margin-bottom: 15px;
@@ -84,6 +88,7 @@ img {
 .header-nav {
   width: 965px;
   margin: auto;
+  position: relative;
 }
 
 .header-nav-logo {
@@ -371,6 +376,8 @@ img {
   height: 15px;
   background-color: #DFD8C6;
   border-radius: 4px;
+  text-align: center;
+  color: #666666;
 }
 
 .badge {
@@ -574,6 +581,52 @@ img {
   margin: 0 0 5px 0;
   font-size: 16px;
 }
+
+.nav-dropdown {
+  position: absolute;
+  top: 80px;
+  left: 650px;
+  background-color: white;
+  width: 80px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 4px;
+}
+
+.nav-dropdown a {
+  display: block;
+  font-size: 13px;
+  font-family: Merriweather;
+  margin: 4px;
+}
+
+.nav-dropdown a:hover {
+  text-decoration: underline;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 80px;
+  left: 900px;
+  background-color: white;
+  width: 80px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 4px;
+}
+
+.user-dropdown a {
+  display: block;
+  font-size: 13px;
+  font-family: Merriweather;
+  margin: 4px;
+}
+
+.user-dropdown a:hover {
+  text-decoration: underline;
+}
+
+
 
 
 
