@@ -89,9 +89,8 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
-	      this.props.children,
-	      ';'
+	      { className: 'content' },
+	      this.props.children
 	    );
 	  }
 	});
@@ -31262,6 +31261,35 @@
 	            'p',
 	            null,
 	            'Rate this book'
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'rating' },
+	            React.createElement(
+	              'span',
+	              null,
+	              '☆'
+	            ),
+	            React.createElement(
+	              'span',
+	              null,
+	              '☆'
+	            ),
+	            React.createElement(
+	              'span',
+	              null,
+	              '☆'
+	            ),
+	            React.createElement(
+	              'span',
+	              null,
+	              '☆'
+	            ),
+	            React.createElement(
+	              'span',
+	              null,
+	              '☆'
+	            )
 	          )
 	        ),
 	        React.createElement(
@@ -31315,21 +31343,33 @@
 	                '☆'
 	              )
 	            ),
-	            React.createElement('dot', null),
+	            React.createElement(
+	              'dot',
+	              null,
+	              '·'
+	            ),
 	            React.createElement(
 	              'a',
 	              null,
 	              'avg rating: ',
 	              course.average_rating
 	            ),
-	            React.createElement('dot', null),
+	            React.createElement(
+	              'dot',
+	              null,
+	              '·'
+	            ),
 	            React.createElement(
 	              'a',
 	              null,
 	              course.reviews.length,
 	              ' Ratings'
 	            ),
-	            React.createElement('dot', null),
+	            React.createElement(
+	              'dot',
+	              null,
+	              '·'
+	            ),
 	            React.createElement(
 	              'a',
 	              null,
@@ -32049,7 +32089,8 @@
 	      return React.createElement('div', null);
 	    }
 	
-	    var user_ratings = user.reviews;
+	    var user_ratings = user.reviews || 0;
+	
 	    var average_rating;
 	    var user_reviews_count;
 	
@@ -32538,7 +32579,7 @@
 	
 	    var users = UserStore.all().map(function (user) {
 	      return React.createElement(UserIndexItem, {
-	        className: 'user-list-item',
+	        className: 'user-index-item',
 	        user: user,
 	        key: user.id });
 	    }.bind(this));
@@ -32546,11 +32587,19 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'user-index-pane' },
-	      'Here are our users!',
 	      React.createElement(
-	        'ul',
-	        { className: 'user-list' },
-	        users
+	        'div',
+	        { className: 'user-index-left' },
+	        React.createElement(
+	          'h2',
+	          { className: 'user-index-title' },
+	          'Users'
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'user-list group' },
+	          users
+	        )
 	      )
 	    );
 	  }
@@ -32580,18 +32629,17 @@
 	    return React.createElement(
 	      'li',
 	      {
-	        className: 'user-index-item-link',
-	        onClick: this.props.clickFunction },
+	        className: this.props.className + " group" },
+	      React.createElement('img', { className: 'user-img', src: user.avatar }),
 	      React.createElement(
-	        'a',
-	        { href: "#/users/" + user.id },
+	        'h2',
+	        { className: 'user-index-item-name' },
 	        React.createElement(
-	          'h2',
-	          null,
+	          'a',
+	          { className: 'user-name-container', href: "#/users/" + user.id },
 	          user.username
 	        )
-	      ),
-	      React.createElement('img', { src: user.avatar })
+	      )
 	    );
 	  }
 	

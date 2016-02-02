@@ -33,7 +33,8 @@ var UserShow = React.createClass({
       return <div></div>;
     }
 
-    var user_ratings = user.reviews;
+    var user_ratings = user.reviews || 0;
+
     var average_rating;
     var user_reviews_count;
 

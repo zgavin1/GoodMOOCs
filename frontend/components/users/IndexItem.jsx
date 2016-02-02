@@ -14,13 +14,14 @@ var UserIndexItem = React.createClass({
     var user = this.props.user;
     return (
       <li
-        className="user-index-item-link"
-        onClick={this.props.clickFunction} >
-        <a href={ "#/users/" + user.id }>
-          <h2>{user.username}</h2>
-        </a>
+        className={this.props.className + " group"} >
+        <img className="user-img" src={ user.avatar }/>
+        <h2 className="user-index-item-name">
+          <a className="user-name-container" href={ "#/users/" + user.id }>
+            {user.username}
+          </a>
+        </h2>
 
-        <img src={ user.avatar }/>
 
       </li>
     );

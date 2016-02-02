@@ -32,7 +32,7 @@ var UsersIndex = React.createClass({
     var users = UserStore.all().map(function (user) {
       return (
         <UserIndexItem
-          className="user-list-item"
+          className="user-index-item"
           user={ user }
           key={ user.id }/>
       );
@@ -40,8 +40,10 @@ var UsersIndex = React.createClass({
 
     return (
       <div className="user-index-pane">
-        Here are our users!
-        <ul className="user-list">{ users }</ul>
+        <div className="user-index-left">
+          <h2 className="user-index-title">Users</h2>
+          <ul className="user-list group">{ users }</ul>
+        </div>
       </div>
     );
   }

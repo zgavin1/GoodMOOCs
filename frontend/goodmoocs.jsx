@@ -40,8 +40,8 @@ var App = React.createClass({
 
   render: function () {
     return (
-      <div>
-        {this.props.children};
+      <div className="content">
+        {this.props.children}
       </div>
     );
   }

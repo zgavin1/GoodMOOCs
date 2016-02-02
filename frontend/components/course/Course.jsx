@@ -23,6 +23,9 @@ var Course = React.createClass({
             <img className="course-img" src={course.image_url}/>
             <a className="want-to-read">Want to Read</a>
             <p>Rate this book</p>
+            <div className="rating">
+              <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+            </div>
           </div>
           <div className="course-info-col">
             <h1 className="course-title">{ course.title }</h1>
@@ -36,11 +39,11 @@ var Course = React.createClass({
               <div className="rating">
                 <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
               </div>
-              <dot/>
+               <dot>·</dot>
               <a>avg rating: {course.average_rating}</a>
-              <dot/>
+               <dot>·</dot>
               <a>{course.reviews.length} Ratings</a>
-              <dot/>
+               <dot>·</dot>
               <a>{num_reviews} Reviews</a>
             </div>
             <p>{course.description}</p>
