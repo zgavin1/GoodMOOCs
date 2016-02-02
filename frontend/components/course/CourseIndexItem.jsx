@@ -17,11 +17,11 @@ var CourseIndexItem = React.createClass({
 // below is the return for suggestions
 
     return (
-      <li className={this.props.className + " suggestion"} onClick={this.props.onClick}>
-        <a href={"#/courses/" + course.id}><img className="course-img suggestion-img" src={ course.image_url }/></a>
+      <li className={this.props.className + " suggestion"} >
+        <a href={"#/courses/" + course.id} ><img className="course-img suggestion-img" src={ course.image_url }/></a>
         <div className="suggestion-info">
           <h2>
-            <a href={"#/courses/" + course.id}>{course.title}</a>
+            <a href={"#/courses/" + course.id} >{course.title}</a>
           </h2>
           <h3>
             <a>from {course.course_provider.name}</a>

@@ -34,7 +34,7 @@ var CourseSuggestions = React.createClass({
 
   render: function () {
     if (!this.state.courses) {
-      return (<div></div>);
+      return <div></div>;
     }
     // var handleCourseClick = this.handleCourseClick;
     var courses = this.state.courses;
@@ -51,7 +51,7 @@ var CourseSuggestions = React.createClass({
     });
 
     return (
-      <div className="course-suggestions">
+      <div className="course-suggestions group">
         <div className="course-suggestions-left">
           <h1 className="suggestions-header"><a href="/">Right now, this simply displays highly rated courses</a></h1>
           <ul className="course-suggestions-index group">

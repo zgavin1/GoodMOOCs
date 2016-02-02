@@ -67,6 +67,7 @@
 	var UserIndex = __webpack_require__(255);
 	
 	var Header = __webpack_require__(257);
+	var Home = __webpack_require__(259);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -75,7 +76,6 @@
 	    this.currentUserListener = CurrentUserStore.addListener(this.forceUpdate.bind(this));
 	    SessionsApiUtil.fetchCurrentUser();
 	  },
-	
 	  // want to click anywhere on page to close dropdown menu
 	  // mainClick: function (e) {
 	  //   e.preventDefault();
@@ -87,37 +87,44 @@
 	  // },
 	
 	  render: function () {
-	    var content;
-	    if (!CurrentUserStore.isLoggedIn()) {
-	      content = React.createElement(CourseIndex, null);
-	    } else {
-	      content = React.createElement('div', null);
-	    }
-	
 	    return React.createElement(
 	      'div',
-	      { className: 'main', oncClick: this.mainClick },
-	      React.createElement(Header, null),
-	      content,
-	      this.props.children
+	      null,
+	      this.props.children,
+	      ';'
 	    );
 	  }
 	});
 	
+	// Notes about routes
+	// I have a landing page that has a unique header,
+	// I want a simple one line header for every page but this one
+	//
+	// how can i render a unique header for just that one page
+	// all other pages have the same style header
+	
+	// Landing page should be the logged in home, but should have _ensureLoggedIn on Enter
+	// which would redirect to the not logged in page with the unqiue header and a course index.
+	// This means that the header portion cannot come from App,
+	// Everything BUT the header should be nested under
+	
 	var routes = React.createElement(
 	  Route,
 	  { path: '/', component: App },
-	  React.createElement(IndexRoute, { component: CourseSuggestions, onEnter: _ensureLoggedIn }),
 	  React.createElement(
 	    Route,
-	    { path: 'courses/:courseId', component: CourseShow },
-	    React.createElement(Route, { path: 'review/:reviewId', components: ReviewForm })
+	    { component: Home },
+	    React.createElement(IndexRoute, { component: CourseSuggestions, onEnter: _ensureLoggedIn }),
+	    React.createElement(
+	      Route,
+	      { path: 'courses/:courseId', component: CourseShow },
+	      React.createElement(Route, { path: 'review/:reviewId', components: ReviewForm })
+	    ),
+	    React.createElement(Route, { path: 'users', component: UserIndex }),
+	    React.createElement(Route, { path: 'users/:id', component: UserShow }),
+	    React.createElement(Route, { path: 'users/:id/edit', component: EditUserForm })
 	  ),
-	  React.createElement(Route, { path: 'login', component: SessionForm }),
-	  React.createElement(Route, { path: 'users/new', component: NewUserForm }),
-	  React.createElement(Route, { path: 'users/:id', component: UserShow }),
-	  React.createElement(Route, { path: 'users', component: UserIndex }),
-	  React.createElement(Route, { path: 'users/:id/edit', component: EditUserForm, onEnter: _ensureLoggedIn })
+	  React.createElement(Route, { path: 'login', component: CourseIndex })
 	);
 	
 	function _ensureLoggedIn(nextState, replace, callback) {
@@ -24088,6 +24095,9 @@
 	var ApiUtil = __webpack_require__(230);
 	var CourseIndexItem = __webpack_require__(232);
 	
+	var UserForm = __webpack_require__(253);
+	var SessionForm = __webpack_require__(247);
+	
 	var CourseIndex = React.createClass({
 	  displayName: 'CourseIndex',
 	
@@ -24128,65 +24138,79 @@
 	
 	    return React.createElement(
 	      'div',
-	      { className: 'landing-page-content group' },
+	      null,
 	      React.createElement(
-	        'div',
-	        { className: 'landing-page-intro group' },
+	        'header',
+	        null,
 	        React.createElement(
 	          'div',
-	          { className: 'landing-page-selling-point' },
-	          React.createElement(
-	            'h3',
-	            null,
-	            'Deciding what to study next?'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'You’re in the right place. Tell us what courses ',
-	            React.createElement('br', null),
-	            'or subjects you’ve enjoyed in the past, and we’ll give ',
-	            React.createElement('br', null),
-	            'you surprisingly insightful recommendations.'
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'landing-page-selling-point' },
-	          React.createElement(
-	            'h3',
-	            null,
-	            'What are your friends studying??'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'Chances are your friends are discussing their  ',
-	            React.createElement('br', null),
-	            'favorite (and least favorite) classes on GoodMOOCs.  ',
-	            React.createElement('br', null),
-	            'Want to learn more? Take the tour.'
-	          )
+	          { className: 'site-header' },
+	          React.createElement(SessionForm, null),
+	          React.createElement(UserForm, null)
 	        )
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'discover group' },
+	        { className: 'landing-page-content group' },
 	        React.createElement(
-	          'h3',
-	          null,
-	          ' What will ',
+	          'div',
+	          { className: 'landing-page-intro group' },
 	          React.createElement(
-	            'em',
-	            null,
-	            'you'
+	            'div',
+	            { className: 'landing-page-selling-point' },
+	            React.createElement(
+	              'h3',
+	              null,
+	              'Deciding what to study next?'
+	            ),
+	            React.createElement(
+	              'p',
+	              null,
+	              'You’re in the right place. Tell us what courses ',
+	              React.createElement('br', null),
+	              'or subjects you’ve enjoyed in the past, and we’ll give ',
+	              React.createElement('br', null),
+	              'you surprisingly insightful recommendations.'
+	            )
 	          ),
-	          ' discover?'
+	          React.createElement(
+	            'div',
+	            { className: 'landing-page-selling-point' },
+	            React.createElement(
+	              'h3',
+	              null,
+	              'What are your friends studying??'
+	            ),
+	            React.createElement(
+	              'p',
+	              null,
+	              'Chances are your friends are discussing their  ',
+	              React.createElement('br', null),
+	              'favorite (and least favorite) classes on GoodMOOCs.  ',
+	              React.createElement('br', null),
+	              'Want to learn more? Take the tour.'
+	            )
+	          )
 	        ),
 	        React.createElement(
-	          'ul',
-	          { className: 'landing-page-course-index' },
-	          courses
+	          'div',
+	          { className: 'discover group' },
+	          React.createElement(
+	            'h3',
+	            null,
+	            ' What will ',
+	            React.createElement(
+	              'em',
+	              null,
+	              'you'
+	            ),
+	            ' discover?'
+	          ),
+	          React.createElement(
+	            'ul',
+	            { className: 'landing-page-course-index' },
+	            courses
+	          )
 	        )
 	      )
 	    );
@@ -31097,7 +31121,7 @@
 	
 	    return React.createElement(
 	      'li',
-	      { className: this.props.className + " suggestion", onClick: this.props.onClick },
+	      { className: this.props.className + " suggestion" },
 	      React.createElement(
 	        'a',
 	        { href: "#/courses/" + course.id },
@@ -31384,7 +31408,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      { className: 'course-suggestions' },
+	      { className: 'course-suggestions group' },
 	      React.createElement(
 	        'div',
 	        { className: 'course-suggestions-left' },
@@ -32295,13 +32319,6 @@
 	  onSubmit: function (e) {
 	    e.preventDefault();
 	
-	    // var fields = $(e.currentTarget).serializeArray();
-	    // var credentials = {user: {}};
-	
-	    // fields.forEach(function (field) {
-	    //   credentials.user[field.name] = field.value;
-	    // }.bind(this));
-	
 	    UsersApiUtil.createUser(this.state, function () {
 	      this.history.pushState({}, "/");
 	    }.bind(this));
@@ -32643,7 +32660,6 @@
 	  },
 	
 	  render: function () {
-	
 	    if (CurrentUserStore.isLoggedIn()) {
 	      return React.createElement(
 	        'header',
@@ -32866,6 +32882,305 @@
 	});
 	
 	module.exports = Header;
+
+/***/ },
+/* 258 */,
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var ReactDOM = __webpack_require__(205);
+	var CurrentUserStore = __webpack_require__(236);
+	var SessionsApiUtil = __webpack_require__(238);
+	
+	var History = __webpack_require__(1).History;
+	
+	var Home = React.createClass({
+	  displayName: 'Home',
+	
+	  mixins: [History],
+	
+	  getInitialState: function () {
+	    return {
+	      currentUser: {}
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.currentUserListener = CurrentUserStore.addListener(this._onChange);
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ currentUser: CurrentUserStore.currentUser() });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.currentUserListener.remove();
+	  },
+	
+	  logout: function () {
+	    SessionsApiUtil.logout(function () {
+	      this.history.pushState({}, "/login");
+	    }.bind(this));
+	
+	    this.setState({ currentUser: {} });
+	  },
+	
+	  userDropDownToggle: function (e) {
+	    e.preventDefault();
+	    var udd = $('.user-dropdown');
+	
+	    if (udd.hasClass('hidden')) {
+	      udd.removeClass('hidden');
+	    } else {
+	      udd.addClass('hidden');
+	    }
+	  },
+	
+	  navDropDownToggle: function (e) {
+	    e.preventDefault();
+	    var ndd = $('.nav-dropdown');
+	
+	    if (ndd.hasClass('hidden')) {
+	      ndd.removeClass('hidden');
+	    } else {
+	      ndd.addClass('hidden');
+	    }
+	  },
+	
+	  render: function () {
+	    var user_nav;
+	    if (CurrentUserStore.isLoggedIn()) {
+	      user_nav = React.createElement(
+	        'div',
+	        { className: 'user-nav-container' },
+	        React.createElement(
+	          'div',
+	          { className: 'user-nav-buttons group' },
+	          React.createElement(
+	            'span',
+	            { className: 'badge' },
+	            'g'
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement('i', { className: 'fa fa-envelope' })
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement('i', { className: 'fa fa-users' })
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement(
+	              'a',
+	              { href: "#/users/" + this.state.currentUser.id },
+	              React.createElement('i', { className: 'fa fa-user' })
+	            )
+	          ),
+	          React.createElement(
+	            'a',
+	            { className: 'dropDownOpener', href: '#', onClick: this.userDropDownToggle },
+	            React.createElement('i', { className: 'fa fa-caret-down' })
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'user-dropdown hidden' },
+	          React.createElement(
+	            'a',
+	            null,
+	            'Some'
+	          ),
+	          React.createElement(
+	            'a',
+	            null,
+	            'Links'
+	          ),
+	          React.createElement(
+	            'a',
+	            null,
+	            'Will'
+	          ),
+	          React.createElement(
+	            'a',
+	            null,
+	            'Go'
+	          ),
+	          React.createElement(
+	            'a',
+	            null,
+	            'Here'
+	          ),
+	          React.createElement(
+	            'a',
+	            null,
+	            'Soon'
+	          ),
+	          React.createElement(
+	            'a',
+	            null,
+	            React.createElement(
+	              'button',
+	              { onClick: this.logout },
+	              'LOG OUT'
+	            )
+	          )
+	        )
+	      );
+	    } else {
+	      user_nav = React.createElement(
+	        'div',
+	        { className: 'user-nav-container' },
+	        React.createElement(
+	          'a',
+	          { href: '#/login' },
+	          ' Log In or Sign Up!'
+	        )
+	      );
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'header',
+	        { className: 'logged-in-header' },
+	        React.createElement(
+	          'div',
+	          { className: 'site-header' },
+	          React.createElement(
+	            'div',
+	            { className: 'header-nav logged-in-nav group' },
+	            React.createElement(
+	              'h1',
+	              { className: 'header-nav-logo-small' },
+	              React.createElement(
+	                'a',
+	                { href: '#/' },
+	                'good',
+	                React.createElement(
+	                  'strong',
+	                  null,
+	                  'moocs'
+	                )
+	              )
+	            ),
+	            React.createElement('input', { className: 'site-search', type: 'text', placeholder: 'this will be a site search' }),
+	            React.createElement(
+	              'ul',
+	              { className: 'logged-in-site-nav' },
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: '#' },
+	                  'Home'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: '#/' },
+	                  'My Courses'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: '#/users' },
+	                  'Friends'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: '#/' },
+	                  'Recommendations'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: '#/' },
+	                  'Explore'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { className: 'dropDownOpener', href: '#', onClick: this.navDropDownToggle },
+	                  React.createElement('i', { className: 'fa fa-caret-down' })
+	                )
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'nav-dropdown hidden' },
+	              React.createElement(
+	                'a',
+	                null,
+	                'Some'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Links'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Will'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Go'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Here'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                'Soon'
+	              ),
+	              React.createElement(
+	                'a',
+	                null,
+	                React.createElement(
+	                  'button',
+	                  { onClick: this.logout },
+	                  'LOG OUT'
+	                )
+	              )
+	            ),
+	            user_nav
+	          )
+	        )
+	      ),
+	      this.props.children
+	    );
+	  }
+	});
+	
+	module.exports = Home;
 
 /***/ }
 /******/ ]);

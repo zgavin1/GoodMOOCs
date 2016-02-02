@@ -17,13 +17,6 @@ var NewUserForm = React.createClass({
   onSubmit: function (e) {
     e.preventDefault();
 
-    // var fields = $(e.currentTarget).serializeArray();
-    // var credentials = {user: {}};
-
-    // fields.forEach(function (field) {
-    //   credentials.user[field.name] = field.value;
-    // }.bind(this));
-
     UsersApiUtil.createUser(this.state, function () {
       this.history.pushState({}, "/");
     }.bind(this));

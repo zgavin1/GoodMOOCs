@@ -21,14 +21,13 @@ var EditUserForm = require('./components/users/EditForm');
 var UserIndex = require('./components/users/Index');
 
 var Header = require('./components/Header');
+var Home = require('./components/Home');
 
 var App = React.createClass({
   componentDidMount: function () {
     this.currentUserListener = CurrentUserStore.addListener(this.forceUpdate.bind(this));
     SessionsApiUtil.fetchCurrentUser();
   },
-
-
 // want to click anywhere on page to close dropdown menu
   // mainClick: function (e) {
   //   e.preventDefault();
@@ -40,34 +39,44 @@ var App = React.createClass({
   // },
 
   render: function () {
-    var content;
-    if ( !CurrentUserStore.isLoggedIn() ) {
-      content = <CourseIndex />;
-    } else {
-      content = <div></div>;
-    }
-
     return (
-      <div className="main" oncClick={this.mainClick}>
-        <Header />
-        { content }
-        {this.props.children}
+      <div>
+        {this.props.children};
       </div>
     );
   }
 });
 
+
+  // Notes about routes
+  // I have a landing page that has a unique header,
+  // I want a simple one line header for every page but this one
+  //
+  // how can i render a unique header for just that one page
+  // all other pages have the same style header
+
+  // Landing page should be the logged in home, but should have _ensureLoggedIn on Enter
+  // which would redirect to the not logged in page with the unqiue header and a course index.
+  // This means that the header portion cannot come from App,
+  // Everything BUT the header should be nested under
+
+
+
+
 var routes = (
   <Route path="/" component={ App }>
-    <IndexRoute component={ CourseSuggestions } onEnter={_ensureLoggedIn} />
-    <Route path="courses/:courseId" component={ CourseShow }>
-      <Route path="review/:reviewId" components={ ReviewForm }/>
+
+    <Route component={ Home } >
+      <IndexRoute component={ CourseSuggestions } onEnter={ _ensureLoggedIn } />
+      <Route path="courses/:courseId" component={ CourseShow }>
+        <Route path="review/:reviewId" components={ ReviewForm }/>
+      </Route>
+      <Route path="users" component={ UserIndex } />
+      <Route path="users/:id" component={ UserShow } />
+      <Route path="users/:id/edit" component={ EditUserForm } />
     </Route>
-    <Route path="login" component={ SessionForm } />
-    <Route path="users/new" component={ NewUserForm } />
-    <Route path="users/:id" component={ UserShow } />
-    <Route path="users" component={ UserIndex } />
-    <Route path="users/:id/edit" component={ EditUserForm } onEnter={_ensureLoggedIn}/>
+
+    <Route path="login" component={ CourseIndex } />
   </Route>
 );
 
