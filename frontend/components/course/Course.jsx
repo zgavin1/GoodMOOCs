@@ -12,6 +12,10 @@ var CourseStore = require('./../../stores/course');
 var CourseIndexItem = require('./CourseIndexItem');
 
 var Course = React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
+
   mixins: [LinkedStateMixin],
 
   getInitialState: function () {
@@ -42,7 +46,7 @@ var Course = React.createClass({
       { review:
         {
           rating: this.state.rating,
-          user_id: this.state.current_user_id,
+          user_id: this.context.currentUser.id,
           course_id: this.props.course.id
         }
       }

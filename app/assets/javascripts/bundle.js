@@ -31922,6 +31922,10 @@
 	var Course = React.createClass({
 	  displayName: 'Course',
 	
+	  contextTypes: {
+	    currentUser: React.PropTypes.object
+	  },
+	
 	  mixins: [LinkedStateMixin],
 	
 	  getInitialState: function () {
@@ -31950,7 +31954,7 @@
 	
 	    var rev = { review: {
 	        rating: this.state.rating,
-	        user_id: this.state.current_user_id,
+	        user_id: this.context.currentUser.id,
 	        course_id: this.props.course.id
 	      }
 	    };
@@ -32534,7 +32538,7 @@
 	        user_reviews_count += 1;
 	      }
 	    }
-	    debugger;
+	
 	    var onCurrentUserProfile = this.context.currentUser === user.id;
 	    var edit_permission;
 	    var user_info_courses;
@@ -33601,7 +33605,7 @@
 	  componentDidMount: function () {
 	    // this.courseListener = CourseStore.addListener(this._coursesChanged);
 	    // ApiUtil.fetchCourses();
-	    this.reviewsListener = CourseStore.addListener(this._reviewsChanged);
+	    this.reviewsListener = ReviewStore.addListener(this._reviewsChanged);
 	    ReviewApiUtil.fetchReviews();
 	  },
 	
@@ -33626,17 +33630,96 @@
 	      return React.createElement('div', null);
 	    }
 	
-	    var current_user = CurrentUserStore.currentUser().id;
-	    debugger;
+	    var current_user = this.context.currentUser;
 	    var all_revs = this.state.reviews.filter(function (review) {
 	      return review.user_id === current_user.id;
 	    });
-	    debugger;
+	
+	    var rev_rows = all_revs.map(function () {
+	      var course = rev.course;
+	      return React.createElement('tr', null);
+	    }.bind(this));
 	
 	    return React.createElement(
 	      'div',
-	      null,
-	      'reviews index'
+	      { className: 'reviews-index' },
+	      React.createElement(
+	        'div',
+	        { className: 'reviews-index-header group' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          React.createElement(
+	            'a',
+	            { href: '#/reviews' },
+	            'My Courses'
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'reviews-index-header-nav' },
+	          React.createElement('input', { className: 'course-index-search', type: 'text', placeholder: 'Search and add books' }),
+	          React.createElement(
+	            'a',
+	            { href: '#/reviews' },
+	            ' Batch Edit '
+	          ),
+	          React.createElement(
+	            'a',
+	            { href: '#/reviews' },
+	            ' Settings '
+	          ),
+	          React.createElement(
+	            'a',
+	            { href: '#/reviews' },
+	            ' Stats '
+	          ),
+	          React.createElement(
+	            'a',
+	            { href: '#/reviews' },
+	            ' Print '
+	          ),
+	          React.createElement('i', { className: 'fa fa-th-large' }),
+	          React.createElement('i', { className: 'fa fa-th-list' })
+	        )
+	      ),
+	      React.createElement(
+	        'table',
+	        { className: 'reviews-table' },
+	        React.createElement(
+	          'thead',
+	          { className: 'reviews-table-head' },
+	          React.createElement(
+	            'tr',
+	            null,
+	            React.createElement(
+	              'th',
+	              null,
+	              'Image'
+	            ),
+	            React.createElement(
+	              'th',
+	              null,
+	              'title'
+	            ),
+	            React.createElement(
+	              'th',
+	              null,
+	              'provider'
+	            ),
+	            React.createElement(
+	              'th',
+	              null,
+	              'avg rating'
+	            ),
+	            React.createElement(
+	              'th',
+	              null,
+	              'rating'
+	            )
+	          )
+	        )
+	      )
 	    );
 	  }
 	});

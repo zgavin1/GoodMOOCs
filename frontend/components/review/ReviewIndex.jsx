@@ -16,7 +16,6 @@ var ReviewIndex = React.createClass({
     currentUser: React.PropTypes.object
   },
 
-
   getInitialState: function () {
     return {
       reviews: ReviewStore.all()
@@ -26,7 +25,7 @@ var ReviewIndex = React.createClass({
   componentDidMount: function () {
     // this.courseListener = CourseStore.addListener(this._coursesChanged);
     // ApiUtil.fetchCourses();
-    this.reviewsListener = CourseStore.addListener(this._reviewsChanged);
+    this.reviewsListener = ReviewStore.addListener(this._reviewsChanged);
     ReviewApiUtil.fetchReviews();
   },
 
@@ -52,14 +51,48 @@ var ReviewIndex = React.createClass({
       return <div></div>;
     }
 
-    var current_user = CurrentUserStore.currentUser().id;
-    debugger
+    var current_user = this.context.currentUser;
     var all_revs = this.state.reviews.filter(function (review) {
       return review.user_id === current_user.id;
     });
-    debugger
 
-    return (<div>reviews index</div>);
+    var rev_rows = all_revs.map(function () {
+      var course = rev.course;
+      return (
+        <tr>
+
+        </tr>
+      )
+    }.bind(this));
+
+    return (
+      <div className="reviews-index">
+        <div className="reviews-index-header group">
+          <h1><a href="#/reviews">My Courses</a></h1>
+          <div className="reviews-index-header-nav">
+            <input className="course-index-search" type="text" placeholder="Search and add books"/>
+            <a href="#/reviews" > Batch Edit </a>
+            <a href="#/reviews" > Settings </a>
+            <a href="#/reviews" > Stats </a>
+            <a href="#/reviews" > Print </a>
+
+            <i className="fa fa-th-large"></i>
+            <i className="fa fa-th-list"></i>
+          </div>
+        </div>
+        <table className="reviews-table">
+          <thead className="reviews-table-head">
+            <tr>
+              <th>Image</th>
+              <th>title</th>
+              <th>provider</th>
+              <th>avg rating</th>
+              <th>rating</th>
+            </tr>
+          </thead>
+
+        </table>
+      </div>);
   }
 });
 

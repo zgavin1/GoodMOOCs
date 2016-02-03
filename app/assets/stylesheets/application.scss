@@ -808,6 +808,63 @@ dot {
 
 
 
+////// reviews index
+
+
+.reviews-index {
+  width: 960px;
+  margin: auto;
+  font-family: Merriweather;
+}
+
+.reviews-index-header {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 15px;
+}
+.reviews-index-header > h1 {
+  font-size: 20px;
+  float: left;
+}
+.reviews-index-header > h1 > a {
+  color: #00635d;
+}
+
+.reviews-index-header > h1:hover {
+  text-decoration: underline;
+}
+
+.reviews-index-header-nav {
+  float: right;
+}
+
+.reviews-index-header-nav > * {
+  float: left;
+  margin: 0 8px;
+  font-size: 12px;
+}
+
+.reviews-index-header-nav > a, .reviews-index-header-nav > i {
+  padding-top: 8px;
+}
+
+.course-index-search {
+  width: 175px;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.reviews-table {
+  font-size: 10px;
+  height: 200px;
+}
+
+.reviews-table-head {
+  border-bottom: 2px solid #ccc;
+  height: 30px;
+  width: 960px;
+  vertical-align: bottom;
+  display: inline-block;
+}
 
 
 
