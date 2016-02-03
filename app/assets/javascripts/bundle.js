@@ -33635,9 +33635,39 @@
 	      return review.user_id === current_user.id;
 	    });
 	
-	    var rev_rows = all_revs.map(function () {
+	    var rev_rows = all_revs.map(function (rev) {
 	      var course = rev.course;
-	      return React.createElement('tr', null);
+	
+	      var avgRating = parseFloat(Math.ceil(course.avg_rating * 100) / 100);
+	      return React.createElement(
+	        'tr',
+	        { key: rev.id },
+	        React.createElement(
+	          'td',
+	          null,
+	          React.createElement('img', { className: 'reviews-table-image', src: course.img })
+	        ),
+	        React.createElement(
+	          'td',
+	          null,
+	          course.title
+	        ),
+	        React.createElement(
+	          'td',
+	          null,
+	          course.course_provider.name
+	        ),
+	        React.createElement(
+	          'td',
+	          null,
+	          avgRating
+	        ),
+	        React.createElement(
+	          'td',
+	          null,
+	          rev.rating
+	        )
+	      );
 	    }.bind(this));
 	
 	    return React.createElement(
@@ -33685,7 +33715,7 @@
 	      ),
 	      React.createElement(
 	        'table',
-	        { className: 'reviews-table' },
+	        { className: 'reviews-table group' },
 	        React.createElement(
 	          'thead',
 	          { className: 'reviews-table-head' },
@@ -33695,7 +33725,7 @@
 	            React.createElement(
 	              'th',
 	              null,
-	              'Image'
+	              'image'
 	            ),
 	            React.createElement(
 	              'th',
@@ -33718,6 +33748,11 @@
 	              'rating'
 	            )
 	          )
+	        ),
+	        React.createElement(
+	          'tbody',
+	          { className: 'reviews-table-body' },
+	          rev_rows
 	        )
 	      )
 	    );

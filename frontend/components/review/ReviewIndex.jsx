@@ -56,13 +56,19 @@ var ReviewIndex = React.createClass({
       return review.user_id === current_user.id;
     });
 
-    var rev_rows = all_revs.map(function () {
+    var rev_rows = all_revs.map(function (rev) {
       var course = rev.course;
-      return (
-        <tr>
 
+      var avgRating = parseFloat(Math.ceil(course.avg_rating * 100)/100);
+      return (
+        <tr key={rev.id}>
+          <td><img className="reviews-table-image" src={course.img} /></td>
+          <td>{course.title}</td>
+          <td>{course.course_provider.name}</td>
+          <td>{avgRating}</td>
+          <td>{rev.rating}</td>
         </tr>
-      )
+      );
     }.bind(this));
 
     return (
@@ -80,17 +86,19 @@ var ReviewIndex = React.createClass({
             <i className="fa fa-th-list"></i>
           </div>
         </div>
-        <table className="reviews-table">
+        <table className="reviews-table group">
           <thead className="reviews-table-head">
             <tr>
-              <th>Image</th>
+              <th>image</th>
               <th>title</th>
               <th>provider</th>
               <th>avg rating</th>
               <th>rating</th>
             </tr>
           </thead>
-
+          <tbody className="reviews-table-body">
+            { rev_rows }
+          </tbody>
         </table>
       </div>);
   }
