@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
 
   has_many :reviews
+  has_many :courses, through: :reviews, source: :course
 
   attr_reader :password
 
