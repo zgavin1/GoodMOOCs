@@ -493,7 +493,7 @@ img {
 
 .user-info-details {
   width: 460px;
-  border-bottom: 1px solid #ccc;
+  height: 150px;
   color: #382110;
   float: left;
 }
@@ -501,6 +501,22 @@ img {
 .user-info-details > h2 {
   margin-top: 0;
   margin-bottom: 5px;
+}
+
+.user-info-courses-headline {
+  border-bottom: 1px solid #ccc;
+  margin-top: 10px 0;
+  padding-bottom: 10px;
+  float: left;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 12px ;
+}
+
+.user-info-courses-img {
+  width: 50px;
+  float: left;
+  margin: 10px;
 }
 
 .user-review-stats > p {

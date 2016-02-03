@@ -12,6 +12,7 @@ var CourseSuggestions = require('./components/course/CourseSuggestions');
 var CurrentUserStore = require('./stores/currentUser');
 var SessionsApiUtil = require('./util/sessions_api_util');
 
+var Review = require('./components/review/Review');
 var ReviewForm = require('./components/review/ReviewForm');
 var SessionForm = require('./components/sessions/new');
 var UserShow = require('./components/users/Show');
@@ -59,7 +60,11 @@ var App = React.createClass({
   // which would redirect to the not logged in page with the unqiue header and a course index.
   // This means that the header portion cannot come from App,
   // Everything BUT the header should be nested under
+  // PROBLEM SOLVED WILL DELETE NOTE EVENTUALLY
 
+  //New thing to keep eye on - how to structure routes
+  // for reviews. Nested under user ? One each for new and edit?
+  // Index route?
 
 
 
@@ -68,11 +73,13 @@ var routes = (
 
     <Route component={ Home } >
       <IndexRoute component={ CourseSuggestions } onEnter={ _ensureLoggedIn } />
-      <Route path="courses/:courseId" component={ CourseShow }>
-        <Route path="review/:reviewId" components={ ReviewForm }/>
-      </Route>
+      <Route path="courses/:courseId" component={ CourseShow } />
+      <Route path="review/:reviewId" components={ Review } />
+
       <Route path="users" component={ UserIndex } />
-      <Route path="users/:id" component={ UserShow } />
+      <Route path="users/:id" component={ UserShow } >
+        <Route path="reviews/:id/form" component={ ReviewForm } />
+      </Route>
       <Route path="users/:id/edit" component={ EditUserForm } />
     </Route>
 

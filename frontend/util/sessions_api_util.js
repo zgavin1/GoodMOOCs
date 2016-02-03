@@ -2,7 +2,6 @@ var CurrentUserActions = require('./../actions/current_user_actions');
 
 var SessionsApiUtil = {
 	login: function (credentials, successCallback) {
-		debugger
 		$.ajax({
 				type: "POST",
 				url: "api/session",

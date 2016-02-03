@@ -58,6 +58,7 @@
 	var CurrentUserStore = __webpack_require__(250);
 	var SessionsApiUtil = __webpack_require__(246);
 	
+	var Review = __webpack_require__(261);
 	var ReviewForm = __webpack_require__(251);
 	var SessionForm = __webpack_require__(245);
 	var UserShow = __webpack_require__(254);
@@ -106,6 +107,11 @@
 	// which would redirect to the not logged in page with the unqiue header and a course index.
 	// This means that the header portion cannot come from App,
 	// Everything BUT the header should be nested under
+	// PROBLEM SOLVED WILL DELETE NOTE EVENTUALLY
+	
+	//New thing to keep eye on - how to structure routes
+	// for reviews. Nested under user ? One each for new and edit?
+	// Index route?
 	
 	var routes = React.createElement(
 	  Route,
@@ -114,13 +120,14 @@
 	    Route,
 	    { component: Home },
 	    React.createElement(IndexRoute, { component: CourseSuggestions, onEnter: _ensureLoggedIn }),
+	    React.createElement(Route, { path: 'courses/:courseId', component: CourseShow }),
+	    React.createElement(Route, { path: 'review/:reviewId', components: Review }),
+	    React.createElement(Route, { path: 'users', component: UserIndex }),
 	    React.createElement(
 	      Route,
-	      { path: 'courses/:courseId', component: CourseShow },
-	      React.createElement(Route, { path: 'review/:reviewId', components: ReviewForm })
+	      { path: 'users/:id', component: UserShow },
+	      React.createElement(Route, { path: 'reviews/:id/form', component: ReviewForm })
 	    ),
-	    React.createElement(Route, { path: 'users', component: UserIndex }),
-	    React.createElement(Route, { path: 'users/:id', component: UserShow }),
 	    React.createElement(Route, { path: 'users/:id/edit', component: EditUserForm })
 	  ),
 	  React.createElement(Route, { path: 'login', component: CourseIndex, onEnter: _ensureLoggedOut })
@@ -31883,7 +31890,6 @@
 	
 	var SessionsApiUtil = {
 		login: function (credentials, successCallback) {
-			debugger;
 			$.ajax({
 				type: "POST",
 				url: "api/session",
@@ -32449,29 +32455,58 @@
 	    if (!user) {
 	      return React.createElement('div', null);
 	    }
-	
 	    var user_ratings = user.reviews || [];
-	
 	    var ratings_total = 0;
 	    for (var i = 0; i < user_ratings.length; i++) {
 	      ratings_total += user_ratings[i].rating;
 	    }
 	    var average_rating = parseFloat(Math.ceil(ratings_total / user_ratings.length * 100) / 100);
-	
 	    var user_reviews_count = 0;
-	
 	    for (var j = 0; j < user_ratings.length; j++) {
 	      if (user_ratings[j].body.length > 1) {
 	        user_reviews_count += 1;
 	      }
 	    }
 	
+	    var onCurrentUserProfile = CurrentUserStore.currentUser().id === user.id;
+	
 	    var edit_permission;
-	    if (CurrentUserStore.currentUser().id === user.id) {
+	    var user_info_courses;
+	    if (onCurrentUserProfile) {
 	      edit_permission = React.createElement(
 	        'a',
 	        { href: "#/users/" + user.id + "/edit", className: 'user-show-hover edit-button' },
 	        '(edit profile)'
+	      );
+	
+	      user_info_courses = React.createElement(
+	        'div',
+	        { className: 'user-info-courses' },
+	        React.createElement(
+	          'a',
+	          { className: 'user-info-courses-headline', href: '#/reviews' },
+	          ' See My Reviews '
+	        )
+	      );
+	    } else {
+	      var demo_courses = user.courses.slice(0, 10).map(function (course) {
+	        return React.createElement(
+	          'a',
+	          { key: course.id, href: "#/courses/" + course.id },
+	          React.createElement('img', { className: 'user-info-courses-img', src: course.image })
+	        );
+	      }.bind(this));
+	
+	      user_info_courses = React.createElement(
+	        'div',
+	        { className: 'user-info-courses group' },
+	        React.createElement(
+	          'div',
+	          { className: 'user-info-courses-headline group' },
+	          user.username,
+	          '`s Courses'
+	        ),
+	        demo_courses
 	      );
 	    }
 	
@@ -32524,7 +32559,8 @@
 	              ' '
 	            )
 	          )
-	        )
+	        ),
+	        user_info_courses
 	      )
 	    );
 	  }
@@ -33393,6 +33429,44 @@
 	});
 	
 	module.exports = Home;
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var ReactDOM = __webpack_require__(207);
+	
+	var ReviewStore = __webpack_require__(252);
+	var ApiUtil = __webpack_require__(232);
+	
+	var Review = React.createClass({
+	  displayName: 'Review',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'review' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Jeff rated it ',
+	        React.createElement(
+	          'span',
+	          null,
+	          '**rating**'
+	        )
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'Thoughts here.'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Review;
 
 /***/ }
 /******/ ]);

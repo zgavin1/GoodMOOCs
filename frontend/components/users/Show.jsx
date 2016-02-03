@@ -32,26 +32,40 @@ var UserShow = React.createClass({
     if (!user) {
       return <div></div>;
     }
-
     var user_ratings = user.reviews || [];
-
     var ratings_total = 0;
     for (var i = 0; i < user_ratings.length; i++) {
       ratings_total += user_ratings[i].rating;
     }
     var average_rating = parseFloat(Math.ceil((ratings_total / user_ratings.length) * 100)/100);
-
 		var user_reviews_count = 0;
-
     for (var j = 0; j < user_ratings.length; j++) {
       if (user_ratings[j].body.length > 1) {
         user_reviews_count += 1;
       }
     }
 
+    var onCurrentUserProfile = (CurrentUserStore.currentUser().id === user.id)
+
     var edit_permission;
-    if (CurrentUserStore.currentUser().id === user.id) {
+    var user_info_courses;
+    if (onCurrentUserProfile) {
       edit_permission = <a href={ "#/users/" + user.id + "/edit" } className="user-show-hover edit-button">(edit profile)</a>;
+
+      user_info_courses = 
+        <div className="user-info-courses">
+          <a className="user-info-courses-headline" href="#/reviews"> See My Reviews </a>
+        </div>
+    } else {
+      var demo_courses = user.courses.slice(0, 10).map(function (course) {
+        return <a key={course.id} href={"#/courses/" + course.id}><img className="user-info-courses-img" src={ course.image } /></a>  
+      }.bind(this));
+
+      user_info_courses = 
+        <div className="user-info-courses group">
+          <div className="user-info-courses-headline group">{ user.username }`s Courses</div>
+          { demo_courses }
+        </div>
     }
 
     return (
@@ -69,6 +83,7 @@ var UserShow = React.createClass({
               <h2>{user.username} { edit_permission } </h2>
             </div>
           </div>
+          { user_info_courses }
         </div>
       </div>
     );
