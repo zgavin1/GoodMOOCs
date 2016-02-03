@@ -21,6 +21,10 @@ var UserShow = React.createClass({
 		this.userListener.remove();
 	},
 
+  componentWillReceiveProps: function (newProps) {
+    UsersApiUtil.fetchUser(parseInt(newProps.params.id));
+  },
+
 	getStateFromStore: function () {
 		return {
 			user: UserStore.findUserById(parseInt(this.props.params.id))
@@ -40,32 +44,31 @@ var UserShow = React.createClass({
     var average_rating = parseFloat(Math.ceil((ratings_total / user_ratings.length) * 100)/100);
 		var user_reviews_count = 0;
     for (var j = 0; j < user_ratings.length; j++) {
-      if (user_ratings[j].body.length > 1) {
+      if (user_ratings[j].body) {
         user_reviews_count += 1;
       }
     }
-
-    var onCurrentUserProfile = (CurrentUserStore.currentUser().id === user.id)
-
+    debugger
+    var onCurrentUserProfile = (CurrentUserStore.currentUser().id === user.id);
     var edit_permission;
     var user_info_courses;
     if (onCurrentUserProfile) {
       edit_permission = <a href={ "#/users/" + user.id + "/edit" } className="user-show-hover edit-button">(edit profile)</a>;
 
-      user_info_courses = 
+      user_info_courses =
         <div className="user-info-courses">
           <a className="user-info-courses-headline" href="#/reviews"> See My Reviews </a>
-        </div>
+        </div>;
     } else {
       var demo_courses = user.courses.slice(0, 10).map(function (course) {
-        return <a key={course.id} href={"#/courses/" + course.id}><img className="user-info-courses-img" src={ course.image } /></a>  
+        return <a key={course.id} href={"#/courses/" + course.course_id}><img className="user-info-courses-img" src={ course.course_img } /></a>;
       }.bind(this));
 
-      user_info_courses = 
+      user_info_courses =
         <div className="user-info-courses group">
           <div className="user-info-courses-headline group">{ user.username }`s Courses</div>
           { demo_courses }
-        </div>
+        </div>;
     }
 
     return (

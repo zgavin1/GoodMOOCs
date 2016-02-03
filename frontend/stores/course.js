@@ -21,10 +21,18 @@ var resetCourses = function (coursesArray) {
   });
 };
 
+var _addCourse = function (course) {
+  _courses[course.id] = course;
+};
+
 CourseStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case CourseConstants.COURSES_RECEIVED:
       resetCourses(payload.courses);
+      CourseStore.__emitChange();
+      break;
+    case CourseConstants.COURSE_RECEIVED:
+      _addCourse(payload.course);
       CourseStore.__emitChange();
       break;
   }

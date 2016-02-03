@@ -11,6 +11,7 @@ var CourseShow = require('./components/course/CourseShow');
 var CourseSuggestions = require('./components/course/CourseSuggestions');
 var CurrentUserStore = require('./stores/currentUser');
 var SessionsApiUtil = require('./util/sessions_api_util');
+var ReviewIndex = require('./components/review/ReviewIndex');
 
 var Review = require('./components/review/Review');
 var ReviewForm = require('./components/review/ReviewForm');
@@ -74,12 +75,11 @@ var routes = (
     <Route component={ Home } >
       <IndexRoute component={ CourseSuggestions } onEnter={ _ensureLoggedIn } />
       <Route path="courses/:courseId" component={ CourseShow } />
-      <Route path="review/:reviewId" components={ Review } />
+      <Route path="reviews" component={ ReviewIndex } />
+      <Route path="reviews/:reviewId" components={ Review } />
 
       <Route path="users" component={ UserIndex } />
-      <Route path="users/:id" component={ UserShow } >
-        <Route path="reviews/:id/form" component={ ReviewForm } />
-      </Route>
+      <Route path="users/:id" component={ UserShow } />
       <Route path="users/:id/edit" component={ EditUserForm } />
     </Route>
 

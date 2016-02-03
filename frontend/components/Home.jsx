@@ -98,7 +98,7 @@ var Home = React.createClass({
               <input className="site-search" type="text" placeholder="this will be a site search"/>
               <ul className="logged-in-site-nav">
                 <li><a href="#">Home</a></li>
-                <li><a href="#/">My Courses</a></li>
+                <li><a href="#/reviews">My Courses</a></li>
                 <li><a href="#/users">Friends</a></li>
                 <li><a href="#/">Recommendations</a></li>
                 <li><a href="#/">Explore</a></li>

@@ -4,12 +4,23 @@ class Api::ReviewsController < ApplicationController
   end
 
   def create
+    @review = Review.new(review_params)
+    if @review.save
+      render 'api/reviews/show'
+    else
+      render json: ["Could not save your review!"], status: 401
+    end
   end
 
   def new
   end
 
   def index
-    @courses = Course.all.includes(:course_provider)
+    @reviews = Review.all.includes(:course, :user)
+  end
+
+  private
+  def review_params
+    params.require(:review).permit(:user_id, :course_id, :rating, :body)
   end
 end

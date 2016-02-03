@@ -11,23 +11,12 @@ var ApiUtil = {
     });
   },
 
-  fetchReviews: function () {
+  fetchCourse: function (id) {
     $.ajax({
       type: "GET",
-      url: "api/reviews",
-      success: function () {
-        ApiActions.receiveReviews(courses);
-      }
-    });
-  },
-
-  postReview: function (review) {
-    $.ajax({
-      type: "POST",
-      url: "api/reviews",
-      data: review,
-      success: function (review) {
-        ApiActions.reviewPosted(review);
+      url: "api/courses/" + id,
+      success: function (course) {
+        ApiActions.receiveCourse(course);
       }
     });
   }

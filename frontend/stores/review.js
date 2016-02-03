@@ -12,13 +12,17 @@ var resetReviews = function (reviewsArray) {
   });
 };
 
+var _addReview = function (review) {
+  _reviews[review.id] = review;
+};
+
 ReviewStore.all = function () {
   var reviews = [];
   for (var id in _reviews) {
     reviews.push(_reviews[id]);
   }
 
-  return courses;
+  return reviews;
 };
 
 ReviewStore.__onDispatch = function (payload) {
@@ -28,7 +32,7 @@ ReviewStore.__onDispatch = function (payload) {
       ReviewStore.__emitChange();
       break;
     case ReviewConstants.REVIEW_POSTED:
-      resetReviews(payload.reviews);
+      _addReview(payload.review);
       ReviewStore.__emitChange();
       break;
   }

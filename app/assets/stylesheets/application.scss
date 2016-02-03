@@ -551,11 +551,13 @@ img {
 
 .course-show-left {
   width: 625px;
+  float: left;
 }
 
 .course-img-col {
   width: 140px;
-  float: left
+  float: left;
+  height: 240px;
 }
 
 .course-img {
@@ -563,12 +565,50 @@ img {
   margin-bottom: 8px;
   box-shadow: 1px 6px 8px #888888;
 }
+.want-to-read-menu {
+  width: 130px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.want-to-read {
+  border-radius: 4px;
+  display: block;
+  padding: 5px;
+  color: white;
+  font-size: 14px;
+  background-color: #409D69;
+}
+
+.want-to-read-menu:hover {
+  background-color: #3d9363;
+  cursor: pointer;
+}
+
+.rating-container {
+  text-align: center;
+}
+
+.rating-container > p {
+  font-size: 9px;
+  color: #ccc;
+  margin: 5px;
+}
+
+.rating-container > .rating > a {
+  margin-left: 27px;
+}
 
 .course-info-col {
   width: 465px;
   float: left;
   padding: 0 10px;
   font-size: 14px;
+}
+
+.course-info-col > p {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
 }
 
 .course-title {
@@ -589,24 +629,68 @@ img {
   font-size: 11px;
 }
 
+.course-info-enrollment {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.enrollment-link {
+  padding: 5px;
+  background-color: #f4f2e9;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+.enrollment-link:hover {
+  text-decoration: underline;
+}
+
+.course-show-right {
+  float: right;
+  width: 340px;
+}
+
+.course-show-right > h3 {
+  font-weight: normal;
+  display: block;
+  font-size: 14px;
+  width: 100%;
+
+}
+
+.course-show-relateds {
+  width: 320px;
+  margin-top: 10px;
+}
+
+
+.related-course {
+  float: left;
+  width: 80px;
+}
+
+.rltd-course-img {
+  width: 60px;
+}
+
 //  Star Ratings
 
-.rating {
+.rating, .rated {
   unicode-bidi: bidi-override;
   direction: rtl;
   text-align: left;
 }
-.rating > span {
+.rating > a > span, .rated > a > span {
   display: inline-block;
   position: relative;
   width: 1.1em;
 }
-.rating > span:hover,
-.rating > span:hover ~ span {
+
+.rating > a > span:hover,
+.rating > a > span:hover ~ span {
   color: transparent;
 }
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
+.rating > a > span:hover:before,
+.rating > a > span:hover ~ span:before {
    content: "\2605";
    position: absolute;
    left: 0;

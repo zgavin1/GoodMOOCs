@@ -1,9 +1,10 @@
 json.extract! @user, :id, :username, :email
 json.avatar asset_path(@user.avatar.url)
 json.reviews @user.reviews
-json.courses @user.courses do |course|
-	json.id course.id
-	json.title course.title
-	json.image asset_path(course.image.url)
+json.courses do
+  json.array! @user.courses do |course|
+    json.course_id course.id
+    json.course_img asset_path(course.image.url)
+    json.title course.title
+  end
 end
-
