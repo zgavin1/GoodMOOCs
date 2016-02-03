@@ -12,6 +12,11 @@ var CourseStore = require('./../../stores/course');
 
 var ReviewIndex = React.createClass({
 
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
+
+
   getInitialState: function () {
     return {
       reviews: ReviewStore.all()

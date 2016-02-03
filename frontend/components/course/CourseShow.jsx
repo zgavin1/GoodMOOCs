@@ -7,6 +7,10 @@ var ApiUtil = require('./../../util/api_util');
 var Course = require('./Course');
 
 var CourseShow = React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
+
   getInitialState: function () {
     var courseId = parseInt(this.props.params.courseId);
     var course = this._findCourseById(courseId) || {};

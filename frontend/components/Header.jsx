@@ -1,3 +1,8 @@
+
+//
+// NOT USING THIS COMPONENT
+//
+
 var React = require('react');
 var SessionsApiUtil = require('./../util/sessions_api_util');
 var CurrentUserStore = require('./../stores/currentUser');

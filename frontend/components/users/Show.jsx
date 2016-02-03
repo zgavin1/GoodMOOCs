@@ -4,7 +4,12 @@ var CurrentUserStore = require('./../../stores/currentUser');
 var UsersApiUtil = require('./../../util/user_api_util');
 
 var UserShow = React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
+
 	getInitialState: function () {
+
 		return this.getStateFromStore();
 	},
 
@@ -49,7 +54,7 @@ var UserShow = React.createClass({
       }
     }
     debugger
-    var onCurrentUserProfile = (CurrentUserStore.currentUser().id === user.id);
+    var onCurrentUserProfile = (this.context.currentUser === user.id);
     var edit_permission;
     var user_info_courses;
     if (onCurrentUserProfile) {

@@ -31832,6 +31832,10 @@
 	var CourseShow = React.createClass({
 	  displayName: 'CourseShow',
 	
+	  contextTypes: {
+	    currentUser: React.PropTypes.object
+	  },
+	
 	  getInitialState: function () {
 	    var courseId = parseInt(this.props.params.courseId);
 	    var course = this._findCourseById(courseId) || {};
@@ -32188,6 +32192,10 @@
 	var CourseSuggestions = React.createClass({
 	  displayName: 'CourseSuggestions',
 	
+	  contextTypes: {
+	    currentUser: React.PropTypes.object
+	  },
+	
 	  mixins: [History],
 	
 	  getInitialState: function () {
@@ -32477,7 +32485,12 @@
 	var UserShow = React.createClass({
 	  displayName: 'UserShow',
 	
+	  contextTypes: {
+	    currentUser: React.PropTypes.object
+	  },
+	
 	  getInitialState: function () {
+	
 	    return this.getStateFromStore();
 	  },
 	
@@ -32522,7 +32535,7 @@
 	      }
 	    }
 	    debugger;
-	    var onCurrentUserProfile = CurrentUserStore.currentUser().id === user.id;
+	    var onCurrentUserProfile = this.context.currentUser === user.id;
 	    var edit_permission;
 	    var user_info_courses;
 	    if (onCurrentUserProfile) {
@@ -32905,6 +32918,11 @@
 /* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
+	
+	//
+	// NOT USING THIS COMPONENT
+	//
+	
 	var React = __webpack_require__(5);
 	var SessionsApiUtil = __webpack_require__(244);
 	var CurrentUserStore = __webpack_require__(248);
@@ -33199,6 +33217,16 @@
 	var Home = React.createClass({
 	  displayName: 'Home',
 	
+	  childContextTypes: {
+	    currentUser: React.PropTypes.object
+	  },
+	
+	  getChildContext: function () {
+	    return { currentUser: this.state.currentUser };
+	  },
+	
+	  //testing code above
+	
 	  mixins: [History],
 	
 	  getInitialState: function () {
@@ -33343,7 +33371,6 @@
 	        )
 	      );
 	    }
-	
 	    return React.createElement(
 	      'div',
 	      null,
@@ -33560,6 +33587,10 @@
 	
 	var ReviewIndex = React.createClass({
 	  displayName: 'ReviewIndex',
+	
+	  contextTypes: {
+	    currentUser: React.PropTypes.object
+	  },
 	
 	  getInitialState: function () {
 	    return {

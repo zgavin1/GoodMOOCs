@@ -7,6 +7,16 @@ var History = require('react-router').History;
 
 
 var Home = React.createClass({
+  childContextTypes: {
+    currentUser: React.PropTypes.object
+  },
+
+  getChildContext: function() {
+    return {currentUser: this.state.currentUser};
+  },
+
+//testing code above
+
   mixins: [History],
 
   getInitialState: function () {
@@ -86,7 +96,6 @@ var Home = React.createClass({
         <a href="#/login"> Log In or Sign Up!</a>
       </div>;
     }
-
     return (
       <div>
         <header className="logged-in-header">

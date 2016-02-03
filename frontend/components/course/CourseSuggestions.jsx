@@ -7,6 +7,10 @@ var CourseIndexItem = require('./CourseIndexItem');
 var History = require('react-router').History;
 
 var CourseSuggestions = React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
+
   mixins: [History],
 
   getInitialState: function () {
