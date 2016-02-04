@@ -128,7 +128,7 @@ var Home = React.createClass({
                 <a href="#/">good<strong>moocs</strong></a>
               </h1>
               <div className="search-container group">
-                <input onKeyUp={this.search} className="site-search" type="text" placeholder="this will be a site search" valueLink={this.linkState('query')}/>
+                <input onKeyUp={this.search} className="site-search" type="text" placeholder="Search Users and Courses" valueLink={this.linkState('query')}/>
                 <a type="submit" className="search-redirect" onClick={this.searchAndRedirect}>
                   <i className="fa fa-search"></i>
                 </a>

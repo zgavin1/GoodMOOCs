@@ -33785,7 +33785,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'search-container group' },
-	              React.createElement('input', { onKeyUp: this.search, className: 'site-search', type: 'text', placeholder: 'this will be a site search', valueLink: this.linkState('query') }),
+	              React.createElement('input', { onKeyUp: this.search, className: 'site-search', type: 'text', placeholder: 'Search Users and Courses', valueLink: this.linkState('query') }),
 	              React.createElement(
 	                'a',
 	                { type: 'submit', className: 'search-redirect', onClick: this.searchAndRedirect },
