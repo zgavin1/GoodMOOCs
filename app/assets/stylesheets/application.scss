@@ -72,6 +72,12 @@ img {
   background-color: transparent;
 }
 
+.index-link {
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+
 .hidden {
   display: none;
 }
@@ -665,6 +671,7 @@ img {
 .related-course {
   float: left;
   width: 80px;
+  padding: 5px;
 }
 
 .rltd-course-img {

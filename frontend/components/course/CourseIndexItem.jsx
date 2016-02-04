@@ -14,7 +14,7 @@ var CourseIndexItem = React.createClass({
       );
     } else if (this.props.className === "suggestion") {
       return (
-        <li className={this.props.className} >
+        <li className={"index-link " + this.props.className} >
           <a href={"#/courses/" + course.id} ><img className="course-img suggestion-img" src={ course.image_url }/></a>
           <div className="suggestion-info">
             <h2>
@@ -29,7 +29,7 @@ var CourseIndexItem = React.createClass({
       );
     } else if (this.props.className === "related-course") {
       return (
-        <a href={"#/courses/" + course.id} className={this.props.className}>
+        <a href={"#/courses/" + course.id} className={"index-link " + this.props.className}>
           <img className="rltd-course-img" src={this.props.course.image_url} />
         </a>
       );

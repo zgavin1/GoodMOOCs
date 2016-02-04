@@ -61,8 +61,9 @@ course1 = Course.create!(
   cost: 0,
   course_url: "https://www.udacity.com/courses/st101",
   start_date: DateTime.now,
-  course_provider_id: udacity.id,
-  subject: "statistics"
+  course_provider_id: CourseProvider.first.id,
+  subject: "statistics",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/stats.jpg"
 )
 
 course2 = Course.create!(
@@ -71,10 +72,11 @@ course2 = Course.create!(
   cost: 250.00,
   course_url: "https://www.edx.org/course/how-write-novel-part-1-plan-outline-ubcx-cw1-1x",
   start_date: DateTime.new(2016, 1, 20),
-  course_provider_id: edx.id,
+  course_provider_id: CourseProvider.first.id,
   subject: "writing",
-  image: File.new("#{Rails.root}/app/assets/images/OnceUponATime.jpg")
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/OnceUponATime.jpg"
 )
+
 course3 = Course.create!(
   title: "R-Programming",
   description: "In this course you will learn how to program in R and how to use R for effective data analysis.",
@@ -83,6 +85,7 @@ course3 = Course.create!(
   start_date: DateTime.new(2016, 2, 1),
   course_provider_id: coursera.id,
   subject: "programming",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/rprogramming.jpg"
 )
 
 course4 = Course.create!(
@@ -92,7 +95,8 @@ course4 = Course.create!(
   course_url: "https://www.coursera.org/learn/terrorism/",
   start_date: DateTime.new(2016, 2, 8),
   course_provider_id: coursera.id,
-  subject: "political science"
+  subject: "political science",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/terrorism-2.jpg"
   )
 
 course5 = Course.create!(
@@ -102,7 +106,8 @@ course5 = Course.create!(
   course_url: "https://www.udemy.com/photography-masterclass-your-complete-guide-to-photography/",
   start_date: DateTime.now,
   course_provider_id: udemy.id,
-  subject: "photography"
+  subject: "photography",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/photography.jpg"
   )
 
 course6 = Course.create!(
@@ -112,17 +117,8 @@ course6 = Course.create!(
   course_url: "https://www.udemy.com/java-tutorial/",
   start_date: DateTime.now,
   course_provider_id: udemy.id,
-  subject: "programming"
-  )
-
-course7 = Course.create!(
-  title: "Java for Beginners",
-  description: "Learn to program in the Java programming language. This course assumes no prior programming knowledge, just a desire to learn to program.",
-  cost: 0.00,
-  course_url: "https://www.udemy.com/java-tutorial/",
-  start_date: DateTime.now,
-  course_provider_id: udemy.id,
-  subject: "programming"
+  subject: "programming",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/javacode.jpg"
   )
 
 course8 = Course.create!(
@@ -132,7 +128,8 @@ course8 = Course.create!(
   course_url: "https://www.udemy.com/how-to-set-up-and-run-a-us-company/",
   start_date: DateTime.now,
   course_provider_id: udemy.id,
-  subject: "business"
+  subject: "business",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/business-runner.jpg"
   )
 
 course9 = Course.create!(
@@ -142,7 +139,8 @@ course9 = Course.create!(
   course_url: "https://www.udacity.com/courses/ud719",
   start_date: DateTime.now,
   course_provider_id: udacity.id,
-  subject: "business"
+  subject: "business",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/app-marketing-101.png"
   )
 
 
@@ -153,7 +151,8 @@ course10 = Course.create!(
   course_url: "https://www.udacity.com/courses/ud197",
   start_date: DateTime.now,
   course_provider_id: udacity.id,
-  subject: "programming"
+  subject: "programming",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/relation-db.jpg"
   )
 
 
@@ -164,9 +163,9 @@ course11 = Course.create!(
   course_url: "https://www.udacity.com/course/javascript-promises--ud898",
   start_date: DateTime.now,
   course_provider_id: udacity.id,
-  subject: "programming"
-  )
-
+  subject: "programming",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/js-promise.png"
+)
 course12 = Course.create!(
   title: "Italian Language and Culture: Advanced",
   description: "Enhance your knowledge of the Italian language and learn about Italy’s culture and history including theater, opera and the poet Dante.",
@@ -174,7 +173,8 @@ course12 = Course.create!(
   course_url: "https://www.edx.org/course/italian-language-culture-advanced-wellesleyx-italian3x",
   start_date: DateTime.now,
   course_provider_id: edx.id,
-  subject: "language"
+  subject: "language",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/1_roman-colosseum.jpg"
 )
 
 course13 = Course.create!(
@@ -184,7 +184,8 @@ course13 = Course.create!(
   course_url: "https://www.edx.org/course/italian-language-culture-intermediate-wellesleyx-italian2x",
   start_date: DateTime.now,
   course_provider_id: edx.id,
-  subject: "language"
+  subject: "language",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/italy_sculpture.jpg"
 )
 
 course14 = Course.create!(
@@ -194,7 +195,8 @@ course14 = Course.create!(
   course_url: "https://www.edx.org/course/italian-language-culture-beginner-wellesleyx-italian1x",
   start_date: DateTime.now,
   course_provider_id: edx.id,
-  subject: "language"
+  subject: "language",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/venice-italy.jpg"
 )
 
 course15 = Course.create!(
@@ -204,7 +206,8 @@ course15 = Course.create!(
   course_url: "https://www.edx.org/course/basic-mandarin-chinese-level-1-mandarinx-mx101x",
   start_date: DateTime.now,
   course_provider_id: edx.id,
-  subject: "language"
+  subject: "language",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/mandarin1.jpg"
 )
 
 course16 = Course.create!(
@@ -214,7 +217,8 @@ course16 = Course.create!(
   course_url: "https://www.edx.org/course/basic-mandarin-chinese-level-2-mandarinx-mx102x",
   start_date: DateTime.now,
   course_provider_id: edx.id,
-  subject: "language"
+  subject: "language",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/mandarin_2003767c.jpg"
 )
 
 course17 = Course.create!(
@@ -224,7 +228,8 @@ course17 = Course.create!(
   course_url: "https://www.edx.org/course/preparing-ap-english-language-tennessee-board-regents-engcompx",
   start_date: DateTime.now,
   course_provider_id: edx.id,
-  subject: "test prep"
+  subject: "test prep",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/apenglish.jpg"
   )
 
 course18 = Course.create!(
@@ -234,7 +239,8 @@ course18 = Course.create!(
   course_url: "https://www.futurelearn.com/courses/dutch?utm_campaign=Courses+feed&utm_medium=courses-feed&utm_source=courses-feed",
   start_date: DateTime.now,
   course_provider_id: futurelearn.id,
-  subject: "language"
+  subject: "language",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/dutch.jpg"
   )
 
 course19 = Course.create!(
@@ -244,7 +250,8 @@ course19 = Course.create!(
   course_url: "https://www.coursetalk.com/providers/stanford-online/courses/computer-science-101-1",
   start_date: DateTime.now,
   course_provider_id: udacity.id,
-  subject: "programming"
+  subject: "programming",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/cs101.png"
 )
 
 course20 = Course.create!(
@@ -254,7 +261,8 @@ course20 = Course.create!(
   cost: 100.00,
   start_date: DateTime.now,
   course_provider_id: treehouse.id,
-  subject: "programming"
+  subject: "programming",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/OOP-in-JS.png"
 )
 
 # course21 = Course.create!(
@@ -264,7 +272,7 @@ Review.destroy_all
 
 Review.create!(
   user_id: llewyn.id,
-  course_id: course2.id,
+  course_id: course3.id,
   rating: 4,
   body: "They wouldn't let me just write lyrics! I'm a musician, that's my PROFESSION."
 )
@@ -314,12 +322,7 @@ Review.create!(
   rating: 5,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
-Review.create!(
-  user_id: pw.id,
-  course_id: course7.id,
-  rating: 1,
-  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
-)
+
 Review.create!(
   user_id: pw.id,
   course_id: course8.id,
@@ -417,15 +420,9 @@ Review.create!(
 )
 Review.create!(
   user_id: willhunting.id,
-  course_id: course2.id,
+  course_id: course3.id,
   rating: 3,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
-)
-Review.create!(
-  user_id: willhunting.id,
-  course_id: course3.id,
-  rating: 1,
-  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
 )
 
 
@@ -447,12 +444,7 @@ Review.create!(
   rating: 3,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
-Review.create!(
-  user_id: willhunting.id,
-  course_id: course7.id,
-  rating: 3,
-  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
-)
+
 Review.create!(
   user_id: willhunting.id,
   course_id: course8.id,
@@ -549,15 +541,9 @@ Review.create!(
 )
 Review.create!(
   user_id: stevejobs.id,
-  course_id: course2.id,
+  course_id: course3.id,
   rating: 3,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
-)
-Review.create!(
-  user_id: stevejobs.id,
-  course_id: course3.id,
-  rating: 1,
-  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
 )
 
 
@@ -579,12 +565,7 @@ Review.create!(
   rating: 4,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
-Review.create!(
-  user_id: stevejobs.id,
-  course_id: course7.id,
-  rating: 1,
-  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
-)
+
 Review.create!(
   user_id: stevejobs.id,
   course_id: course8.id,
@@ -675,15 +656,9 @@ Review.create!(
 )
 Review.create!(
   user_id: barrybonds.id,
-  course_id: course2.id,
+  course_id: course3.id,
   rating: 1,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
-)
-Review.create!(
-  user_id: barrybonds.id,
-  course_id: course3.id,
-  rating: 2,
-  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
 )
 
 
@@ -705,12 +680,7 @@ Review.create!(
   rating: 5,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
-Review.create!(
-  user_id: barrybonds.id,
-  course_id: course7.id,
-  rating: 2,
-  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
-)
+
 Review.create!(
   user_id: barrybonds.id,
   course_id: course8.id,
@@ -793,24 +763,12 @@ Review.create!(
 
 Review.create!(
   user_id: jonsnow.id,
-  course_id: course2.id,
+  course_id: course3.id,
   rating: 3,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
 )
-Review.create!(
-  user_id: jonsnow.id,
-  course_id: course3.id,
-  rating: 2,
-  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
-)
 
 
-Review.create!(
-  user_id: jonsnow.id,
-  course_id: course7.id,
-  rating: 5,
-  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
-)
 Review.create!(
   user_id: jonsnow.id,
   course_id: course8.id,
@@ -905,17 +863,10 @@ Review.create!(
 )
 Review.create!(
   user_id: spongebob.id,
-  course_id: course2.id,
+  course_id: course3 .id,
   rating: 5,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
 )
-Review.create!(
-  user_id: spongebob.id,
-  course_id: course3.id,
-  rating: 5,
-  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
-)
-
 
 Review.create!(
   user_id: spongebob.id,
@@ -935,12 +886,7 @@ Review.create!(
   rating: 5,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
-Review.create!(
-  user_id: spongebob.id,
-  course_id: course7.id,
-  rating: 2,
-  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
-)
+
 Review.create!(
   user_id: spongebob.id,
   course_id: course8.id,

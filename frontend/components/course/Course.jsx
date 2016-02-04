@@ -76,6 +76,8 @@ var Course = React.createClass({
     var cost = course.cost
     if (cost == 0) {
       cost = "Free";
+    } else {
+      cost = "$" + cost + "0"
     }
 
     return (

@@ -25,6 +25,7 @@ module CapstoneProposal
 
     config.paperclip_defaults = {
       :storage => :s3,
+      :s3_region => ENV["us-west-2"],
       :s3_credentials => {
         :bucket => ENV["s3_bucket"],
         :access_key_id => ENV["s3_access_key_id"],

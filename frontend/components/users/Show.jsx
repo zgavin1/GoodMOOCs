@@ -53,8 +53,8 @@ var UserShow = React.createClass({
         user_reviews_count += 1;
       }
     }
-    
-    var onCurrentUserProfile = (this.context.currentUser === user.id);
+
+    var onCurrentUserProfile = (this.context.currentUser.id === user.id);
     var edit_permission;
     var user_info_courses;
     if (onCurrentUserProfile) {
