@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+#for aws security
+gem "figaro"
 #aws gem for s3
 gem 'aws-sdk', '~> 1.6'
 #paperclip for hosting images
@@ -29,8 +31,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-#for aws security
-gem "figaro"
 
 # Use Unicorn as the app server
 # gem 'unicorn'

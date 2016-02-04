@@ -72,9 +72,9 @@ course2 = Course.create!(
   course_url: "https://www.edx.org/course/how-write-novel-part-1-plan-outline-ubcx-cw1-1x",
   start_date: DateTime.new(2016, 1, 20),
   course_provider_id: edx.id,
-  subject: "writing"
+  subject: "writing",
+  image: File.new("#{Rails.root}/app/assets/images/OnceUponATime.jpg")
 )
-
 course3 = Course.create!(
   title: "R-Programming",
   description: "In this course you will learn how to program in R and how to use R for effective data analysis.",
@@ -82,7 +82,7 @@ course3 = Course.create!(
   course_url: "https://www.coursera.org/learn/r-programming",
   start_date: DateTime.new(2016, 2, 1),
   course_provider_id: coursera.id,
-  subject: "programming"
+  subject: "programming",
 )
 
 course4 = Course.create!(
