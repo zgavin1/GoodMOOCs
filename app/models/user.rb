@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:email, :username]
+
   has_attached_file :avatar, default_url: "stats.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 

@@ -33134,6 +33134,10 @@
 	var UsersIndex = React.createClass({
 	  displayName: 'UsersIndex',
 	
+	  contextTypes: {
+	    currentUser: React.PropTypes.object
+	  },
+	
 	  getInitialState: function () {
 	    return {
 	      users: UserStore.all()
@@ -33157,10 +33161,12 @@
 	    var handleClick = this.handleClick;
 	
 	    var users = UserStore.all().map(function (user) {
-	      return React.createElement(UserIndexItem, {
-	        className: 'user-index-item',
-	        user: user,
-	        key: user.id });
+	      if (user.id !== this.context.currentUser.id) {
+	        return React.createElement(UserIndexItem, {
+	          className: 'user-index-item',
+	          user: user,
+	          key: user.id });
+	      }
 	    }.bind(this));
 	
 	    return React.createElement(

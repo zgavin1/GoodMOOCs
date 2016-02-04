@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     resources :reviews
     resource :session, only: [:create, :destroy, :show]
     resources :users, except: [:edit]
+    get "search", to: "utils#search"
   end
 end

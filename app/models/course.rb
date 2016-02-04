@@ -1,4 +1,7 @@
 class Course < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:title]
+
   has_attached_file :image, default_url: "stats.jpg"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 

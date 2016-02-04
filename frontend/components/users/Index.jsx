@@ -7,6 +7,10 @@ var UserShow = require('./Show');
 var UserIndexItem = require('./IndexItem');
 
 var UsersIndex = React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
+
   getInitialState: function () {
     return {
       users: UserStore.all()
@@ -30,12 +34,14 @@ var UsersIndex = React.createClass({
     var handleClick = this.handleClick;
 
     var users = UserStore.all().map(function (user) {
-      return (
-        <UserIndexItem
-          className="user-index-item"
-          user={ user }
-          key={ user.id }/>
-      );
+      if (user.id !== this.context.currentUser.id) {
+        return (
+          <UserIndexItem
+            className="user-index-item"
+            user={ user }
+            key={ user.id }/>
+        );
+      }
     }.bind(this));
 
     return (
