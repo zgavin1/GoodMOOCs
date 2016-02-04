@@ -1,19 +1,22 @@
 var React = require('react');
-var SearchResultsStore = require('../stores/search_results_store');
-var SearchApiUtil = require('../util/search_api_util');
+var SearchResultsStore = require('../stores/search_results');
+var SearchApiUtil = require('./../util/search_api_util');
 
-//
-// var UserIndexItem = require('./users/user_index_item');
-// var PostIndexItem = require('./posts/post_index_item');
+var UserIndexItem = require('./users/IndexItem');
+var CourseIndexItem = require('./course/CourseIndexItem');
+
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
+
 
 var Search = React.createClass({
+  mixins: [LinkedStateMixin],
 
   componentDidMount: function() {
     this.listener = SearchResultsStore.addListener(this._onChange);
   },
 
   getInitialState: function () {
-    return {page: 1, query: ""};
+    return { page: 1, query: this.props.location.state.query || "" };
   },
 
   _onChange: function() {
@@ -34,6 +37,13 @@ var Search = React.createClass({
     this.setState({page: nextPage});
   },
 
+  lastPage: function () {
+    var lastPage = this.state.page - 1;
+    SearchApiUtil.search(this.state.query, lastPage);
+
+    this.setState({page: lastPage});
+  },
+
   componentWillUnmount: function() {
     this.listener.remove();
   },
@@ -42,21 +52,28 @@ var Search = React.createClass({
 
     var searchResults = SearchResultsStore.all().map(function (searchResult) {
       if (searchResult._type === "User") {
-        return <UserIndexItem user={searchResult} />;
+        return <UserIndexItem key={searchResult.id} user={searchResult} className="search-result"/>;
       } else {
-        return <PostIndexItem post={searchResult} />;
+        return <CourseIndexItem key={searchResult.id} course={searchResult} className="search-result"/>;
       }
     });
 
     return (
-      <div>
-        <h1 className="title">Search!</h1>
-        <input type="text" placeholder="wut u want" onKeyUp={ this.search } />
-        Displaying {SearchResultsStore.all().length} of
-        {SearchResultsStore.meta().totalCount}
-        <button onClick={this.nextPage}>Next ></button>
-
-        <ul className="users-index">{ searchResults }</ul>
+      <div className="search-content group">
+        <h1 className="search-title">Search</h1>
+        <input
+          type="text"
+          className="search-page-input"
+          placeholder="Search by Course or User"
+          onKeyUp={ this.search }
+          valueLink={this.linkState('query')}/>
+        <p className="page-count">
+          Displaying {SearchResultsStore.all().length} of
+          {" "+ (SearchResultsStore.meta().totalCount || "0")}
+        </p>
+        <ul className="search-index group">{ searchResults }</ul>
+        <button className="search-page-decrement" onClick={this.lastPage}>{"< Back"}</button>
+        <button className="search-page-increment" onClick={this.nextPage}>{"Next >"}</button>
       </div>
     );
   },

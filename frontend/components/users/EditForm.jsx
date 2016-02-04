@@ -32,14 +32,6 @@ var EditUserForm = React.createClass({
 
   onSubmit: function (e) {
     e.preventDefault();
-    // var fields = $(e.currentTarget).serializeArray();
-    // var credentials = {user: {}};
-    //
-    // fields.forEach(function (field) {
-    //   credentials.user[field.name] = field.value;
-    // }.bind(this));
-
-    // Need to pass id;
 
     var user_params = { user: this.state };
 

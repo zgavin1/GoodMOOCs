@@ -1,10 +1,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var History = require('react-router').History;
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
+
 var CurrentUserStore = require('./../stores/currentUser');
 var SessionsApiUtil = require('./../util/sessions_api_util');
 
-var History = require('react-router').History;
-
+var SearchResultsStore = require('../stores/search_results');
+var SearchApiUtil = require('./../util/search_api_util');
 
 var Home = React.createClass({
   childContextTypes: {
@@ -17,11 +20,12 @@ var Home = React.createClass({
 
 //testing code above
 
-  mixins: [History],
+  mixins: [History, LinkedStateMixin],
 
   getInitialState: function () {
     return {
-      currentUser: {}
+      currentUser: {},
+      query: ""
     };
   },
 
@@ -68,11 +72,30 @@ var Home = React.createClass({
     }
   },
 
+  instantSearch: function (e) {
+    e.preventDefault();
+    if (e.target.value.length > 2) {
+
+      var query = e.target.value;
+      SearchApiUtil.instantSearch(query, 1);
+
+      this.setState({query: query});
+    }
+  },
+
+  searchAndRedirect: function (e) {
+    e.preventDefault();
+    var query = this.state.query;
+    SearchApiUtil.searchAndRedirect(query, 1, function () {
+      this.history.pushState({query: query}, "/search");
+    }.bind(this));
+  },
+
   render: function() {
     var user_nav;
     if (CurrentUserStore.isLoggedIn()) {
       user_nav =
-      <div className="user-nav-container">
+      <div className="user-nav-container group">
         <div className="user-nav-buttons group">
           <span className="badge">g</span>
           <span><i className="fa fa-envelope"></i></span>
@@ -92,7 +115,7 @@ var Home = React.createClass({
       </div>;
     } else {
       user_nav =
-      <div className="user-nav-container">
+      <div className="user-nav-container group">
         <a href="#/login"> Log In or Sign Up!</a>
       </div>;
     }
@@ -104,7 +127,12 @@ var Home = React.createClass({
               <h1 className="header-nav-logo-small">
                 <a href="#/">good<strong>moocs</strong></a>
               </h1>
-              <input className="site-search" type="text" placeholder="this will be a site search"/>
+              <div className="search-container group">
+                <input onKeyUp={this.search} className="site-search" type="text" placeholder="this will be a site search" valueLink={this.linkState('query')}/>
+                <a type="submit" className="search-redirect" onClick={this.searchAndRedirect}>
+                  <i className="fa fa-search"></i>
+                </a>
+              </div>
               <ul className="logged-in-site-nav">
                 <li><a href="#">Home</a></li>
                 <li><a href="#/reviews">My Courses</a></li>

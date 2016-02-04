@@ -53,7 +53,7 @@ header {
 }
 
 input {
-  border: 1px solid #ccc;
+  // border: 1px solid #ccc;
   background-color: white;
 }
 
@@ -310,12 +310,30 @@ img {
 
 .site-search {
   float: left;
-  margin: 17px 5px;
-  width: 155px;
+  width: 130px;
+  font-size: 10px;
   height: 13px;
-  font-size: 12px;
-  padding: 4px;
+  margin: 3px
+}
+
+.search-container {
   border-radius: 4px;
+  padding: 1px;
+  margin: 13px 5px;
+  background-color: white;
+  float: left;
+  border: 1px solid #ccc;
+}
+
+.search-redirect {
+  height: 16px;
+  width: 16px;
+  float: left;
+  color: #ccc;
+}
+
+.search-redirect:hover {
+  cursor: pointer;
 }
 
 .logged-in-nav {
@@ -334,11 +352,12 @@ img {
 }
 
 
+
 .logged-in-site-nav {
   float: left;
   padding-left: 0;
   margin-bottom: 10px;
-  margin-top: 13px;
+  margin-top: 10px;
 }
 
 .logged-in-site-nav > li {
@@ -359,9 +378,13 @@ img {
   padding-top: 8px;
 }
 
+.user-nav-container {
+  float: right;
+}
+
 .user-nav-buttons {
   float: right;
-  margin: 20px 0 12px 0;
+  margin: 14px 0 12px 0;
 }
 
 .user-nav-buttons span {
@@ -900,6 +923,78 @@ th a {
   padding: 10px;
 }
 
+// SEARCH INDEX
+
+.search-content {
+  width: 635px;
+  margin: 0 auto;
+  font-family: Merriweather;
+  display: block;
+  font-size: 14px;
+}
+
+.search-title {
+  width: 100%;
+  margin-bottom: 30px;
+  float: left;
+  font-size: 20px;
+  display: block;
+}
+
+.search-page-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 480px;
+  height: 25px;
+  float: left;
+  display: block;
+  margin-bottom: 10px;
+  margin-right: 100%;
+  font-size: 14px;
+  padding: 4px;
+}
+
+.search-index {
+  border-top: 2px solid #ccc;
+  padding-top: 15px;
+  width: 100%;
+}
+
+.search-result {
+  width: 100%;
+  display: inline-block;;
+  height: 100px;
+}
+
+.search-result-image-container {
+  width: 100px;
+  margin: 5px 10px 5px 5px;
+  float: left;
+}
+.search-result-image {
+  width: 100px;
+}
+
+.search-result-info {
+  float: left;
+  display: inline;
+}
+
+.search-result-title {
+  font-size: 16px;
+}
+
+.search-result-provider {
+  font-size: 13px;
+  float: left;
+}
+.search-result-title:hover, .search-result-provider:hover {
+  text-decoration: underline;
+}
+
+.search-page-increment {
+
+}
 
 
 

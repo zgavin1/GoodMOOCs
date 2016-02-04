@@ -15,12 +15,15 @@ var ReviewIndex = require('./components/review/ReviewIndex');
 
 var Review = require('./components/review/Review');
 var ReviewForm = require('./components/review/ReviewForm');
+
 var SessionForm = require('./components/sessions/new');
+
 var UserShow = require('./components/users/Show');
 var NewUserForm = require('./components/users/Form');
 var EditUserForm = require('./components/users/EditForm');
-
 var UserIndex = require('./components/users/Index');
+
+var Search = require('./components/Search');
 
 var Header = require('./components/Header');
 var Home = require('./components/Home');
@@ -76,8 +79,8 @@ var routes = (
       <IndexRoute component={ CourseSuggestions } onEnter={ _ensureLoggedIn } />
       <Route path="courses/:courseId" component={ CourseShow } />
       <Route path="reviews" component={ ReviewIndex } />
-      <Route path="reviews/:reviewId" components={ Review } />
-
+      <Route path="reviews/:reviewId" component={ Review } />
+      <Route path="search" component={ Search } />
       <Route path="users" component={ UserIndex } />
       <Route path="users/:id" component={ UserShow } />
       <Route path="users/:id/edit" component={ EditUserForm } />

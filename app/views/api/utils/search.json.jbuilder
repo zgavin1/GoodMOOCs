@@ -6,7 +6,7 @@ json.results do
     if result.class == User
       json.partial!("api/users/user", user: result)
     else
-      json.partial!("api/posts/post", post: result)
+      json.partial!("api/courses/course", course: result)
     end
 
     json._type result.class.to_s
