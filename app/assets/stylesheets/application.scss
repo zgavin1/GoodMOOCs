@@ -689,6 +689,7 @@ img {
 .rating > a > span:hover ~ span {
   color: transparent;
 }
+
 .rating > a > span:hover:before,
 .rating > a > span:hover ~ span:before {
    content: "\2605";
@@ -820,6 +821,7 @@ dot {
 .reviews-index-header {
   border-bottom: 1px solid #ccc;
   padding-bottom: 15px;
+  margin-bottom: 30px;
 }
 .reviews-index-header > h1 {
   font-size: 20px;
@@ -856,25 +858,40 @@ dot {
 .reviews-table {
   font-size: 10px;
   height: 200px;
+  width: 700px;
+  margin: auto;
+  border-collapse: collapse;
 }
 
 .reviews-table-head {
+  display: table-header-group;
   border-bottom: 2px solid #ccc;
   height: 30px;
   width: 960px;
-  vertical-align: bottom;
-  display: inline-block;
-  float: left;
 }
 
 .reviews-table-body {
-  float: left;
 }
 
 .reviews-table-image {
   width: 80px;
 }
 
+.title-column {
+  width: 50px;
+}
+
+td {
+  text-align: center;
+}
+
+tr {
+  border-bottom: 1px solid #ccc;
+}
+
+th a {
+  padding: 10px;
+}
 
 
 

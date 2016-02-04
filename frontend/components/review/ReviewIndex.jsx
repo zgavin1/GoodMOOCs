@@ -18,7 +18,8 @@ var ReviewIndex = React.createClass({
 
   getInitialState: function () {
     return {
-      reviews: ReviewStore.all()
+      reviews: ReviewStore.all(),
+      display: "tableview"
     };
   },
 
@@ -61,12 +62,19 @@ var ReviewIndex = React.createClass({
 
       var avgRating = parseFloat(Math.ceil(course.avg_rating * 100)/100);
       return (
-        <tr key={rev.id}>
-          <td><img className="reviews-table-image" src={course.img} /></td>
-          <td>{course.title}</td>
-          <td>{course.course_provider.name}</td>
+        <tr key={rev.id} className="review-index-item">
+          <td><a href={"#/courses/" + course.id}><img className="reviews-table-image" src={course.img} /></a></td>
+          <td className="title-column"><a href={"#/courses/" + course.id}>{course.title}</a></td>
+          <td><a href={course.course_provider.home_url}>{course.course_provider.name}</a></td>
           <td>{avgRating}</td>
-          <td>{rev.rating}</td>
+          <td>
+            <div className="rating">
+              <a href="#/reviews" onClick={this.submitRating}>
+                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+              </a>
+              {rev.rating}
+            </div>
+          </td>
         </tr>
       );
     }.bind(this));
@@ -82,18 +90,18 @@ var ReviewIndex = React.createClass({
             <a href="#/reviews" > Stats </a>
             <a href="#/reviews" > Print </a>
 
-            <i className="fa fa-th-large"></i>
-            <i className="fa fa-th-list"></i>
+            <a><i className="fa fa-th-large"></i></a>
+            <a><i className="fa fa-th-list"></i></a>
           </div>
         </div>
         <table className="reviews-table group">
           <thead className="reviews-table-head">
             <tr>
-              <th>image</th>
-              <th>title</th>
-              <th>provider</th>
-              <th>avg rating</th>
-              <th>rating</th>
+              <th><a>image</a></th>
+              <th><a>title</a></th>
+              <th><a>provider</a></th>
+              <th><a>avg rating</a></th>
+              <th><a>rating</a></th>
             </tr>
           </thead>
           <tbody className="reviews-table-body">

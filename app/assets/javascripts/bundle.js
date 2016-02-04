@@ -33598,7 +33598,8 @@
 	
 	  getInitialState: function () {
 	    return {
-	      reviews: ReviewStore.all()
+	      reviews: ReviewStore.all(),
+	      display: "tableview"
 	    };
 	  },
 	
@@ -33641,21 +33642,33 @@
 	      var avgRating = parseFloat(Math.ceil(course.avg_rating * 100) / 100);
 	      return React.createElement(
 	        'tr',
-	        { key: rev.id },
+	        { key: rev.id, className: 'review-index-item' },
 	        React.createElement(
 	          'td',
 	          null,
-	          React.createElement('img', { className: 'reviews-table-image', src: course.img })
+	          React.createElement(
+	            'a',
+	            { href: "#/courses/" + course.id },
+	            React.createElement('img', { className: 'reviews-table-image', src: course.img })
+	          )
+	        ),
+	        React.createElement(
+	          'td',
+	          { className: 'title-column' },
+	          React.createElement(
+	            'a',
+	            { href: "#/courses/" + course.id },
+	            course.title
+	          )
 	        ),
 	        React.createElement(
 	          'td',
 	          null,
-	          course.title
-	        ),
-	        React.createElement(
-	          'td',
-	          null,
-	          course.course_provider.name
+	          React.createElement(
+	            'a',
+	            { href: course.course_provider.home_url },
+	            course.course_provider.name
+	          )
 	        ),
 	        React.createElement(
 	          'td',
@@ -33665,7 +33678,40 @@
 	        React.createElement(
 	          'td',
 	          null,
-	          rev.rating
+	          React.createElement(
+	            'div',
+	            { className: 'rating' },
+	            React.createElement(
+	              'a',
+	              { href: '#/reviews', onClick: this.submitRating },
+	              React.createElement(
+	                'span',
+	                null,
+	                '☆'
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                '☆'
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                '☆'
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                '☆'
+	              ),
+	              React.createElement(
+	                'span',
+	                null,
+	                '☆'
+	              )
+	            ),
+	            rev.rating
+	          )
 	        )
 	      );
 	    }.bind(this));
@@ -33709,8 +33755,16 @@
 	            { href: '#/reviews' },
 	            ' Print '
 	          ),
-	          React.createElement('i', { className: 'fa fa-th-large' }),
-	          React.createElement('i', { className: 'fa fa-th-list' })
+	          React.createElement(
+	            'a',
+	            null,
+	            React.createElement('i', { className: 'fa fa-th-large' })
+	          ),
+	          React.createElement(
+	            'a',
+	            null,
+	            React.createElement('i', { className: 'fa fa-th-list' })
+	          )
 	        )
 	      ),
 	      React.createElement(
@@ -33725,27 +33779,47 @@
 	            React.createElement(
 	              'th',
 	              null,
-	              'image'
+	              React.createElement(
+	                'a',
+	                null,
+	                'image'
+	              )
 	            ),
 	            React.createElement(
 	              'th',
 	              null,
-	              'title'
+	              React.createElement(
+	                'a',
+	                null,
+	                'title'
+	              )
 	            ),
 	            React.createElement(
 	              'th',
 	              null,
-	              'provider'
+	              React.createElement(
+	                'a',
+	                null,
+	                'provider'
+	              )
 	            ),
 	            React.createElement(
 	              'th',
 	              null,
-	              'avg rating'
+	              React.createElement(
+	                'a',
+	                null,
+	                'avg rating'
+	              )
 	            ),
 	            React.createElement(
 	              'th',
 	              null,
-	              'rating'
+	              React.createElement(
+	                'a',
+	                null,
+	                'rating'
+	              )
 	            )
 	          )
 	        ),
