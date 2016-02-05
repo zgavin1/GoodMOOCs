@@ -66,7 +66,7 @@ var CourseIndex = React.createClass({
               </p>
             </div>
             <div className="landing-page-selling-point">
-              <h3>What are your friends studying??</h3>
+              <h3>What are your friends studying?</h3>
               <p>
                 Chances are your friends are discussing their  <br />
               favorite (and least favorite) classes on GoodMOOCs.  <br />

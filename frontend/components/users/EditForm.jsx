@@ -46,21 +46,33 @@ var EditUserForm = React.createClass({
       return <div></div>;
     }
 // Need to include updating user avatar
-
 		return (
-      <div className="edit-page">
-        <div className="edit-user-header">
-          <h1>Account settings.</h1>
+
+      <div className="edit-user-page">
+        <div className="edit-user-header group">
+          <h1>Account Settings</h1>
+          <h2><a href={"#/users/"+ user.id}>View Profile</a></h2>
         </div>
-        <div className="edit-user-form-pane">
+        <div className="edit-user-nav group">
+          <h3 className="edit-user-nav-option">Profile</h3>
+          <h3 className="edit-user-nav-option">Other</h3>
+          <h3 className="edit-user-nav-option">Option</h3>
+          <h3 className="edit-user-nav-option">Other</h3>
+          <h3 className="edit-user-nav-option">Option</h3>
+        </div>
+        <div className="edit-user-form-pane group">
           <form className="edit-user-form" onSubmit={this.onSubmit}>
-            <label> Name
-              <input type="text" valueLink={this.linkState('username')} />
-            </label>
-            <label> Email Address
-              <input type="text" valueLink={this.linkState('email')} />
-            </label>
-            <button>Save Profile Settings</button>
+            <div className="user-form-field">
+              <label> Name <br/>
+                <input className="user-form-input" type="text" valueLink={this.linkState('username')} />
+              </label>
+            </div>
+            <div className="user-form-field">
+              <label> Email Address <br/>
+                <input className="user-form-input" type="text" valueLink={this.linkState('email')} />
+              </label>
+            </div>
+            <button className="edit-user-form-submit" >Save Profile Settings</button>
           </form>
         </div>
       </div>

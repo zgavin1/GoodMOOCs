@@ -71,7 +71,7 @@ var UserShow = React.createClass({
 
       user_info_courses =
         <div className="user-info-courses group">
-          <div className="user-info-courses-headline group">{ user.username }`s Courses</div>
+          <div className="user-info-courses-headline group">{ user.username + "'s"} Courses</div>
           { demo_courses }
         </div>;
     }

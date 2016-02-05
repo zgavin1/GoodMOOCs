@@ -24206,7 +24206,7 @@
 	            React.createElement(
 	              'h3',
 	              null,
-	              'What are your friends studying??'
+	              'What are your friends studying?'
 	            ),
 	            React.createElement(
 	              'p',
@@ -32936,8 +32936,8 @@
 	        React.createElement(
 	          'div',
 	          { className: 'user-info-courses-headline group' },
-	          user.username,
-	          '`s Courses'
+	          user.username + "'s",
+	          ' Courses'
 	        ),
 	        demo_courses
 	      );
@@ -33109,40 +33109,87 @@
 	      return React.createElement('div', null);
 	    }
 	    // Need to include updating user avatar
-	
 	    return React.createElement(
 	      'div',
-	      { className: 'edit-page' },
+	      { className: 'edit-user-page' },
 	      React.createElement(
 	        'div',
-	        { className: 'edit-user-header' },
+	        { className: 'edit-user-header group' },
 	        React.createElement(
 	          'h1',
 	          null,
-	          'Account settings.'
+	          'Account Settings'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          React.createElement(
+	            'a',
+	            { href: "#/users/" + user.id },
+	            'View Profile'
+	          )
 	        )
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'edit-user-form-pane' },
+	        { className: 'edit-user-nav group' },
+	        React.createElement(
+	          'h3',
+	          { className: 'edit-user-nav-option' },
+	          'Profile'
+	        ),
+	        React.createElement(
+	          'h3',
+	          { className: 'edit-user-nav-option' },
+	          'Other'
+	        ),
+	        React.createElement(
+	          'h3',
+	          { className: 'edit-user-nav-option' },
+	          'Option'
+	        ),
+	        React.createElement(
+	          'h3',
+	          { className: 'edit-user-nav-option' },
+	          'Other'
+	        ),
+	        React.createElement(
+	          'h3',
+	          { className: 'edit-user-nav-option' },
+	          'Option'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'edit-user-form-pane group' },
 	        React.createElement(
 	          'form',
 	          { className: 'edit-user-form', onSubmit: this.onSubmit },
 	          React.createElement(
-	            'label',
-	            null,
-	            ' Name',
-	            React.createElement('input', { type: 'text', valueLink: this.linkState('username') })
+	            'div',
+	            { className: 'user-form-field' },
+	            React.createElement(
+	              'label',
+	              null,
+	              ' Name ',
+	              React.createElement('br', null),
+	              React.createElement('input', { className: 'user-form-input', type: 'text', valueLink: this.linkState('username') })
+	            )
 	          ),
 	          React.createElement(
-	            'label',
-	            null,
-	            ' Email Address',
-	            React.createElement('input', { type: 'text', valueLink: this.linkState('email') })
+	            'div',
+	            { className: 'user-form-field' },
+	            React.createElement(
+	              'label',
+	              null,
+	              ' Email Address ',
+	              React.createElement('br', null),
+	              React.createElement('input', { className: 'user-form-input', type: 'text', valueLink: this.linkState('email') })
+	            )
 	          ),
 	          React.createElement(
 	            'button',
-	            null,
+	            { className: 'edit-user-form-submit' },
 	            'Save Profile Settings'
 	          )
 	        )
