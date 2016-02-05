@@ -35,9 +35,34 @@ var EditUserForm = React.createClass({
 
     var user_params = { user: this.state };
 
-    UsersApiUtil.updateUser(user_params, function () {
+    var formData = new FormData();
+
+    formData.append("user[avatar]", this.state.avatarFile);
+    formData.append("user[username]", this.state.username);
+    formData.append("user[email]", this.state.email);
+    formData.append("user[id]", this.state.id);
+    // Object.keys(this.state).forEach(function (key) {
+    //   formData.append("user[" + key + "]", this.state[key]);
+    // }.bind(this));
+
+    UsersApiUtil.updateUser(formData, this.state.id, function () {
       this.history.pushState({}, "/");
     }.bind(this));
+  },
+
+  changeFile: function(e) {
+    var reader = new FileReader();
+    var file = e.currentTarget.files[0];
+
+    reader.onloadend = function () {
+      this.setState({avatarFile: file, avatarUrl: reader.result});
+    }.bind(this);
+
+    if (file) {
+      reader.readAsDataURL(file); // will trigger a load end event when it completes, and invoke reader.onloadend
+    } else {
+      this.setState({avatarFile: null, avatarUrl: ""});
+    }
   },
 
 	render: function () {
@@ -48,7 +73,7 @@ var EditUserForm = React.createClass({
 // Need to include updating user avatar
 		return (
 
-      <div className="edit-user-page">
+      <div className="edit-user-page group">
         <div className="edit-user-header group">
           <h1>Account Settings</h1>
           <h2><a href={"#/users/"+ user.id}>View Profile</a></h2>
@@ -61,7 +86,14 @@ var EditUserForm = React.createClass({
           <h3 className="edit-user-nav-option">Option</h3>
         </div>
         <div className="edit-user-form-pane group">
+
           <form className="edit-user-form" onSubmit={this.onSubmit}>
+            <div className="edit-user-avatar">
+              <label>
+                <input type="file" onChange={this.changeFile} />
+              </label>
+              <img className="preview-image" src={this.state.avatarUrl}/>
+            </div>
             <div className="user-form-field">
               <label> Name <br/>
                 <input className="user-form-input" type="text" valueLink={this.linkState('username')} />

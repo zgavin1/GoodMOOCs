@@ -44,13 +44,16 @@ var UsersApiUtil = {
     });
   },
 
-  updateUser: function (attrs, callback) {
+  updateUser: function (attrs, id, callback) {
     $.ajax({
-      url: '/api/users/' + attrs.user.id,
+      url: '/api/users/' + id,
       type: 'PUT',
       dataType: 'json',
       data: attrs,
+      processData: false,
+      contentType: false,
       success: function (user) {
+        debugger
         UserActions.receiveUser(user);
         callback && callback();
       },

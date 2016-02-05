@@ -627,7 +627,7 @@ img {
 
 
 .edit-user-form-pane {
-  float: left;
+  width: 965px;
 }
 
 .edit-user-form {
@@ -636,6 +636,15 @@ img {
 
 .edit-user-form > label {
 
+}
+
+.edit-user-avatar {
+  float: right;
+}
+
+img.preview-image {
+  width: 200px;
+  height: 200px;
 }
 
 .user-form-field {

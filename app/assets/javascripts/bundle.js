@@ -31395,13 +31395,16 @@
 	    });
 	  },
 	
-	  updateUser: function (attrs, callback) {
+	  updateUser: function (attrs, id, callback) {
 	    $.ajax({
-	      url: '/api/users/' + attrs.user.id,
+	      url: '/api/users/' + id,
 	      type: 'PUT',
 	      dataType: 'json',
 	      data: attrs,
+	      processData: false,
+	      contentType: false,
 	      success: function (user) {
+	        debugger;
 	        UserActions.receiveUser(user);
 	        callback && callback();
 	      },
@@ -33098,9 +33101,34 @@
 	
 	    var user_params = { user: this.state };
 	
-	    UsersApiUtil.updateUser(user_params, function () {
+	    var formData = new FormData();
+	
+	    formData.append("user[avatar]", this.state.avatarFile);
+	    formData.append("user[username]", this.state.username);
+	    formData.append("user[email]", this.state.email);
+	    formData.append("user[id]", this.state.id);
+	    // Object.keys(this.state).forEach(function (key) {
+	    //   formData.append("user[" + key + "]", this.state[key]);
+	    // }.bind(this));
+	
+	    UsersApiUtil.updateUser(formData, this.state.id, function () {
 	      this.history.pushState({}, "/");
 	    }.bind(this));
+	  },
+	
+	  changeFile: function (e) {
+	    var reader = new FileReader();
+	    var file = e.currentTarget.files[0];
+	
+	    reader.onloadend = function () {
+	      this.setState({ avatarFile: file, avatarUrl: reader.result });
+	    }.bind(this);
+	
+	    if (file) {
+	      reader.readAsDataURL(file); // will trigger a load end event when it completes, and invoke reader.onloadend
+	    } else {
+	        this.setState({ avatarFile: null, avatarUrl: "" });
+	      }
 	  },
 	
 	  render: function () {
@@ -33111,7 +33139,7 @@
 	    // Need to include updating user avatar
 	    return React.createElement(
 	      'div',
-	      { className: 'edit-user-page' },
+	      { className: 'edit-user-page group' },
 	      React.createElement(
 	        'div',
 	        { className: 'edit-user-header group' },
@@ -33165,6 +33193,16 @@
 	        React.createElement(
 	          'form',
 	          { className: 'edit-user-form', onSubmit: this.onSubmit },
+	          React.createElement(
+	            'div',
+	            { className: 'edit-user-avatar' },
+	            React.createElement(
+	              'label',
+	              null,
+	              React.createElement('input', { type: 'file', onChange: this.changeFile })
+	            ),
+	            React.createElement('img', { className: 'preview-image', src: this.state.avatarUrl })
+	          ),
 	          React.createElement(
 	            'div',
 	            { className: 'user-form-field' },
