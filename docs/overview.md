@@ -9,6 +9,8 @@ production:
 s3_access_key_id: "XXXX"
 s3_secret_access_key: "XXXX"
 
+#heroku command to run
+figaro heroku:set -e production
 
 # GoodMoocs
 

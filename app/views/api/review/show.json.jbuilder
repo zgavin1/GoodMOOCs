@@ -1,1 +1,1 @@
-json.partial! 'api/courses/course/review', @review: review
+json.partial! 'api/review/review', review: @review

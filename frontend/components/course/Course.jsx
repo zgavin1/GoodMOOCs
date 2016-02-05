@@ -10,13 +10,14 @@ var ReviewStore = require('./../../stores/review');
 var CourseStore = require('./../../stores/course');
 
 var CourseIndexItem = require('./CourseIndexItem');
+var History = require('react-router').History
 
 var Course = React.createClass({
   contextTypes: {
     currentUser: React.PropTypes.object
   },
 
-  mixins: [LinkedStateMixin],
+  mixins: [LinkedStateMixin, History],
 
   getInitialState: function () {
     return {
@@ -54,6 +55,14 @@ var Course = React.createClass({
     ReviewApiUtil.postReview(rev)
   },
 
+  _newReview: function (e) {
+    e.preventDefault();
+
+    var id = this.props.course.id
+
+    this.history.pushState({course_id: id}, "/reviews/new")
+  },
+
   render: function () {
     var course = this.props.course;
     if ($.isEmptyObject(course)) {
@@ -86,7 +95,7 @@ var Course = React.createClass({
           <div className="course-img-col group">
             <img className="course-img" src={course.image_url}/>
             <div className="want-to-read-menu">
-              <a className="want-to-read">Want to Take</a>
+              <a onClick={this._newReview} className="want-to-read">Review</a>
             </div>
             <div className="rating-container">
               <p>Rate this Course</p>

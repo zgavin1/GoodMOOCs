@@ -6,13 +6,14 @@ class Api::ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     if @review.save
-      render 'api/reviews/show'
+      render 'api/review/show'
     else
       render json: ["Could not save your review!"], status: 401
     end
   end
 
   def new
+    @review = Review.new
   end
 
   def index

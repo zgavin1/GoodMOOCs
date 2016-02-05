@@ -15,13 +15,15 @@ var ReviewApiUtil = {
     });
   },
 
-  postReview: function (review) {
+  postReview: function (reviewParams, callback) {
+
     $.ajax({
       type: "POST",
       url: "api/reviews",
-      data: review,
+      data: {review: reviewParams},
       success: function (review) {
         ReviewActions.postReview(review);
+        callback && callback();
       },
       error: function () {
         console.log("review post error");

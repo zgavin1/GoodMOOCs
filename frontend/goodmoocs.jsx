@@ -63,9 +63,12 @@ var routes = (
 
     <Route component={ Home } >
       <IndexRoute component={ CourseSuggestions } onEnter={ _ensureLoggedIn } />
-      <Route path="courses/:courseId" component={ CourseShow } />
+      <Route path="courses/:courseId" component={ CourseShow } >
+        <Route path="reviews/:reviewId" component={ Review } />
+      </Route>
       <Route path="reviews" component={ ReviewIndex } />
-      <Route path="reviews/:reviewId" component={ Review } />
+      <Route path="reviews/new" component={ ReviewForm } />
+      <Route path="reviews" component={ ReviewIndex } />
       <Route path="search" component={ Search } />
       <Route path="users" component={ UserIndex } />
       <Route path="users/:id" component={ UserShow } />

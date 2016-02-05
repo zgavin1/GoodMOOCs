@@ -111,9 +111,14 @@
 	    Route,
 	    { component: Home },
 	    React.createElement(IndexRoute, { component: CourseSuggestions, onEnter: _ensureLoggedIn }),
-	    React.createElement(Route, { path: 'courses/:courseId', component: CourseShow }),
+	    React.createElement(
+	      Route,
+	      { path: 'courses/:courseId', component: CourseShow },
+	      React.createElement(Route, { path: 'reviews/:reviewId', component: Review })
+	    ),
 	    React.createElement(Route, { path: 'reviews', component: ReviewIndex }),
-	    React.createElement(Route, { path: 'reviews/:reviewId', component: Review }),
+	    React.createElement(Route, { path: 'reviews/new', component: ReviewForm }),
+	    React.createElement(Route, { path: 'reviews', component: ReviewIndex }),
 	    React.createElement(Route, { path: 'search', component: Search }),
 	    React.createElement(Route, { path: 'users', component: UserIndex }),
 	    React.createElement(Route, { path: 'users/:id', component: UserShow }),
@@ -32006,6 +32011,7 @@
 	var CourseStore = __webpack_require__(207);
 	
 	var CourseIndexItem = __webpack_require__(232);
+	var History = __webpack_require__(1).History;
 	
 	var Course = React.createClass({
 	  displayName: 'Course',
@@ -32014,7 +32020,7 @@
 	    currentUser: React.PropTypes.object
 	  },
 	
-	  mixins: [LinkedStateMixin],
+	  mixins: [LinkedStateMixin, History],
 	
 	  getInitialState: function () {
 	    return {
@@ -32048,6 +32054,14 @@
 	    };
 	
 	    ReviewApiUtil.postReview(rev);
+	  },
+	
+	  _newReview: function (e) {
+	    e.preventDefault();
+	
+	    var id = this.props.course.id;
+	
+	    this.history.pushState({ course_id: id }, "/reviews/new");
 	  },
 	
 	  render: function () {
@@ -32091,8 +32105,8 @@
 	            { className: 'want-to-read-menu' },
 	            React.createElement(
 	              'a',
-	              { className: 'want-to-read' },
-	              'Want to Take'
+	              { onClick: this._newReview, className: 'want-to-read' },
+	              'Review'
 	            )
 	          ),
 	          React.createElement(
@@ -32292,13 +32306,15 @@
 	    });
 	  },
 	
-	  postReview: function (review) {
+	  postReview: function (reviewParams, callback) {
+	
 	    $.ajax({
 	      type: "POST",
 	      url: "api/reviews",
-	      data: review,
+	      data: { review: reviewParams },
 	      success: function (review) {
 	        ReviewActions.postReview(review);
+	        callback && callback();
 	      },
 	      error: function () {
 	        console.log("review post error");
@@ -32759,31 +32775,43 @@
 	var ReactDOM = __webpack_require__(205);
 	
 	var ReviewStore = __webpack_require__(246);
-	var ApiUtil = __webpack_require__(230);
+	var ReviewApiUtil = __webpack_require__(249);
+	var History = __webpack_require__(1).History;
 	
 	var ReviewForm = React.createClass({
 	  displayName: 'ReviewForm',
 	
-	  mixin: [LinkedStateMixin],
+	  contextTypes: {
+	    currentUser: React.PropTypes.object
+	  },
+	
+	  mixins: [LinkedStateMixin, History],
+	
 	  getInitialState: function () {
 	    return { rating: 5, reviewBody: "" };
 	  },
 	
 	  handleSubmit: function (e) {
 	    e.preventDefault();
+	    var course_id = this.props.location.state.course_id;
+	    var user_id = this.context.currentUser.id;
 	
-	    var review = $.extend({}, this.state, {
-	      user_id: this.props.params.userId,
-	      course_id: this.props.params.courseId
+	    this.setState({ user_id: this.context.currentUser.id, course_id: this.props.location.state.courseId });
+	    var params = {
+	      user_id: user_id,
+	      course_id: course_id,
+	      rating: this.state.rating,
+	      body: this.state.reviewBody
+	    };
+	    ReviewApiUtil.postReview(params, function () {
+	      this.history.pushState({}, "/courses/" + course_id);
 	    });
-	
-	    ApiUtil.postReview(review);
 	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'review-form-content' },
 	      React.createElement(
 	        'h3',
 	        null,

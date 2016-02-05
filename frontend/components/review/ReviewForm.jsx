@@ -3,10 +3,16 @@ var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var ReactDOM = require('react-dom');
 
 var ReviewStore = require('./../../stores/review');
-var ApiUtil = require('./../../util/api_util');
+var ReviewApiUtil = require('./../../util/review_api_util');
+var History = require('react-router').History;
 
 var ReviewForm = React.createClass({
-  mixin: [LinkedStateMixin],
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
+
+  mixins: [LinkedStateMixin, History],
+
   getInitialState: function () {
     return ({ rating: 5, reviewBody: "" });
   },
@@ -14,22 +20,24 @@ var ReviewForm = React.createClass({
 
   handleSubmit: function (e) {
     e.preventDefault();
+    var course_id = this.props.location.state.course_id;
+    var user_id = this.context.currentUser.id;
 
-    var review = $.extend(
-      {},
-      this.state,
-      {
-        user_id: this.props.params.userId,
-        course_id: this.props.params.courseId
-      }
-    );
-
-    ApiUtil.postReview(review);
+    this.setState({user_id: this.context.currentUser.id, course_id: this.props.location.state.courseId});
+    var params = {
+      user_id: user_id,
+      course_id: course_id,
+      rating: this.state.rating,
+      body: this.state.reviewBody
+    };
+    ReviewApiUtil.postReview(params, function () {
+      this.history.pushState({}, "/courses/"+course_id);
+    });
   },
 
   render: function () {
     return (
-      <div>
+      <div className="review-form-content">
         <h3> Post your review </h3>
         <form onSubmit={this.handleSubmit}>
           <label> My rating:
