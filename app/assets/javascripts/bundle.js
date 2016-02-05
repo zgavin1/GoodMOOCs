@@ -33196,12 +33196,13 @@
 	          React.createElement(
 	            'div',
 	            { className: 'edit-user-avatar' },
+	            React.createElement('img', { className: 'preview-image', src: this.state.avatar }),
+	            React.createElement('br', null),
 	            React.createElement(
 	              'label',
 	              null,
-	              React.createElement('input', { type: 'file', onChange: this.changeFile })
-	            ),
-	            React.createElement('img', { className: 'preview-image', src: this.state.avatarUrl })
+	              React.createElement('input', { className: 'file-input', type: 'file', onChange: this.changeFile })
+	            )
 	          ),
 	          React.createElement(
 	            'div',

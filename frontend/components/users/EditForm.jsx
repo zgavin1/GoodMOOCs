@@ -89,10 +89,11 @@ var EditUserForm = React.createClass({
 
           <form className="edit-user-form" onSubmit={this.onSubmit}>
             <div className="edit-user-avatar">
+              <img className="preview-image" src={this.state.avatar}/>
+              <br></br>
               <label>
-                <input type="file" onChange={this.changeFile} />
+                <input className="file-input"type="file" onChange={this.changeFile} />
               </label>
-              <img className="preview-image" src={this.state.avatarUrl}/>
             </div>
             <div className="user-form-field">
               <label> Name <br/>
