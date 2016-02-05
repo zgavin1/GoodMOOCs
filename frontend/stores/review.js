@@ -10,6 +10,7 @@ var resetReviews = function (reviewsArray) {
   reviewsArray.forEach(function (review) {
     _reviews[review.id] = review;
   });
+  return _reviews;
 };
 
 var _addReview = function (review) {
@@ -18,9 +19,9 @@ var _addReview = function (review) {
 
 ReviewStore.all = function () {
   var reviews = [];
-  for (var id in _reviews) {
-    reviews.push(_reviews[id]);
-  }
+  Object.keys(_reviews).forEach(function (reviewId) {
+		reviews.push(_reviews[reviewId]);
+	}.bind(this));
 
   return reviews;
 };

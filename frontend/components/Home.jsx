@@ -31,6 +31,7 @@ var Home = React.createClass({
 
   componentDidMount: function () {
     this.currentUserListener = CurrentUserStore.addListener(this._onChange);
+    SessionsApiUtil.fetchCurrentUser();
   },
 
   _onChange: function () {

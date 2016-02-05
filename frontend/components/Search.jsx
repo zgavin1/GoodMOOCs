@@ -13,6 +13,7 @@ var Search = React.createClass({
 
   componentDidMount: function() {
     this.listener = SearchResultsStore.addListener(this._onChange);
+    
   },
 
   getInitialState: function () {

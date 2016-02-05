@@ -100,19 +100,6 @@
 	  }
 	});
 	
-	// Notes about routes
-	// I have a landing page that has a unique header,
-	// I want a simple one line header for every page but this one
-	//
-	// how can i render a unique header for just that one page
-	// all other pages have the same style header
-	
-	// Landing page should be the logged in home, but should have _ensureLoggedIn on Enter
-	// which would redirect to the not logged in page with the unqiue header and a course index.
-	// This means that the header portion cannot come from App,
-	// Everything BUT the header should be nested under
-	// PROBLEM SOLVED WILL DELETE NOTE EVENTUALLY
-	
 	//New thing to keep eye on - how to structure routes
 	// for reviews. Nested under user ? One each for new and edit?
 	// Index route?
@@ -31961,6 +31948,7 @@
 	  reviewsArray.forEach(function (review) {
 	    _reviews[review.id] = review;
 	  });
+	  return _reviews;
 	};
 	
 	var _addReview = function (review) {
@@ -31969,9 +31957,9 @@
 	
 	ReviewStore.all = function () {
 	  var reviews = [];
-	  for (var id in _reviews) {
-	    reviews.push(_reviews[id]);
-	  }
+	  Object.keys(_reviews).forEach(function (reviewId) {
+	    reviews.push(_reviews[reviewId]);
+	  }.bind(this));
 	
 	  return reviews;
 	};
@@ -32037,8 +32025,8 @@
 	  },
 	
 	  componentDidMount: function () {
-	    SessionsApiUtil.fetchCurrentUser();
 	    this.currentUserListener = CurrentUserStore.addListener(this._onChange);
+	    SessionsApiUtil.fetchCurrentUser();
 	  },
 	
 	  _onChange: function () {
@@ -32294,8 +32282,12 @@
 	    $.ajax({
 	      type: "GET",
 	      url: "api/reviews",
+	      dataType: 'json',
 	      success: function (reviews) {
 	        ReviewActions.receiveReviews(reviews);
+	      },
+	      error: function () {
+	        console.log('issues');
 	      }
 	    });
 	  },
@@ -32499,41 +32491,31 @@
 	  },
 	
 	  componentDidMount: function () {
-	    // this.courseListener = CourseStore.addListener(this._coursesChanged);
-	    // ApiUtil.fetchCourses();
 	    this.reviewsListener = ReviewStore.addListener(this._reviewsChanged);
 	    ReviewApiUtil.fetchReviews();
 	  },
 	
 	  _reviewsChanged: function () {
-	    this.setState(this.getStateFromStore());
-	  },
-	
-	  getStateFromStore: function () {
-	    return {
-	      reviews: ReviewStore.all()
-	    };
+	    this.setState({ reviews: ReviewStore.all() });
 	  },
 	
 	  componentWillUnmount: function () {
-	    // this.courseListener.remove();
 	    this.reviewsListener.remove();
-	    // this.currentUserListener.remove();
 	  },
 	
 	  render: function () {
-	    if (!this.state.reviews) {
-	      return React.createElement('div', null);
-	    }
+	    // if (!this.state.reviews || Object.keys(this.context.currentUser).length === 0) {
+	    //   return <div></div>;
+	    // }
 	
-	    var current_user = this.context.currentUser;
-	    var all_revs = this.state.reviews.filter(function (review) {
-	      return review.user_id === current_user.id;
-	    });
+	    // var current_user = this.context.currentUser;
+	    // debugger
+	    var all_revs = ReviewStore.all().filter(function (review) {
+	      return review.user_id === this.context.currentUser.id;
+	    }.bind(this));
 	
 	    var rev_rows = all_revs.map(function (rev) {
 	      var course = rev.course;
-	
 	      var avgRating = parseFloat(Math.ceil(course.avg_rating * 100) / 100);
 	      return React.createElement(
 	        'tr',
@@ -33902,6 +33884,7 @@
 	
 	  componentDidMount: function () {
 	    this.currentUserListener = CurrentUserStore.addListener(this._onChange);
+	    SessionsApiUtil.fetchCurrentUser();
 	  },
 	
 	  _onChange: function () {

@@ -52,20 +52,6 @@ var App = React.createClass({
   }
 });
 
-
-  // Notes about routes
-  // I have a landing page that has a unique header,
-  // I want a simple one line header for every page but this one
-  //
-  // how can i render a unique header for just that one page
-  // all other pages have the same style header
-
-  // Landing page should be the logged in home, but should have _ensureLoggedIn on Enter
-  // which would redirect to the not logged in page with the unqiue header and a course index.
-  // This means that the header portion cannot come from App,
-  // Everything BUT the header should be nested under
-  // PROBLEM SOLVED WILL DELETE NOTE EVENTUALLY
-
   //New thing to keep eye on - how to structure routes
   // for reviews. Nested under user ? One each for new and edit?
   // Index route?

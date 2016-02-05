@@ -27,8 +27,8 @@ var Course = React.createClass({
   },
 
   componentDidMount: function () {
-    SessionsApiUtil.fetchCurrentUser();
     this.currentUserListener = CurrentUserStore.addListener(this._onChange);
+    SessionsApiUtil.fetchCurrentUser();
   },
 
   _onChange: function () {

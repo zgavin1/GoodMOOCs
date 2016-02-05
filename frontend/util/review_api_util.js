@@ -5,8 +5,12 @@ var ReviewApiUtil = {
     $.ajax({
       type: "GET",
       url: "api/reviews",
+      dataType: 'json',
       success: function (reviews) {
         ReviewActions.receiveReviews(reviews);
+      },
+      error: function () {
+        console.log('issues');
       }
     });
   },

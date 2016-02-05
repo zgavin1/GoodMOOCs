@@ -24,42 +24,33 @@ var ReviewIndex = React.createClass({
   },
 
   componentDidMount: function () {
-    // this.courseListener = CourseStore.addListener(this._coursesChanged);
-    // ApiUtil.fetchCourses();
     this.reviewsListener = ReviewStore.addListener(this._reviewsChanged);
     ReviewApiUtil.fetchReviews();
   },
 
   _reviewsChanged: function () {
-    this.setState(this.getStateFromStore());
-  },
-
-  getStateFromStore: function () {
-    return {
-			reviews: ReviewStore.all()
-		};
+    this.setState({ reviews: ReviewStore.all() });
   },
 
   componentWillUnmount: function () {
-    // this.courseListener.remove();
     this.reviewsListener.remove();
-    // this.currentUserListener.remove();
   },
 
 
   render: function () {
-    if (!this.state.reviews) {
-      return <div></div>;
-    }
+    // if (!this.state.reviews || Object.keys(this.context.currentUser).length === 0) {
+    //   return <div></div>;
+    // }
 
-    var current_user = this.context.currentUser;
-    var all_revs = this.state.reviews.filter(function (review) {
-      return review.user_id === current_user.id;
-    });
+
+    // var current_user = this.context.currentUser;
+    // debugger
+    var all_revs = ReviewStore.all().filter(function (review) {
+      return review.user_id === this.context.currentUser.id;
+    }.bind(this));
 
     var rev_rows = all_revs.map(function (rev) {
       var course = rev.course;
-
       var avgRating = parseFloat(Math.ceil(course.avg_rating * 100)/100);
       return (
         <tr key={rev.id} className="review-index-item">
