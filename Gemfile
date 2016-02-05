@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+gem 'uuidtools'
+gem 'omniauth'
+
+gem 'omniauth-facebook'
+
 #for aws security
 gem "figaro"
 #aws gem for s3

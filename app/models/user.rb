@@ -23,6 +23,22 @@ class User < ActiveRecord::Base
     nil
   end
 
+  def self.find_or_create_by_auth_hash(auth_hash)
+    provider = auth_hash[:provider]
+    uid = auth_hash[:uid]
+
+    user = User.find_by(provider: provider, uid: uid)
+
+    return user if user
+
+    User.create(
+      provider: provider,
+      uid: uid,
+      username: auth_hash[:info][:name],
+      password: SecureRandom::urlsafe_base64
+    )
+  end
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password);
@@ -37,6 +53,7 @@ class User < ActiveRecord::Base
     self.save!
     self.session_token
   end
+
 
 
   private

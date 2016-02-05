@@ -69,10 +69,10 @@
 	var EditUserForm = __webpack_require__(258);
 	var UserIndex = __webpack_require__(259);
 	
-	var Search = __webpack_require__(263);
+	var Search = __webpack_require__(261);
 	
-	var Header = __webpack_require__(261);
-	var Home = __webpack_require__(262);
+	var Header = __webpack_require__(266);
+	var Home = __webpack_require__(267);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -31316,7 +31316,11 @@
 	          React.createElement(
 	            'span',
 	            null,
-	            React.createElement('i', { className: 'fa fa-facebook-square' })
+	            React.createElement(
+	              'a',
+	              { href: '/auth/facebook' },
+	              React.createElement('i', { className: 'fa fa-facebook-square' })
+	            )
 	          ),
 	          React.createElement(
 	            'span',
@@ -33279,6 +33283,215 @@
 /* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(5);
+	var SearchResultsStore = __webpack_require__(262);
+	var SearchApiUtil = __webpack_require__(264);
+	
+	var UserIndexItem = __webpack_require__(260);
+	var CourseIndexItem = __webpack_require__(232);
+	
+	var LinkedStateMixin = __webpack_require__(239);
+	
+	var Search = React.createClass({
+	  displayName: 'Search',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  componentDidMount: function () {
+	    this.listener = SearchResultsStore.addListener(this._onChange);
+	  },
+	
+	  getInitialState: function () {
+	    return { page: 1, query: this.props.location.state.query || "" };
+	  },
+	
+	  _onChange: function () {
+	    this.forceUpdate();
+	  },
+	
+	  search: function (e) {
+	    var query = e.target.value;
+	    SearchApiUtil.search(query, 1);
+	
+	    this.setState({ page: 1, query: query });
+	  },
+	
+	  nextPage: function () {
+	    var nextPage = this.state.page + 1;
+	    SearchApiUtil.search(this.state.query, nextPage);
+	
+	    this.setState({ page: nextPage });
+	  },
+	
+	  lastPage: function () {
+	    var lastPage = this.state.page - 1;
+	    SearchApiUtil.search(this.state.query, lastPage);
+	
+	    this.setState({ page: lastPage });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	
+	  render: function () {
+	
+	    var searchResults = SearchResultsStore.all().map(function (searchResult) {
+	      if (searchResult._type === "User") {
+	        return React.createElement(UserIndexItem, { key: searchResult.id, user: searchResult, className: 'search-result' });
+	      } else {
+	        return React.createElement(CourseIndexItem, { key: searchResult.id, course: searchResult, className: 'search-result' });
+	      }
+	    });
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'search-content group' },
+	      React.createElement(
+	        'h1',
+	        { className: 'search-title' },
+	        'Search'
+	      ),
+	      React.createElement('input', {
+	        type: 'text',
+	        className: 'search-page-input',
+	        placeholder: 'Search by Course or User',
+	        onKeyUp: this.search,
+	        valueLink: this.linkState('query') }),
+	      React.createElement(
+	        'p',
+	        { className: 'page-count' },
+	        'Displaying ',
+	        SearchResultsStore.all().length,
+	        ' of',
+	        " " + (SearchResultsStore.meta().totalCount || "0")
+	      ),
+	      React.createElement(
+	        'ul',
+	        { className: 'search-index group' },
+	        searchResults
+	      ),
+	      React.createElement(
+	        'button',
+	        { className: 'search-page-decrement', onClick: this.lastPage },
+	        "< Back"
+	      ),
+	      React.createElement(
+	        'button',
+	        { className: 'search-page-increment', onClick: this.nextPage },
+	        "Next >"
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = Search;
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(208).Store;
+	var AppDispatcher = __webpack_require__(226);
+	
+	var _searchResults = [];
+	var _meta = {};
+	var SearchResultsStore = new Store(AppDispatcher);
+	var SearchConstants = __webpack_require__(263);
+	
+	SearchResultsStore.all = function () {
+	  return _searchResults.slice();
+	};
+	
+	SearchResultsStore.meta = function () {
+	  return _meta;
+	};
+	
+	SearchResultsStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	
+	    case SearchConstants.RECEIVE_SEARCH_RESULTS:
+	      _searchResults = payload.searchResults;
+	      _meta = payload.meta;
+	      SearchResultsStore.__emitChange();
+	      break;
+	
+	  }
+	};
+	
+	module.exports = SearchResultsStore;
+
+/***/ },
+/* 263 */
+/***/ function(module, exports) {
+
+	var SearchConstants = {
+	  RECEIVE_SEARCH_RESULTS: "RECEIVE_SEARCH_RESULTS"
+	};
+	
+	module.exports = SearchConstants;
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var SearchActions = __webpack_require__(265);
+	
+	var SearchApiUtil = {
+	  search: function (query, page) {
+	    $.ajax({
+	      url: '/api/search',
+	      type: 'GET',
+	      dataType: 'json',
+	      data: { query: query, page: page },
+	      success: function (data) {
+	        SearchActions.receiveResults(data);
+	      }
+	    });
+	  },
+	
+	  searchAndRedirect: function (query, page, callback) {
+	    $.ajax({
+	      url: '/api/search',
+	      type: 'GET',
+	      dataType: 'json',
+	      data: { query: query, page: page },
+	      success: function (data) {
+	        SearchActions.receiveResults(data);
+	        callback && callback();
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = SearchApiUtil;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	var SearchConstants = __webpack_require__(263);
+	var AppDispatcher = __webpack_require__(226);
+	
+	var SearchActions = {
+	  receiveResults: function (data) {
+	    AppDispatcher.dispatch({
+	      actionType: SearchConstants.RECEIVE_SEARCH_RESULTS,
+	      searchResults: data.results,
+	      meta: { totalCount: data.total_count }
+	    });
+	  }
+	
+	};
+	
+	module.exports = SearchActions;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
 	
 	//
 	// NOT USING THIS COMPONENT
@@ -33565,7 +33778,7 @@
 	module.exports = Header;
 
 /***/ },
-/* 262 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -33576,7 +33789,7 @@
 	var CurrentUserStore = __webpack_require__(251);
 	var SessionsApiUtil = __webpack_require__(244);
 	
-	var SearchResultsStore = __webpack_require__(267);
+	var SearchResultsStore = __webpack_require__(262);
 	var SearchApiUtil = __webpack_require__(264);
 	
 	var Home = React.createClass({
@@ -33903,215 +34116,6 @@
 	});
 	
 	module.exports = Home;
-
-/***/ },
-/* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(5);
-	var SearchResultsStore = __webpack_require__(267);
-	var SearchApiUtil = __webpack_require__(264);
-	
-	var UserIndexItem = __webpack_require__(260);
-	var CourseIndexItem = __webpack_require__(232);
-	
-	var LinkedStateMixin = __webpack_require__(239);
-	
-	var Search = React.createClass({
-	  displayName: 'Search',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  componentDidMount: function () {
-	    this.listener = SearchResultsStore.addListener(this._onChange);
-	  },
-	
-	  getInitialState: function () {
-	    return { page: 1, query: this.props.location.state.query || "" };
-	  },
-	
-	  _onChange: function () {
-	    this.forceUpdate();
-	  },
-	
-	  search: function (e) {
-	    var query = e.target.value;
-	    SearchApiUtil.search(query, 1);
-	
-	    this.setState({ page: 1, query: query });
-	  },
-	
-	  nextPage: function () {
-	    var nextPage = this.state.page + 1;
-	    SearchApiUtil.search(this.state.query, nextPage);
-	
-	    this.setState({ page: nextPage });
-	  },
-	
-	  lastPage: function () {
-	    var lastPage = this.state.page - 1;
-	    SearchApiUtil.search(this.state.query, lastPage);
-	
-	    this.setState({ page: lastPage });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.listener.remove();
-	  },
-	
-	  render: function () {
-	
-	    var searchResults = SearchResultsStore.all().map(function (searchResult) {
-	      if (searchResult._type === "User") {
-	        return React.createElement(UserIndexItem, { key: searchResult.id, user: searchResult, className: 'search-result' });
-	      } else {
-	        return React.createElement(CourseIndexItem, { key: searchResult.id, course: searchResult, className: 'search-result' });
-	      }
-	    });
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'search-content group' },
-	      React.createElement(
-	        'h1',
-	        { className: 'search-title' },
-	        'Search'
-	      ),
-	      React.createElement('input', {
-	        type: 'text',
-	        className: 'search-page-input',
-	        placeholder: 'Search by Course or User',
-	        onKeyUp: this.search,
-	        valueLink: this.linkState('query') }),
-	      React.createElement(
-	        'p',
-	        { className: 'page-count' },
-	        'Displaying ',
-	        SearchResultsStore.all().length,
-	        ' of',
-	        " " + (SearchResultsStore.meta().totalCount || "0")
-	      ),
-	      React.createElement(
-	        'ul',
-	        { className: 'search-index group' },
-	        searchResults
-	      ),
-	      React.createElement(
-	        'button',
-	        { className: 'search-page-decrement', onClick: this.lastPage },
-	        "< Back"
-	      ),
-	      React.createElement(
-	        'button',
-	        { className: 'search-page-increment', onClick: this.nextPage },
-	        "Next >"
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = Search;
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var SearchActions = __webpack_require__(265);
-	
-	var SearchApiUtil = {
-	  search: function (query, page) {
-	    $.ajax({
-	      url: '/api/search',
-	      type: 'GET',
-	      dataType: 'json',
-	      data: { query: query, page: page },
-	      success: function (data) {
-	        SearchActions.receiveResults(data);
-	      }
-	    });
-	  },
-	
-	  searchAndRedirect: function (query, page, callback) {
-	    $.ajax({
-	      url: '/api/search',
-	      type: 'GET',
-	      dataType: 'json',
-	      data: { query: query, page: page },
-	      success: function (data) {
-	        SearchActions.receiveResults(data);
-	        callback && callback();
-	      }
-	    });
-	  }
-	};
-	
-	module.exports = SearchApiUtil;
-
-/***/ },
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	var SearchConstants = __webpack_require__(266);
-	var AppDispatcher = __webpack_require__(226);
-	
-	var SearchActions = {
-	  receiveResults: function (data) {
-	    AppDispatcher.dispatch({
-	      actionType: SearchConstants.RECEIVE_SEARCH_RESULTS,
-	      searchResults: data.results,
-	      meta: { totalCount: data.total_count }
-	    });
-	  }
-	
-	};
-	
-	module.exports = SearchActions;
-
-/***/ },
-/* 266 */
-/***/ function(module, exports) {
-
-	var SearchConstants = {
-	  RECEIVE_SEARCH_RESULTS: "RECEIVE_SEARCH_RESULTS"
-	};
-	
-	module.exports = SearchConstants;
-
-/***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(208).Store;
-	var AppDispatcher = __webpack_require__(226);
-	
-	var _searchResults = [];
-	var _meta = {};
-	var SearchResultsStore = new Store(AppDispatcher);
-	var SearchConstants = __webpack_require__(266);
-	
-	SearchResultsStore.all = function () {
-	  return _searchResults.slice();
-	};
-	
-	SearchResultsStore.meta = function () {
-	  return _meta;
-	};
-	
-	SearchResultsStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	
-	    case SearchConstants.RECEIVE_SEARCH_RESULTS:
-	      _searchResults = payload.searchResults;
-	      _meta = payload.meta;
-	      SearchResultsStore.__emitChange();
-	      break;
-	
-	  }
-	};
-	
-	module.exports = SearchResultsStore;
 
 /***/ }
 /******/ ]);

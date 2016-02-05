@@ -45,7 +45,7 @@ var NewUserForm = React.createClass({
           </form>
           <div className="o-auth">
             or sign in using
-            <span><i className="fa fa-facebook-square"></i></span>
+            <span><a href="/auth/facebook"><i className="fa fa-facebook-square"></i></a></span>
             <span><i className="fa fa-twitter-square"></i></span>
             <span><i className="fa fa-google"></i></span>
             <span><i className="fa fa-amazon"></i></span>
