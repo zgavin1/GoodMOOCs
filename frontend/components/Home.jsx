@@ -98,10 +98,9 @@ var Home = React.createClass({
       user_nav =
       <div className="user-nav-container group">
         <div className="user-nav-buttons group">
-          <span className="badge">g</span>
-          <span><i className="fa fa-envelope"></i></span>
+          <a href="#" className="badge">g</a>
           <a href="#/users"><i className="fa fa-users"></i></a>
-          <span><a href={"#/users/" + this.state.currentUser.id}><i className="fa fa-user"></i></a></span>
+          <a id="profile-thumb" href={"#/users/" + this.state.currentUser.id}><i className="fa fa-user"></i></a>
           <a className="dropDownOpener" href="#" onClick={this.userDropDownToggle}><i className="fa fa-caret-down"></i></a>
         </div>
         <div className="user-dropdown hidden">
@@ -139,7 +138,6 @@ var Home = React.createClass({
                 <li><a href="#/reviews">My Courses</a></li>
                 <li><a href="#/users">Friends</a></li>
                 <li><a href="#/">Recommendations</a></li>
-                <li><a href="#/">Explore</a></li>
                 <li><a className="dropDownOpener" href="#" onClick={this.navDropDownToggle}><i className="fa fa-caret-down"></i></a></li>
               </ul>
               <div className="nav-dropdown hidden">

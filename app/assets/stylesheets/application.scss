@@ -394,17 +394,22 @@ img {
 }
 
 .user-nav-buttons span {
-  padding: 0px 4px 2px 5px;
+  /*padding: 0px 4px 2px 5px;*/
   float: left;
 }
 
 .user-nav-buttons a {
   float: left;
-  margin-left: 4px;
+  margin: 4px 4px;
 }
 
 .fa-envelope, .fa-users, .fa-user {
   color: #DFD8C6;
+}
+
+#profile-thumb {
+  font-size: 24px;
+  margin: 0 4px;
 }
 
 .user-nav .fa-user {

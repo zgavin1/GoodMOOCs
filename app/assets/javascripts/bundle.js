@@ -34172,14 +34172,9 @@
 	          'div',
 	          { className: 'user-nav-buttons group' },
 	          React.createElement(
-	            'span',
-	            { className: 'badge' },
+	            'a',
+	            { href: '#', className: 'badge' },
 	            'g'
-	          ),
-	          React.createElement(
-	            'span',
-	            null,
-	            React.createElement('i', { className: 'fa fa-envelope' })
 	          ),
 	          React.createElement(
 	            'a',
@@ -34187,13 +34182,9 @@
 	            React.createElement('i', { className: 'fa fa-users' })
 	          ),
 	          React.createElement(
-	            'span',
-	            null,
-	            React.createElement(
-	              'a',
-	              { href: "#/users/" + this.state.currentUser.id },
-	              React.createElement('i', { className: 'fa fa-user' })
-	            )
+	            'a',
+	            { id: 'profile-thumb', href: "#/users/" + this.state.currentUser.id },
+	            React.createElement('i', { className: 'fa fa-user' })
 	          ),
 	          React.createElement(
 	            'a',
@@ -34329,15 +34320,6 @@
 	                  'a',
 	                  { href: '#/' },
 	                  'Recommendations'
-	                )
-	              ),
-	              React.createElement(
-	                'li',
-	                null,
-	                React.createElement(
-	                  'a',
-	                  { href: '#/' },
-	                  'Explore'
 	                )
 	              ),
 	              React.createElement(
