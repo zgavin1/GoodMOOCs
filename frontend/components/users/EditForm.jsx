@@ -39,9 +39,6 @@ var EditUserForm = React.createClass({
     formData.append("user[username]", this.state.username);
     formData.append("user[email]", this.state.email);
     formData.append("user[id]", this.state.id);
-    // Object.keys(this.state).forEach(function (key) {
-    //   formData.append("user[" + key + "]", this.state[key]);
-    // }.bind(this));
 
     UsersApiUtil.updateUser(formData, this.state.id, function () {
       this.history.pushState({}, "/");
@@ -53,13 +50,15 @@ var EditUserForm = React.createClass({
     var file = e.currentTarget.files[0];
 
     reader.onloadend = function () {
-      this.setState({avatarFile: file, avatarUrl: reader.result});
+      this.setState({avatarFile: file, avatar: reader.result});
+      debugger
     }.bind(this);
 
     if (file) {
       reader.readAsDataURL(file); // will trigger a load end event when it completes, and invoke reader.onloadend
+      debugger
     } else {
-      this.setState({avatarFile: null, avatarUrl: ""});
+      this.setState({avatarFile: null, avatar: ""});
     }
   },
 
@@ -90,7 +89,7 @@ var EditUserForm = React.createClass({
               <img className="preview-image" src={this.state.avatar}/>
               <br></br>
               <label>
-                <input className="file-input"type="file" onChange={this.changeFile} />
+                <input className="file-input" type="file" onChange={this.changeFile} />
               </label>
             </div>
             <div className="user-form-field">
