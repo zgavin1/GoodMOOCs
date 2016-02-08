@@ -30,9 +30,11 @@ var ReviewForm = React.createClass({
       rating: this.state.rating,
       body: this.state.reviewBody
     };
+
     ReviewApiUtil.postReview(params, function () {
-      this.history.pushState({}, "/courses/"+course_id);
-    });
+      debugger
+      this.history.pushState({}, "courses/"+course_id);
+    }.bind(this));
   },
 
   render: function () {

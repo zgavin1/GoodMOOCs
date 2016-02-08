@@ -38,7 +38,7 @@ var SessionsApiUtil = {
 			url: "api/session",
 			success: function (currentUser) {
         CurrentUserActions.receiveCurrentUser(currentUser);
-        callback && callback(currentUser);
+        if (typeof callback === "function") { callback(); }
 			}
 		});
 	}

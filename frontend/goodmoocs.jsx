@@ -12,7 +12,6 @@ var CourseSuggestions = require('./components/course/CourseSuggestions');
 var CurrentUserStore = require('./stores/currentUser');
 var SessionsApiUtil = require('./util/sessions_api_util');
 var ReviewIndex = require('./components/review/ReviewIndex');
-
 var Review = require('./components/review/Review');
 var ReviewForm = require('./components/review/ReviewForm');
 
@@ -59,16 +58,13 @@ var App = React.createClass({
 
 
 var routes = (
-  <Route path="/" component={ App }>
+  <Route path="/" component={ App } onEnter={SessionsApiUtil.fetchCurrentUser}>
 
     <Route component={ Home } >
       <IndexRoute component={ CourseSuggestions } onEnter={ _ensureLoggedIn } />
-      <Route path="courses/:courseId" component={ CourseShow } >
-        <Route path="reviews/:reviewId" component={ Review } />
-      </Route>
+      <Route path="courses/:courseId" component={ CourseShow } />
       <Route path="reviews" component={ ReviewIndex } />
       <Route path="reviews/new" component={ ReviewForm } />
-      <Route path="reviews" component={ ReviewIndex } />
       <Route path="search" component={ Search } />
       <Route path="users" component={ UserIndex } />
       <Route path="users/:id" component={ UserShow } />
@@ -99,6 +95,7 @@ function _ensureLoggedIn(nextState, replace, callback) {
 // this function prevents logged in users frmo visiting the login route
 
 function _ensureLoggedOut(nextState, replace, callback) {
+  debugger
   if (CurrentUserStore.userHasBeenFetched()) {
     _redirectIfLoggedIn();
   } else {

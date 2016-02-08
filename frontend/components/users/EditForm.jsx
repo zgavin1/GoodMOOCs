@@ -32,9 +32,7 @@ var EditUserForm = React.createClass({
 
   onSubmit: function (e) {
     e.preventDefault();
-
     var user_params = { user: this.state };
-
     var formData = new FormData();
 
     formData.append("user[avatar]", this.state.avatarFile);

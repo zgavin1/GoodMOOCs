@@ -53,7 +53,6 @@ var UsersApiUtil = {
       processData: false,
       contentType: false,
       success: function (user) {
-        debugger
         UserActions.receiveUser(user);
         callback && callback();
       },

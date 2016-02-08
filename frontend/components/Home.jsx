@@ -100,7 +100,7 @@ var Home = React.createClass({
         <div className="user-nav-buttons group">
           <span className="badge">g</span>
           <span><i className="fa fa-envelope"></i></span>
-          <span><i className="fa fa-users"></i></span>
+          <a href="#/users"><i className="fa fa-users"></i></a>
           <span><a href={"#/users/" + this.state.currentUser.id}><i className="fa fa-user"></i></a></span>
           <a className="dropDownOpener" href="#" onClick={this.userDropDownToggle}><i className="fa fa-caret-down"></i></a>
         </div>
