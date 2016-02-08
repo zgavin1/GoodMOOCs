@@ -32069,9 +32069,18 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'course-show-body' },
 	      React.createElement(Course, { course: this.state.course, related_courses: related_courses, avg_rating: this.state.avg_rating }),
-	      this.courseReviews()
+	      React.createElement(
+	        'section',
+	        { className: 'course-reviews' },
+	        React.createElement(
+	          'h3',
+	          { className: 'course-review-header' },
+	          'Community Reviews'
+	        ),
+	        this.courseReviews()
+	      )
 	    );
 	  }
 	});
@@ -32197,21 +32206,30 @@
 	
 			return React.createElement(
 				'div',
-				{ className: 'review' },
+				{ className: 'review group' },
+				React.createElement(
+					'span',
+					{ className: 'reviewer-avatar-container' },
+					React.createElement('img', { className: 'reviewer-avatar', src: reviewer.avatar })
+				),
 				React.createElement(
 					'h3',
-					null,
-					reviewer.username,
+					{ className: 'reviewer-title' },
+					React.createElement(
+						'a',
+						{ href: "#/users/" + reviewer.id },
+						reviewer.username
+					),
 					' rated it ',
 					React.createElement(
-						'span',
+						'strong',
 						null,
 						review.rating
 					)
 				),
 				React.createElement(
 					'p',
-					null,
+					{ className: 'review-body' },
 					' ',
 					review.body,
 					' '

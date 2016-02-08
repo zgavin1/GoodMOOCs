@@ -813,6 +813,52 @@ img.preview-image {
   width: 60px;
 }
 
+// COURSE SHOW REVIEWS
+
+.review {
+  width: 625px;
+  padding: 3px 20px 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.course-reviews {
+  width: 625px;
+  float: left;
+}
+
+.course-review-header {
+  font-size: 10px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+.reviewer-avatar-container {
+  float: left;
+  margin-right: 6px;
+  height: 100%;
+}
+
+.reviewer-avatar {
+  width: 50px;
+}
+
+.reviewer-title {
+  font-weight: normal;
+  font-size: 14px;
+}
+.reviewer-title > a:hover {
+  text-decoration: underline;
+}
+
+.review-body {
+  font-size: 12px;
+}
+
+
+
+
+
 //  Star Ratings
 
 

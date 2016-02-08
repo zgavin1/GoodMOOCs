@@ -89,9 +89,14 @@ var CourseShow = React.createClass({
     }
 
     return (
-      <div>
+      <div className="course-show-body">
         <Course course={ this.state.course } related_courses={ related_courses } avg_rating={ this.state.avg_rating } />
-        { this.courseReviews() }
+
+        <section className="course-reviews">
+          <h3 className="course-review-header">Community Reviews</h3>
+
+          { this.courseReviews() }
+        </section>
       </div>
     );
   }

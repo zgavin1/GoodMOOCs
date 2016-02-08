@@ -51,9 +51,10 @@ var Review = React.createClass({
   	if (!reviewer) {return <p></p>;}
 
     return (
-      <div className="review">
-        <h3>{reviewer.username} rated it <span>{review.rating}</span></h3>
-        <p> {review.body} </p>
+      <div className="review group">
+      	<span className="reviewer-avatar-container"><img className="reviewer-avatar" src={reviewer.avatar}/></span>
+        <h3 className="reviewer-title"><a href={"#/users/" + reviewer.id}>{reviewer.username}</a> rated it <strong>{review.rating}</strong></h3>
+        <p className="review-body"> {review.body} </p>
       </div>
     );
   }
