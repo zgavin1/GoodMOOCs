@@ -306,50 +306,6 @@ Review.create!(
 
 Review.create!(
   user_id: pw.id,
-  course_id: course4.id,
-  rating: 3,
-  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
-)
-Review.create!(
-  user_id: pw.id,
-  course_id: course5.id,
-  rating: 4,
-  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
-)
-Review.create!(
-  user_id: pw.id,
-  course_id: course6.id,
-  rating: 5,
-  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
-)
-
-Review.create!(
-  user_id: pw.id,
-  course_id: course8.id,
-  rating: 2,
-  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
-)
-
-Review.create!(
-  user_id: pw.id,
-  course_id: course9.id,
-  rating: 3,
-  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
-)
-Review.create!(
-  user_id: pw.id,
-  course_id: course10.id,
-  rating: 4,
-  body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
-)
-Review.create!(
-  user_id: pw.id,
-  course_id: course11.id,
-  rating: 5,
-  body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
-)
-Review.create!(
-  user_id: pw.id,
   course_id: course12.id,
   rating: 1,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
@@ -380,26 +336,7 @@ rev3 = Review.create!(
   rating: 5,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
-Review.create!(
-  user_id: pw.id,
-  course_id: course17.id,
-  rating: 1,
-  body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
-)
-Review.create!(
-  user_id: pw.id,
-  course_id: course18.id,
-  rating: 2,
-  body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
-)
 
-
-Review.create!(
-  user_id: pw.id,
-  course_id: course19.id,
-  rating: 3,
-  body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
-)
 Review.create!(
   user_id: pw.id,
   course_id: course20.id,
