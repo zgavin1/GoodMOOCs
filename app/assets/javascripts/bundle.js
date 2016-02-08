@@ -141,7 +141,6 @@
 	// this function prevents logged in users frmo visiting the login route
 	
 	function _ensureLoggedOut(nextState, replace, callback) {
-	  debugger;
 	  if (CurrentUserStore.userHasBeenFetched()) {
 	    _redirectIfLoggedIn();
 	  } else {
