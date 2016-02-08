@@ -821,6 +821,15 @@ img.preview-image {
   border-bottom: 1px solid #ccc;
 }
 
+.review-info-container {
+  width: 550px;
+  float: right;
+}
+
+review-info-container > * {
+  float: left;
+}
+
 .course-reviews {
   width: 625px;
   float: left;
@@ -836,11 +845,12 @@ img.preview-image {
 .reviewer-avatar-container {
   float: left;
   margin-right: 6px;
-  height: 100%;
 }
 
 .reviewer-avatar {
   width: 50px;
+  float: left;
+  display: block;
 }
 
 .reviewer-title {

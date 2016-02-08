@@ -32207,32 +32207,32 @@
 			return React.createElement(
 				'div',
 				{ className: 'review group' },
+				React.createElement('img', { className: 'reviewer-avatar', src: reviewer.avatar }),
 				React.createElement(
-					'span',
-					{ className: 'reviewer-avatar-container' },
-					React.createElement('img', { className: 'reviewer-avatar', src: reviewer.avatar })
-				),
-				React.createElement(
-					'h3',
-					{ className: 'reviewer-title' },
+					'div',
+					{ className: 'review-info-container group' },
 					React.createElement(
-						'a',
-						{ href: "#/users/" + reviewer.id },
-						reviewer.username
+						'h3',
+						{ className: 'reviewer-title' },
+						React.createElement(
+							'a',
+							{ href: "#/users/" + reviewer.id },
+							reviewer.username
+						),
+						' rated it ',
+						React.createElement(
+							'strong',
+							null,
+							review.rating
+						)
 					),
-					' rated it ',
 					React.createElement(
-						'strong',
-						null,
-						review.rating
+						'p',
+						{ className: 'review-body' },
+						' ',
+						review.body,
+						' '
 					)
-				),
-				React.createElement(
-					'p',
-					{ className: 'review-body' },
-					' ',
-					review.body,
-					' '
 				)
 			);
 		}
