@@ -84,6 +84,14 @@ var Home = React.createClass({
     }
   },
 
+  searchKeyUp: function (e) {
+    e.preventDefault();
+
+    if (e.keyCode === 13) {
+      this.searchAndRedirect(e);
+    }
+  },
+
   searchAndRedirect: function (e) {
     e.preventDefault();
     var query = this.state.query;
@@ -128,7 +136,7 @@ var Home = React.createClass({
                 <a href="#/">good<strong>moocs</strong></a>
               </h1>
               <div className="search-container group">
-                <input onKeyUp={this.search} className="site-search" type="text" placeholder="Search Users and Courses" valueLink={this.linkState('query')}/>
+                <input onKeyUp={this.searchKeyUp} className="site-search" type="text" placeholder="Search Users and Courses" valueLink={this.linkState('query')}/>
                 <a type="submit" className="search-redirect" onClick={this.searchAndRedirect}>
                   <i className="fa fa-search"></i>
                 </a>

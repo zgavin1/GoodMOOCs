@@ -814,17 +814,24 @@ img.preview-image {
 .course-show-relateds {
   width: 320px;
   margin-top: 10px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 80px;
+  white-space:nowrap
 }
 
 
 .related-course {
-  float: left;
   width: 80px;
-  padding: 5px;
+  margin: 5px;
+  display: inline-block;
+  height: 60px;
+  vertical-align: top;
 }
 
 .rltd-course-img {
-  width: 60px;
+  max-width: 60px;
+  max-height: 60px;
 }
 
 // COURSE SHOW REVIEWS
@@ -974,7 +981,7 @@ review-info-container > * {
 .nav-dropdown {
   position: absolute;
   top: 80px;
-  left: 650px;
+  left: 480px;
   background-color: white;
   width: 80px;
   border: 1px solid black;

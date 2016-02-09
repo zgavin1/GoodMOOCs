@@ -34172,6 +34172,14 @@
 	    }
 	  },
 	
+	  searchKeyUp: function (e) {
+	    e.preventDefault();
+	
+	    if (e.keyCode === 13) {
+	      this.searchAndRedirect(e);
+	    }
+	  },
+	
 	  searchAndRedirect: function (e) {
 	    e.preventDefault();
 	    var query = this.state.query;
@@ -34294,7 +34302,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'search-container group' },
-	              React.createElement('input', { onKeyUp: this.search, className: 'site-search', type: 'text', placeholder: 'Search Users and Courses', valueLink: this.linkState('query') }),
+	              React.createElement('input', { onKeyUp: this.searchKeyUp, className: 'site-search', type: 'text', placeholder: 'Search Users and Courses', valueLink: this.linkState('query') }),
 	              React.createElement(
 	                'a',
 	                { type: 'submit', className: 'search-redirect', onClick: this.searchAndRedirect },
