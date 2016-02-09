@@ -32,7 +32,6 @@ var ReviewForm = React.createClass({
     };
 
     ReviewApiUtil.postReview(params, function () {
-      debugger
       this.history.pushState({}, "courses/"+course_id);
     }.bind(this));
   },

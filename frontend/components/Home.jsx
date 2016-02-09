@@ -101,7 +101,7 @@ var Home = React.createClass({
           <a href="#" className="badge">g</a>
           <a href="#/users"><i className="fa fa-users"></i></a>
           <a id="profile-thumb" href={"#/users/" + this.state.currentUser.id}><i className="fa fa-user"></i></a>
-          <a className="dropDownOpener" href="#" onClick={this.userDropDownToggle}><i className="fa fa-caret-down"></i></a>
+          <a className="drop-down-opener" href="#" onClick={this.userDropDownToggle}><i className="fa fa-caret-down"></i></a>
         </div>
         <div className="user-dropdown hidden">
           <a>Some</a>
@@ -136,9 +136,8 @@ var Home = React.createClass({
               <ul className="logged-in-site-nav">
                 <li><a href="#">Home</a></li>
                 <li><a href="#/reviews">My Courses</a></li>
-                <li><a href="#/users">Friends</a></li>
-                <li><a href="#/">Recommendations</a></li>
-                <li><a className="dropDownOpener" href="#" onClick={this.navDropDownToggle}><i className="fa fa-caret-down"></i></a></li>
+                <li><a href="#/users">Users</a></li>
+                <li><a className="drop-down-opener" href="#" onClick={this.navDropDownToggle}><i className="fa fa-caret-down"></i></a></li>
               </ul>
               <div className="nav-dropdown hidden">
                 <a>Some</a>

@@ -398,6 +398,11 @@ img {
   float: left;
 }
 
+.user-nav-buttons a i:hover {
+  color: #665242;
+}
+
+
 .user-nav-buttons a {
   float: left;
   margin: 4px 4px;
@@ -420,7 +425,7 @@ img {
 
 }
 
-.dropDownOpener {
+.drop-down-opener {
   display: block;
   width: 15px;
   height: 15px;
@@ -428,6 +433,14 @@ img {
   border-radius: 4px;
   text-align: center;
   color: #666666;
+}
+
+.drop-down-opener:hover {
+  background-color: #665242;  
+}
+
+.badge:hover {
+  background-color: #665242;
 }
 
 .badge {
@@ -703,6 +716,7 @@ img.preview-image {
 
 .course-img {
   width: 140px;
+  max-height: 150px;
   margin-bottom: 8px;
   box-shadow: 1px 6px 8px #888888;
 }
@@ -721,7 +735,7 @@ img.preview-image {
   background-color: #409D69;
 }
 
-.want-to-read-menu:hover {
+.want-to-read:hover {
   background-color: #3d9363;
   cursor: pointer;
 }
