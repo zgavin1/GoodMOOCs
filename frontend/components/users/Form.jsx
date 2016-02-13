@@ -27,7 +27,7 @@ var NewUserForm = React.createClass({
 		return (
       <div className="header-lower group">
         <div className="catchphrase">
-          <h1>You`ll love <br/> your next class.</h1>
+          <h1>You'll love <br/> your next class.</h1>
         </div>
         <div className="new-user-form-pane">
           <h2>New here? Create a free account!</h2>

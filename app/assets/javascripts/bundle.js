@@ -31392,7 +31392,7 @@
 	        React.createElement(
 	          'h1',
 	          null,
-	          'You`ll love ',
+	          'You\'ll love ',
 	          React.createElement('br', null),
 	          ' your next class.'
 	        )
