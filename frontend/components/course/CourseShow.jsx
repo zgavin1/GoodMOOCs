@@ -64,9 +64,10 @@ var CourseShow = React.createClass({
   },
 
   courseReviews: function () {
-    var courseReviews = this.state.reviews.sort(function (rev1, rev2) {
-      rev1.created_at < rev2.created_at;
-    }.bind(this));
+    var courseReviews = this.state.reviews
+    // .sort(function (rev1, rev2) {
+    //   rev1.created_at > rev2.created_at;
+    // }.bind(this));
     courseReviews = courseReviews.map(function (review) {
       return (
         <Review review={review} key={review.id} />
@@ -107,7 +108,7 @@ var CourseShow = React.createClass({
     if (this.state.showReviewForm) {
       reviewForm = (
         <div className="review-form-container">
-          <ReviewForm course={ this.state.course } handleCancel={ this.hideReviewForm }/>
+          <ReviewForm course={ this.state.course } reviewFormClose={ this.hideReviewForm }/>
         </div>
       )
     }

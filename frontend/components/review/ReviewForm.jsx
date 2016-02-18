@@ -55,6 +55,8 @@ var ReviewForm = React.createClass({
     ReviewApiUtil.postReview(params, function () {
       this.history.pushState({}, "courses/"+ course.id);
     }.bind(this));
+
+    this.props.reviewFormClose();
   },
 
   render: function () {
@@ -77,7 +79,7 @@ var ReviewForm = React.createClass({
               valueLink={this.linkState('reviewBody')} />
           </label>
           <button className="review-form-button submit" type="submit">Save</button>
-          <a className="review-form-button cancel" onClick={ this.props.handleCancel }>Cancel</a>
+          <a className="review-form-button cancel" onClick={ this.props.reviewFormClose }>Cancel</a>
         </form>
       </div>
     );

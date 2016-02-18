@@ -32045,9 +32045,10 @@
 	  },
 	
 	  courseReviews: function () {
-	    var courseReviews = this.state.reviews.sort(function (rev1, rev2) {
-	      rev1.created_at < rev2.created_at;
-	    }.bind(this));
+	    var courseReviews = this.state.reviews;
+	    // .sort(function (rev1, rev2) {
+	    //   rev1.created_at > rev2.created_at;
+	    // }.bind(this));
 	    courseReviews = courseReviews.map(function (review) {
 	      return React.createElement(Review, { review: review, key: review.id });
 	    }.bind(this));
@@ -32086,7 +32087,7 @@
 	      reviewForm = React.createElement(
 	        'div',
 	        { className: 'review-form-container' },
-	        React.createElement(ReviewForm, { course: this.state.course, handleCancel: this.hideReviewForm })
+	        React.createElement(ReviewForm, { course: this.state.course, reviewFormClose: this.hideReviewForm })
 	      );
 	    }
 	
@@ -33115,6 +33116,8 @@
 	    ReviewApiUtil.postReview(params, function () {
 	      this.history.pushState({}, "courses/" + course.id);
 	    }.bind(this));
+	
+	    this.props.reviewFormClose();
 	  },
 	
 	  render: function () {
@@ -33154,7 +33157,7 @@
 	        ),
 	        React.createElement(
 	          'a',
-	          { className: 'review-form-button cancel', onClick: this.props.handleCancel },
+	          { className: 'review-form-button cancel', onClick: this.props.reviewFormClose },
 	          'Cancel'
 	        )
 	      )

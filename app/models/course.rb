@@ -16,4 +16,8 @@ class Course < ActiveRecord::Base
     reviews.average(:rating).to_f
   end
 
+  def chronological_reviews
+    reviews.sort { |a, b| b.created_at <=> a.created_at }
+  end
+
 end
