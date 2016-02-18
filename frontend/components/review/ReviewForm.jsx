@@ -17,6 +17,27 @@ var ReviewForm = React.createClass({
     return ({ rating: 5, reviewBody: "" });
   },
 
+  componentDidMount: function () {
+    var el = ReactDOM.findDOMNode(this);
+
+    el.style.opacity = 0;
+    window.requestAnimationFrame(function () {
+      el.style.transition = "opacity 350ms";
+      el.style.opacity = 1;
+    });
+
+  },
+
+  componentWillUnmount: function () {
+    var el = ReactDOM.findDOMNode(this);
+
+    el.style.opacity = 1;
+    window.requestAnimationFrame(function () {
+      el.style.transition = "opacity 350ms";
+      el.style.opacity = 0;
+    });
+  },
+
 
   handleSubmit: function (e) {
     e.preventDefault();
