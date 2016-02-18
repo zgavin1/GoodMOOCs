@@ -41,26 +41,26 @@ var Course = React.createClass({
   },
 
   submitRating: function (e) {
-    e.preventDefault();
+    // e.preventDefault();
 
-    var rev =
-      { review:
-        {
-          rating: this.state.rating,
-          user_id: this.context.currentUser.id,
-          course_id: this.props.course.id
-        }
-      }
+    // var rev =
+    //   { review:
+    //     {
+    //       rating: this.state.rating,
+    //       user_id: this.context.currentUser.id,
+    //       course_id: this.props.course.id
+    //     }
+    //   }
 
-    ReviewApiUtil.postReview(rev)
+    // ReviewApiUtil.postReview(rev)
   },
 
   _newReview: function (e) {
-    e.preventDefault();
+    // e.preventDefault();
 
-    var id = this.props.course.id
+    // var id = this.props.course.id
 
-    this.history.pushState({course_id: id}, "/reviews/new")
+    // this.history.pushState({course_id: id}, "/reviews/new")
   },
 
   render: function () {
@@ -95,12 +95,12 @@ var Course = React.createClass({
           <div className="course-img-col group">
             <img className="course-img" src={course.image_url}/>
             <div className="want-to-read-menu">
-              <a onClick={this._newReview} className="want-to-read">Review</a>
+              <a onClick={this.props.handleNewReview} className="want-to-read">Review</a>
             </div>
             <div className="rating-container">
               <p>Rate this Course</p>
               <div className="rating">
-                <a href="#/course" onClick={this.submitRating}>
+                <a href="" onClick={this.props.handleNewReview}>
                   <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                 </a>
               </div>

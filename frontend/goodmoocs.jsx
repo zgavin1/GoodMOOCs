@@ -56,6 +56,7 @@ var App = React.createClass({
   // Index route?
 
 
+      // <Route path="reviews/new" component={ ReviewForm } />
 
 var routes = (
   <Route path="/" component={ App } onEnter={SessionsApiUtil.fetchCurrentUser}>
@@ -64,7 +65,6 @@ var routes = (
       <IndexRoute component={ CourseSuggestions } onEnter={ _ensureLoggedIn } />
       <Route path="courses/:courseId" component={ CourseShow } />
       <Route path="reviews" component={ ReviewIndex } />
-      <Route path="reviews/new" component={ ReviewForm } />
       <Route path="search" component={ Search } />
       <Route path="users" component={ UserIndex } />
       <Route path="users/:id" component={ UserShow } />

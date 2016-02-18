@@ -51,12 +51,10 @@ var EditUserForm = React.createClass({
 
     reader.onloadend = function () {
       this.setState({avatarFile: file, avatar: reader.result});
-      debugger
     }.bind(this);
 
     if (file) {
       reader.readAsDataURL(file); // will trigger a load end event when it completes, and invoke reader.onloadend
-      debugger
     } else {
       this.setState({avatarFile: null, avatar: ""});
     }

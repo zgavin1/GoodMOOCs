@@ -103,6 +103,8 @@
 	// for reviews. Nested under user ? One each for new and edit?
 	// Index route?
 	
+	// <Route path="reviews/new" component={ ReviewForm } />
+	
 	var routes = React.createElement(
 	  Route,
 	  { path: '/', component: App, onEnter: SessionsApiUtil.fetchCurrentUser },
@@ -112,7 +114,6 @@
 	    React.createElement(IndexRoute, { component: CourseSuggestions, onEnter: _ensureLoggedIn }),
 	    React.createElement(Route, { path: 'courses/:courseId', component: CourseShow }),
 	    React.createElement(Route, { path: 'reviews', component: ReviewIndex }),
-	    React.createElement(Route, { path: 'reviews/new', component: ReviewForm }),
 	    React.createElement(Route, { path: 'search', component: Search }),
 	    React.createElement(Route, { path: 'users', component: UserIndex }),
 	    React.createElement(Route, { path: 'users/:id', component: UserShow }),
@@ -31981,6 +31982,7 @@
 	var ReviewStore = __webpack_require__(248);
 	var ApiUtil = __webpack_require__(232);
 	var Review = __webpack_require__(250);
+	var ReviewForm = __webpack_require__(258);
 	
 	var CurrentUserStore = __webpack_require__(252);
 	
@@ -31999,7 +32001,8 @@
 	    return {
 	      course: course,
 	      avg_rating: course.avg_rating,
-	      reviews: course.reviews
+	      reviews: course.reviews,
+	      showReviewForm: false
 	    };
 	  },
 	
@@ -32052,8 +32055,16 @@
 	    return courseReviews;
 	  },
 	
-	  printCurrentUser: function () {
-	    console.log(CurrentUserStore.currentUser());
+	  // printCurrentUser: function () {
+	  //   console.log(CurrentUserStore.currentUser())
+	  // },
+	
+	  handleNewReview: function () {
+	    this.setState({ showReviewForm: true });
+	  },
+	
+	  hideReviewForm: function () {
+	    this.setState({ showReviewForm: false });
 	  },
 	
 	  render: function () {
@@ -32069,10 +32080,21 @@
 	      return React.createElement('div', null);
 	    }
 	
+	    var reviewForm = React.createElement('div', null);
+	
+	    if (this.state.showReviewForm) {
+	      reviewForm = React.createElement(
+	        'div',
+	        { className: 'review-form-container' },
+	        React.createElement(ReviewForm, { course: this.state.course, handleCancel: this.hideReviewForm })
+	      );
+	    }
+	
 	    return React.createElement(
 	      'div',
 	      { className: 'course-show-body' },
-	      React.createElement(Course, { course: this.state.course, related_courses: related_courses, avg_rating: this.state.avg_rating }),
+	      React.createElement(Course, { course: this.state.course, related_courses: related_courses, avg_rating: this.state.avg_rating, handleNewReview: this.handleNewReview }),
+	      reviewForm,
 	      React.createElement(
 	        'section',
 	        { className: 'course-reviews' },
@@ -32384,24 +32406,26 @@
 	  },
 	
 	  submitRating: function (e) {
-	    e.preventDefault();
+	    // e.preventDefault();
 	
-	    var rev = { review: {
-	        rating: this.state.rating,
-	        user_id: this.context.currentUser.id,
-	        course_id: this.props.course.id
-	      }
-	    };
+	    // var rev =
+	    //   { review:
+	    //     {
+	    //       rating: this.state.rating,
+	    //       user_id: this.context.currentUser.id,
+	    //       course_id: this.props.course.id
+	    //     }
+	    //   }
 	
-	    ReviewApiUtil.postReview(rev);
+	    // ReviewApiUtil.postReview(rev)
 	  },
 	
 	  _newReview: function (e) {
-	    e.preventDefault();
+	    // e.preventDefault();
 	
-	    var id = this.props.course.id;
+	    // var id = this.props.course.id
 	
-	    this.history.pushState({ course_id: id }, "/reviews/new");
+	    // this.history.pushState({course_id: id}, "/reviews/new")
 	  },
 	
 	  render: function () {
@@ -32445,7 +32469,7 @@
 	            { className: 'want-to-read-menu' },
 	            React.createElement(
 	              'a',
-	              { onClick: this._newReview, className: 'want-to-read' },
+	              { onClick: this.props.handleNewReview, className: 'want-to-read' },
 	              'Review'
 	            )
 	          ),
@@ -32462,7 +32486,7 @@
 	              { className: 'rating' },
 	              React.createElement(
 	                'a',
-	                { href: '#/course', onClick: this.submitRating },
+	                { href: '', onClick: this.props.handleNewReview },
 	                React.createElement(
 	                  'span',
 	                  null,
@@ -33057,19 +33081,19 @@
 	
 	  handleSubmit: function (e) {
 	    e.preventDefault();
-	    var course_id = this.props.location.state.course_id;
+	    var course = this.props.course;
 	    var user_id = this.context.currentUser.id;
 	
-	    this.setState({ user_id: this.context.currentUser.id, course_id: this.props.location.state.courseId });
+	    this.setState({ user_id: this.context.currentUser.id, course: this.props.course });
 	    var params = {
 	      user_id: user_id,
-	      course_id: course_id,
+	      course_id: course.id,
 	      rating: this.state.rating,
 	      body: this.state.reviewBody
 	    };
 	
 	    ReviewApiUtil.postReview(params, function () {
-	      this.history.pushState({}, "courses/" + course_id);
+	      this.history.pushState({}, "courses/" + course.id);
 	    }.bind(this));
 	  },
 	
@@ -33094,22 +33118,24 @@
 	            type: 'number',
 	            valueLink: this.linkState('rating') })
 	        ),
-	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
 	          null,
 	          'What did you think?',
-	          React.createElement('input', {
-	            className: 'review-input',
+	          React.createElement('textarea', {
+	            className: 'review-input body',
 	            placeholder: 'Enter your review (optional)',
-	            type: 'textarea',
 	            valueLink: this.linkState('reviewBody') })
 	        ),
-	        React.createElement('br', null),
 	        React.createElement(
 	          'button',
-	          null,
+	          { className: 'review-form-button submit', type: 'submit' },
 	          'Save'
+	        ),
+	        React.createElement(
+	          'a',
+	          { className: 'review-form-button cancel', onClick: this.props.handleCancel },
+	          'Cancel'
 	        )
 	      )
 	    );
@@ -33338,15 +33364,13 @@
 	
 	    reader.onloadend = function () {
 	      this.setState({ avatarFile: file, avatar: reader.result });
-	      debugger;
 	    }.bind(this);
 	
 	    if (file) {
 	      reader.readAsDataURL(file); // will trigger a load end event when it completes, and invoke reader.onloadend
-	      debugger;
 	    } else {
-	      this.setState({ avatarFile: null, avatar: "" });
-	    }
+	        this.setState({ avatarFile: null, avatar: "" });
+	      }
 	  },
 	
 	  render: function () {

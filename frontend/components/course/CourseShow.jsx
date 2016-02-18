@@ -3,6 +3,7 @@ var CourseStore = require('./../../stores/course');
 var ReviewStore = require('./../../stores/review');
 var ApiUtil = require('./../../util/api_util');
 var Review = require('./../review/Review');
+var ReviewForm = require('./../review/ReviewForm');
 
 var CurrentUserStore = require('./../../stores/currentUser');
 
@@ -19,7 +20,8 @@ var CourseShow = React.createClass({
     return {
       course: course,
       avg_rating: course.avg_rating,
-      reviews: course.reviews
+      reviews: course.reviews,
+      showReviewForm: false
      };
   },
 
@@ -74,9 +76,18 @@ var CourseShow = React.createClass({
     return courseReviews;
   },
 
-  printCurrentUser: function () {
-    console.log(CurrentUserStore.currentUser())
+  // printCurrentUser: function () {
+  //   console.log(CurrentUserStore.currentUser())
+  // },
+
+  handleNewReview: function () {
+    this.setState({showReviewForm: true});
   },
+
+  hideReviewForm: function () {
+    this.setState({showReviewForm: false});
+  },
+
 
   render: function () {
     var related_courses = CourseStore.all().filter(function (course) {
@@ -91,9 +102,21 @@ var CourseShow = React.createClass({
       return (<div></div>)
     }
 
+    var reviewForm = (<div></div>);
+
+    if (this.state.showReviewForm) {
+      reviewForm = (
+        <div className="review-form-container">
+          <ReviewForm course={ this.state.course } handleCancel={ this.hideReviewForm }/>
+        </div>
+      )
+    }
+
     return (
       <div className="course-show-body">
-        <Course course={ this.state.course } related_courses={ related_courses } avg_rating={ this.state.avg_rating } />
+        <Course course={ this.state.course } related_courses={ related_courses } avg_rating={ this.state.avg_rating } handleNewReview={ this.handleNewReview }/>
+
+        { reviewForm }
 
         <section className="course-reviews">
           <h3 className="course-review-header">Community Reviews</h3>

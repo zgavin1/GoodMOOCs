@@ -20,19 +20,19 @@ var ReviewForm = React.createClass({
 
   handleSubmit: function (e) {
     e.preventDefault();
-    var course_id = this.props.location.state.course_id;
+    var course = this.props.course;
     var user_id = this.context.currentUser.id;
 
-    this.setState({user_id: this.context.currentUser.id, course_id: this.props.location.state.courseId});
+    this.setState({user_id: this.context.currentUser.id, course: this.props.course});
     var params = {
       user_id: user_id,
-      course_id: course_id,
+      course_id: course.id,
       rating: this.state.rating,
       body: this.state.reviewBody
     };
 
     ReviewApiUtil.postReview(params, function () {
-      this.history.pushState({}, "courses/"+course_id);
+      this.history.pushState({}, "courses/"+ course.id);
     }.bind(this));
   },
 
@@ -47,17 +47,16 @@ var ReviewForm = React.createClass({
               type="number"
               valueLink={this.linkState('rating')} />
           </label>
-          <br/>
+          
           <label>
             What did you think?
-            <input
-              className="review-input"
+            <textarea
+              className="review-input body"
               placeholder="Enter your review (optional)"
-              type="textarea"
               valueLink={this.linkState('reviewBody')} />
           </label>
-          <br/>
-          <button>Save</button>
+          <button className="review-form-button submit" type="submit">Save</button>
+          <a className="review-form-button cancel" onClick={ this.props.handleCancel }>Cancel</a>
         </form>
       </div>
     );
