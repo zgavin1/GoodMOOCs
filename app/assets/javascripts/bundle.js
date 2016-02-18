@@ -33241,10 +33241,10 @@
 	
 	      user_info_courses = React.createElement(
 	        'div',
-	        { className: 'user-info-courses' },
+	        { className: 'user-info-courses group' },
 	        React.createElement(
 	          'a',
-	          { className: 'user-info-courses-headline', href: '#/reviews' },
+	          { className: 'user-link-to-reviews', href: '#/reviews' },
 	          ' See My Reviews '
 	        )
 	      );
@@ -33269,6 +33269,9 @@
 	        demo_courses
 	      );
 	    }
+	
+	    var rawDate = new Date(user.created_at).toDateString().split(" "); // ["Mon", "Feb", "08," "2016"]
+	    var joinDate = rawDate[1] + " " + rawDate[2] + ", " + rawDate[3];
 	
 	    return React.createElement(
 	      'div',
@@ -33312,11 +33315,22 @@
 	            { className: 'user-info-details' },
 	            React.createElement(
 	              'h2',
-	              null,
+	              { className: 'username' },
 	              user.username,
 	              ' ',
 	              edit_permission,
 	              ' '
+	            ),
+	            React.createElement(
+	              'h3',
+	              null,
+	              React.createElement(
+	                'strong',
+	                null,
+	                'Joined:'
+	              ),
+	              ' ',
+	              joinDate
 	            )
 	          )
 	        ),

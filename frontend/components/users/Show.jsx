@@ -61,8 +61,8 @@ var UserShow = React.createClass({
       edit_permission = <a href={ "#/users/" + user.id + "/edit" } className="user-show-hover edit-button">(edit profile)</a>;
 
       user_info_courses =
-        <div className="user-info-courses">
-          <a className="user-info-courses-headline" href="#/reviews"> See My Reviews </a>
+        <div className="user-info-courses group">
+          <a className="user-link-to-reviews" href="#/reviews"> See My Reviews </a>
         </div>;
     } else {
       var demo_courses = user.courses.slice(0, 10).map(function (course) {
@@ -76,6 +76,9 @@ var UserShow = React.createClass({
         </div>;
     }
 
+    var rawDate = new Date(user.created_at).toDateString().split(" "); // ["Mon", "Feb", "08," "2016"]
+    var joinDate = rawDate[1] + " " + rawDate[2] + ", " + rawDate[3]
+
     return (
       <div className="user-show-content">
         <div className="user-info group">
@@ -88,7 +91,8 @@ var UserShow = React.createClass({
           </div>
           <div className="user-info-right group">
             <div className="user-info-details">
-              <h2>{user.username} { edit_permission } </h2>
+              <h2 className="username">{user.username} { edit_permission } </h2>
+              <h3><strong>Joined:</strong> {joinDate}</h3>
             </div>
           </div>
           { user_info_courses }
