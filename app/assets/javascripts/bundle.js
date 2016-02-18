@@ -31253,7 +31253,7 @@
 	        React.createElement(
 	          'a',
 	          { href: "#/courses/" + course.id },
-	          React.createElement('img', { className: 'course-img', src: course.image_url })
+	          React.createElement('img', { className: 'landing-page-course-img', src: course.image_url })
 	        ),
 	        React.createElement(
 	          'a',
@@ -32787,7 +32787,7 @@
 	          React.createElement(
 	            'a',
 	            { href: '/' },
-	            'Right now, this simply displays highly rated courses'
+	            'These are our most highly rated courses!'
 	          )
 	        ),
 	        React.createElement(

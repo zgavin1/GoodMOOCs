@@ -9,7 +9,7 @@ var CourseIndexItem = React.createClass({
     if (klass === "landing-page-course-index-item") {
       return (
         <li className={klass + " index-link"} onClick={this.props.onClick}>
-          <a href={"#/courses/" + course.id}><img className="course-img" src={ course.image_url }/></a>
+          <a href={"#/courses/" + course.id}><img className="landing-page-course-img" src={ course.image_url }/></a>
           <a href={"#/courses/" + course.id}><p>{course.title}</p></a>
         </li>
       );

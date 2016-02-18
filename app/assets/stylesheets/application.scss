@@ -297,7 +297,14 @@ img {
   float: left;
   text-align: center;
   width: 138px;
-  height: 150px
+  height: 160px;
+  /*position: relative;*/
+}
+
+.landing-page-course-index-item a {
+  display: inline-block;
+  vertical-align: bottom;
+  height: 120px;
 }
 
 .landing-page-course-index-item a p {
@@ -307,6 +314,13 @@ img {
 }
 .landing-page-course-index-item a p:hover {
   text-decoration: underline;
+}
+
+.landing-page-course-img {
+  width: 140px;
+  height: 100px;
+  margin-bottom: 8px;
+  box-shadow: 1px 6px 8px #888888;
 }
 /* LOGGED IN STYLE */
 
@@ -746,7 +760,7 @@ img.preview-image {
 
 .course-img {
   width: 140px;
-  max-height: 150px;
+  max-height: 125px;
   margin-bottom: 8px;
   box-shadow: 1px 6px 8px #888888;
 }
