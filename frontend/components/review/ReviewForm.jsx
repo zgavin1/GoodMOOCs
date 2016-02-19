@@ -6,6 +6,8 @@ var ReviewStore = require('./../../stores/review');
 var ReviewApiUtil = require('./../../util/review_api_util');
 var History = require('react-router').History;
 
+var StarRating = require('./../Stars');
+
 var ReviewForm = React.createClass({
   contextTypes: {
     currentUser: React.PropTypes.object
@@ -59,6 +61,10 @@ var ReviewForm = React.createClass({
     this.props.reviewFormClose();
   },
 
+  handleStarClick: function (value) {
+    this.setState({rating: value})
+  },
+
   render: function () {
     return (
       <div className="review-form-content">
@@ -69,6 +75,7 @@ var ReviewForm = React.createClass({
               className="review-input"
               type="number"
               valueLink={this.linkState('rating')} />
+              <StarRating rating={ this.state.rating } static={false} handleStarClick={ this.handleStarClick } />
           </label>
           
           <label>

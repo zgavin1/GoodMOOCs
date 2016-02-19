@@ -32843,16 +32843,16 @@
 	        React.createElement(
 	          'td',
 	          null,
-	          avgRating
+	          React.createElement(
+	            'div',
+	            { className: 'rating' },
+	            React.createElement(StarRatiing, { 'static': true, rating: rev.rating })
+	          )
 	        ),
 	        React.createElement(
 	          'td',
 	          null,
-	          React.createElement(
-	            'div',
-	            { className: 'rating' },
-	            React.createElement(StarRatiing, { 'static': true, rating: avgRating })
-	          )
+	          avgRating
 	        )
 	      );
 	    }.bind(this));
@@ -32950,7 +32950,7 @@
 	              React.createElement(
 	                'a',
 	                null,
-	                'avg rating'
+	                'my rating'
 	              )
 	            ),
 	            React.createElement(
@@ -32959,7 +32959,7 @@
 	              React.createElement(
 	                'a',
 	                null,
-	                'rating'
+	                'avg rating'
 	              )
 	            )
 	          )
@@ -32987,6 +32987,8 @@
 	var ReviewStore = __webpack_require__(248);
 	var ReviewApiUtil = __webpack_require__(254);
 	var History = __webpack_require__(1).History;
+	
+	var StarRating = __webpack_require__(270);
 	
 	var ReviewForm = React.createClass({
 	  displayName: 'ReviewForm',
@@ -33041,6 +33043,10 @@
 	    this.props.reviewFormClose();
 	  },
 	
+	  handleStarClick: function (value) {
+	    this.setState({ rating: value });
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -33060,7 +33066,8 @@
 	          React.createElement('input', {
 	            className: 'review-input',
 	            type: 'number',
-	            valueLink: this.linkState('rating') })
+	            valueLink: this.linkState('rating') }),
+	          React.createElement(StarRating, { rating: this.state.rating, 'static': false, handleStarClick: this.handleStarClick })
 	        ),
 	        React.createElement(
 	          'label',
@@ -34419,9 +34426,18 @@
 			this.courseListener.remove();
 		},
 	
+		// componentWillReceiveProps: function () {
+		// 	this.setState({ rating: this.props.rating });
+		// },
+	
 		changeRating: function () {
 			// probably open the review create/edit form
 			// with this.state.rating prepended
+			if (!this.props.handleStarClick) {
+				return;
+			}
+	
+			this.props.handleStarClick(this.state.rating);
 		},
 	
 		handleMouseOver: function (e) {
@@ -34438,7 +34454,7 @@
 		},
 	
 		handleMouseLeave: function () {
-			this.setState({ rating: this.props.rating });
+			this.setState({ rating: this.props.rating || 0 });
 		},
 	
 		whichStar: function (star) {
@@ -34454,13 +34470,13 @@
 					stars.push(React.createElement(
 						'span',
 						null,
-						React.createElement('i', { id: "star" + (6 - i), onMouseOver: this.handleMouseOver, className: 'fa fa-star-o' })
+						React.createElement('i', { onClick: this.changeRating, id: "star" + (6 - i), onMouseOver: this.handleMouseOver, className: 'fa fa-star-o' })
 					));
 				} else {
 					stars.push(React.createElement(
 						'span',
 						{ className: 'bright' },
-						React.createElement('i', { id: "star" + (6 - i), id: "star" + (6 - i), onMouseOver: this.handleMouseOver, className: 'fa fa-star' })
+						React.createElement('i', { onClick: this.changeRating, id: "star" + (6 - i), id: "star" + (6 - i), onMouseOver: this.handleMouseOver, className: 'fa fa-star' })
 					));
 				}
 			};
@@ -34491,7 +34507,7 @@
 				{ className: 'rating' },
 				React.createElement(
 					'a',
-					{ onClick: this.changeRating, onMouseLeave: this.handleMouseLeave },
+					{ onMouseLeave: this.handleMouseLeave },
 					this.starDisplay()
 				)
 			);

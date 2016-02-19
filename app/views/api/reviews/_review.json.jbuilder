@@ -7,6 +7,5 @@ json.course do
   json.img asset_path(review.course.image.url)
 end
 
-
 # json.course review.course
 # json.avg_rating review.course.average_rating

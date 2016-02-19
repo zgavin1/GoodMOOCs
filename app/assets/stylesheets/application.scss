@@ -1172,6 +1172,10 @@ tbody tr:hover {
   background: #f6f6ee; 
 }
 
+tr > * {
+  width: 20%;
+}
+
 td {
   text-align: center;
 }

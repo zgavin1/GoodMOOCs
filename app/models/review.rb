@@ -6,4 +6,5 @@ class Review < ActiveRecord::Base
 # validates user_id over course_id
   belongs_to :course
   belongs_to :user
+
 end

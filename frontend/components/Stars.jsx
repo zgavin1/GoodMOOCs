@@ -27,9 +27,18 @@ var Stars = React.createClass({
 		this.courseListener.remove();
 	},
 
+	// componentWillReceiveProps: function () {
+	// 	this.setState({ rating: this.props.rating });
+	// },
+
 	changeRating: function () {
 		// probably open the review create/edit form
 		// with this.state.rating prepended
+		if (!this.props.handleStarClick) {
+			return;
+		}
+
+		this.props.handleStarClick(this.state.rating);
 	},
 
 	handleMouseOver: function (e) {
@@ -46,7 +55,7 @@ var Stars = React.createClass({
 	},
 
 	handleMouseLeave: function () {
-		this.setState({rating: this.props.rating});
+		this.setState({rating: this.props.rating || 0});
 	},
 
 	whichStar: function (star) {
@@ -60,12 +69,12 @@ var Stars = React.createClass({
 		for (var i = 1; i <= 5; i++) {
 			if (6 - i > bright) {
 				stars.push(
-						<span ><i id={"star" + (6-i)} onMouseOver={ this.handleMouseOver } className="fa fa-star-o"></i>
+						<span ><i onClick={ this.changeRating } id={"star" + (6-i)} onMouseOver={ this.handleMouseOver } className="fa fa-star-o"></i>
 </span>
 					)
 			} else {
 				stars.push(
-						<span className="bright"><i id={"star" + (6-i)} id={"star" + (6-i)}onMouseOver={ this.handleMouseOver } className="fa fa-star"></i></span>
+						<span className="bright"><i onClick={ this.changeRating } id={"star" + (6-i)} id={"star" + (6-i)}onMouseOver={ this.handleMouseOver } className="fa fa-star"></i></span>
 					)
 			}
 		};
@@ -93,7 +102,7 @@ var Stars = React.createClass({
 
 		return (
 				<div className="rating">
-					<a onClick={ this.changeRating } onMouseLeave={ this.handleMouseLeave }>
+					<a onMouseLeave={ this.handleMouseLeave }>
             { this.starDisplay() }
           </a>
 				</div>

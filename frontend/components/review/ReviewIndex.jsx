@@ -59,12 +59,12 @@ var ReviewIndex = React.createClass({
           <td><a href={"#/courses/" + course.id}><img className="reviews-table-image" src={course.img} /></a></td>
           <td className="title-column"><a href={"#/courses/" + course.id}>{course.title}</a></td>
           <td><a href={course.course_provider.home_url}>{course.course_provider.name}</a></td>
-          <td>{avgRating}</td>
           <td>
             <div className="rating">
-              <StarRatiing static={ true } rating={ avgRating } />
+              <StarRatiing static={ true } rating={ rev.rating } />
             </div>
           </td>
+          <td>{avgRating}</td>
         </tr>
       );
     }.bind(this));
@@ -90,8 +90,8 @@ var ReviewIndex = React.createClass({
               <th><a>image</a></th>
               <th><a>title</a></th>
               <th><a>provider</a></th>
+              <th><a>my rating</a></th>
               <th><a>avg rating</a></th>
-              <th><a>rating</a></th>
             </tr>
           </thead>
           <tbody className="reviews-table-body">
