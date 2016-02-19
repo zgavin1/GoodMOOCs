@@ -122,7 +122,7 @@ var Course = React.createClass({
             </div>
             <p>{course.description}</p>
             <div className="course-info-enrollment">
-              <p> Enroll at <a className="enrollment-link" href={course.course_url}>Udacity: {cost}</a></p>
+              <p> <a className="enrollment-link" href={course.course_url}>Enroll at Udacity: {cost}</a></p>
             </div>
           </div>
 

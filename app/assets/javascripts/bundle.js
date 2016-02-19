@@ -32554,11 +32554,11 @@
 	            React.createElement(
 	              'p',
 	              null,
-	              ' Enroll at ',
+	              ' ',
 	              React.createElement(
 	                'a',
 	                { className: 'enrollment-link', href: course.course_url },
-	                'Udacity: ',
+	                'Enroll at Udacity: ',
 	                cost
 	              )
 	            )

@@ -840,7 +840,7 @@ img.preview-image {
   border-radius: 4px;
 }
 .enrollment-link:hover {
-  text-decoration: underline;
+  background-color: #ece8d8;
 }
 
 .course-show-right {
@@ -1022,6 +1022,7 @@ review-info-container > * {
 
 .suggestion-img {
   width: 100px;
+  max-height: 100px;
 }
 
 .suggestion-info {
@@ -1167,12 +1168,21 @@ dot {
   width: 50px;
 }
 
+tbody tr:hover {
+  background: #f6f6ee; 
+}
+
 td {
   text-align: center;
 }
 
+
 td .rating {
   text-align: center;
+}
+
+td a:hover {
+  text-decoration: underline;
 }
 
 tr {
