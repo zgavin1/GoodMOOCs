@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var CourseStore = require('./../stores/course');
+
 var Stars = React.createClass({
 	// expecting props about how many should be highlight
 	// 
@@ -12,9 +14,17 @@ var Stars = React.createClass({
 		// if (this.props.static) {
 			return {
 				rating: this.props.rating || 0
-			}
+			};
 		// }
 
+	},
+
+	componentDidMount: function () {
+		this.courseListener = CourseStore.addListener(this.forceUpdate.bind(this));
+	},
+
+	componentWillUnmount: function () {
+		this.courseListener.remove();
 	},
 
 	changeRating: function () {
@@ -29,6 +39,9 @@ var Stars = React.createClass({
 
 		// ORRRR I could change the state from static to dynamic
 		// but.... only if the props are not static. And I still need to get the rating.
+		if (this.props.static) {
+			return;
+		}
 		this.setState({ rating: this.whichStar(e.target) });
 	},
 

@@ -32508,35 +32508,7 @@
 	          React.createElement(
 	            'div',
 	            { className: 'rating-stats' },
-	            React.createElement(
-	              'div',
-	              { className: 'rated' },
-	              React.createElement(
-	                'span',
-	                null,
-	                '☆'
-	              ),
-	              React.createElement(
-	                'span',
-	                null,
-	                '☆'
-	              ),
-	              React.createElement(
-	                'span',
-	                null,
-	                '☆'
-	              ),
-	              React.createElement(
-	                'span',
-	                null,
-	                '☆'
-	              ),
-	              React.createElement(
-	                'span',
-	                null,
-	                '☆'
-	              )
-	            ),
+	            React.createElement(StarRating, { 'static': true, rating: avgRating }),
 	            React.createElement(
 	              'dot',
 	              null,
@@ -32794,6 +32766,8 @@
 	var ReviewStore = __webpack_require__(248);
 	var CourseStore = __webpack_require__(209);
 	
+	var StarRatiing = __webpack_require__(270);
+	
 	var ReviewIndex = React.createClass({
 	  displayName: 'ReviewIndex',
 	
@@ -32877,36 +32851,7 @@
 	          React.createElement(
 	            'div',
 	            { className: 'rating' },
-	            React.createElement(
-	              'a',
-	              { href: '#/reviews', onClick: this.submitRating },
-	              React.createElement(
-	                'span',
-	                null,
-	                '☆'
-	              ),
-	              React.createElement(
-	                'span',
-	                null,
-	                '☆'
-	              ),
-	              React.createElement(
-	                'span',
-	                null,
-	                '☆'
-	              ),
-	              React.createElement(
-	                'span',
-	                null,
-	                '☆'
-	              ),
-	              React.createElement(
-	                'span',
-	                null,
-	                '☆'
-	              )
-	            ),
-	            rev.rating
+	            React.createElement(StarRatiing, { 'static': true, rating: avgRating })
 	          )
 	        )
 	      );
@@ -34447,6 +34392,8 @@
 	var React = __webpack_require__(5);
 	var ReactDOM = __webpack_require__(207);
 	
+	var CourseStore = __webpack_require__(209);
+	
 	var Stars = React.createClass({
 		displayName: 'Stars',
 	
@@ -34464,6 +34411,14 @@
 			// }
 		},
 	
+		componentDidMount: function () {
+			this.courseListener = CourseStore.addListener(this.forceUpdate.bind(this));
+		},
+	
+		componentWillUnmount: function () {
+			this.courseListener.remove();
+		},
+	
 		changeRating: function () {
 			// probably open the review create/edit form
 			// with this.state.rating prepended
@@ -34476,6 +34431,9 @@
 	
 			// ORRRR I could change the state from static to dynamic
 			// but.... only if the props are not static. And I still need to get the rating.
+			if (this.props.static) {
+				return;
+			}
 			this.setState({ rating: this.whichStar(e.target) });
 		},
 	

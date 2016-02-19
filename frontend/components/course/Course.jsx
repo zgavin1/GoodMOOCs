@@ -112,9 +112,7 @@ var Course = React.createClass({
             </h3>
             <br/>
             <div className="rating-stats">
-              <div className="rated">
-                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-              </div>
+              <StarRating static={ true } rating={ avgRating } />
                <dot>·</dot>
               <a>avg rating: {avgRating}</a>
                <dot>·</dot>

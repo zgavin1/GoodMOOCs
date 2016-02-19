@@ -953,7 +953,7 @@ review-info-container > * {
 .bright:hover ~ .bright,*/
 .rating > a > span:hover,
 .rating > a > span:hover ~ span {
-  color: transparent;
+  /*color: transparent;*/
 }
 /*
 .rating > .bright:hover:before,
@@ -1168,6 +1168,10 @@ dot {
 }
 
 td {
+  text-align: center;
+}
+
+td .rating {
   text-align: center;
 }
 

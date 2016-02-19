@@ -10,6 +10,8 @@ var CurrentUserStore = require('./../../stores/currentUser');
 var ReviewStore = require('./../../stores/review');
 var CourseStore = require('./../../stores/course');
 
+var StarRatiing = require('./../Stars');
+
 var ReviewIndex = React.createClass({
 
   contextTypes: {
@@ -60,10 +62,7 @@ var ReviewIndex = React.createClass({
           <td>{avgRating}</td>
           <td>
             <div className="rating">
-              <a href="#/reviews" onClick={this.submitRating}>
-                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-              </a>
-              {rev.rating}
+              <StarRatiing static={ true } rating={ avgRating } />
             </div>
           </td>
         </tr>
