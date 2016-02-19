@@ -4,6 +4,7 @@ var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var ApiUtil = require('./../../util/api_util');
 var ReviewApiUtil = require('./../../util/review_api_util');
+var CourseApiUtil = require('./../../util/api_util')
 var SessionsApiUtil = require('./../../util/sessions_api_util');
 
 var CurrentUserStore = require('./../../stores/currentUser');
@@ -26,8 +27,9 @@ var ReviewIndex = React.createClass({
   },
 
   componentDidMount: function () {
-    this.reviewsListener = ReviewStore.addListener(this._reviewsChanged);
     ReviewApiUtil.fetchReviews();
+    CourseApiUtil.fetchCourses();
+    this.reviewsListener = ReviewStore.addListener(this._reviewsChanged);
   },
 
   _reviewsChanged: function () {
@@ -54,6 +56,8 @@ var ReviewIndex = React.createClass({
     var rev_rows = all_revs.map(function (rev) {
       var course = rev.course;
       var avgRating = parseFloat(Math.ceil(course.avg_rating * 100)/100);
+
+      var provider = course.course_provider.home_url || "#";
       return (
         <tr key={rev.id} className="review-index-item">
           <td><a href={"#/courses/" + course.id}><img className="reviews-table-image" src={course.img} /></a></td>

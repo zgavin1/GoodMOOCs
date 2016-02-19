@@ -27,9 +27,9 @@ var Stars = React.createClass({
 		this.courseListener.remove();
 	},
 
-	// componentWillReceiveProps: function () {
-	// 	this.setState({ rating: this.props.rating });
-	// },
+	componentWillReceiveProps: function () {
+		this.forceUpdate();
+	},
 
 	changeRating: function () {
 		// probably open the review create/edit form
@@ -69,8 +69,11 @@ var Stars = React.createClass({
 		for (var i = 1; i <= 5; i++) {
 			if (6 - i > bright) {
 				stars.push(
-						<span ><i onClick={ this.changeRating } id={"star" + (6-i)} onMouseOver={ this.handleMouseOver } className="fa fa-star-o"></i>
-</span>
+						<span ><i
+							onClick={ this.changeRating }
+							id={"star" + (6-i)}
+							onMouseOver={ this.handleMouseOver }
+							className="fa fa-star-o" ></i></span>
 					)
 			} else {
 				stars.push(
@@ -82,14 +85,7 @@ var Stars = React.createClass({
 		return stars
 	},
 
-
-
-            // <span className="star5">☆</span><span className="star4" >☆</span><span className="star3">☆</span><span className="star2">☆</span><span className="star1">☆</span>
-
 	render: function () {
-		// in both cases, static or not, a certain number
-		// of stars should be pre-highlighted 
-		// debugger
 		if (this.props.static) {
 			return (
 				<div className="rating">

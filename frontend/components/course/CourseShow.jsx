@@ -65,9 +65,6 @@ var CourseShow = React.createClass({
 
   courseReviews: function () {
     var courseReviews = this.state.reviews
-    // .sort(function (rev1, rev2) {
-    //   rev1.created_at > rev2.created_at;
-    // }.bind(this));
     courseReviews = courseReviews.map(function (review) {
       return (
         <Review review={review} key={review.id} />
@@ -77,11 +74,31 @@ var CourseShow = React.createClass({
     return courseReviews;
   },
 
-  // printCurrentUser: function () {
-  //   console.log(CurrentUserStore.currentUser())
-  // },
+  currentUserHasReviewed: function () {
+    var currentUsersCourses = this.context.currentUser.courses.map(function (course) {
+      return course.course_id;
+    });
+
+    return currentUsersCourses.includes(this.state.course.id);
+  },
+
+  currentUserRating: function () {
+    var rating = 0;
+
+    this.context.currentUser.reviews.forEach(function (review) {
+      if (this.state.course.id === review.course_id) {
+        return rating = review.rating;
+      }
+    }.bind(this));
+    return rating;
+  },
 
   handleNewReview: function () {
+    if (this.currentUserHasReviewed()) {
+      alert("You have already reviewed this course!");
+      return;
+    }
+
     this.setState({showReviewForm: true});
   },
 
@@ -108,14 +125,21 @@ var CourseShow = React.createClass({
     if (this.state.showReviewForm) {
       reviewForm = (
         <div className="review-form-container">
-          <ReviewForm course={ this.state.course } reviewFormClose={ this.hideReviewForm }/>
+          <ReviewForm
+            rating={ this.currentUserRating() } 
+            course={ this.state.course }
+            reviewFormClose={ this.hideReviewForm } />
         </div>
       )
     }
 
     return (
       <div className="course-show-body">
-        <Course course={ this.state.course } related_courses={ related_courses } avg_rating={ this.state.avg_rating } handleNewReview={ this.handleNewReview }/>
+        <Course
+          course={ this.state.course }
+          related_courses={ related_courses }
+          avg_rating={ this.state.avg_rating }
+          handleNewReview={ this.handleNewReview }/>
 
         { reviewForm }
 

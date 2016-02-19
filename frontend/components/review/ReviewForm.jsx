@@ -16,7 +16,7 @@ var ReviewForm = React.createClass({
   mixins: [LinkedStateMixin, History],
 
   getInitialState: function () {
-    return ({ rating: 5, reviewBody: "" });
+    return ({ rating: this.props.rating, reviewBody: "" });
   },
 
   componentDidMount: function () {
@@ -71,11 +71,10 @@ var ReviewForm = React.createClass({
         <h3> Post your review </h3>
         <form onSubmit={this.handleSubmit}>
           <label> My rating:
-            <input
-              className="review-input"
-              type="number"
-              valueLink={this.linkState('rating')} />
-              <StarRating rating={ this.state.rating } static={false} handleStarClick={ this.handleStarClick } />
+              <StarRating
+                rating={ this.state.rating }
+                static={false}
+                handleStarClick={ this.handleStarClick } />
           </label>
           
           <label>

@@ -41,6 +41,10 @@ var Course = React.createClass({
     this.currentUserListener.remove();
   },
 
+  componentWillReceiveProps: function () {
+
+  },
+
   submitRating: function (e) {
     // e.preventDefault();
 
@@ -64,6 +68,21 @@ var Course = React.createClass({
     // this.history.pushState({course_id: id}, "/reviews/new")
   },
 
+  currentUserRating: function () {
+    var rating = 0;
+
+    this.context.currentUser.reviews.forEach(function (review) {
+      if (this.props.course.id === review.course_id) {
+        return rating = review.rating;
+      }
+    }.bind(this));
+    return rating;
+  },
+
+  // avgRating: function () {
+  //   parseFloat(Math.ceil(this.props.course.average_rating * 100) / 100);
+  // },
+
   render: function () {
     var course = this.props.course;
     if ($.isEmptyObject(course)) {
@@ -77,9 +96,9 @@ var Course = React.createClass({
       }
     }
 
-    var avgRating = parseFloat(Math.ceil(this.props.avg_rating * 100)/100);
+    var avgRating = parseFloat(Math.ceil(course.average_rating * 100)/100);
 
-    var related_courses = this.props.related_courses.slice(0,5).map(function (course) {
+    var related_courses = this.props.related_courses.map(function (course) {
       return <CourseIndexItem key={course.id} className="related-course" course={course} />
     });
 
@@ -90,17 +109,24 @@ var Course = React.createClass({
       cost = "$" + cost + "0"
     }
 
+    var reviewText;
+    if (this.currentUserRating() > 0) {
+      reviewText = "Reviewed";
+    } else {
+     reviewText = "Review";
+    }
+
     return (
       <div className="course-show-body group">
         <div className="course-show-left group">
           <div className="course-img-col group">
             <img className="course-img" src={course.image_url}/>
             <div className="want-to-read-menu">
-              <a onClick={this.props.handleNewReview} className="want-to-read">Review</a>
+              <a onClick={this.props.handleNewReview} className="want-to-read">{reviewText}</a>
             </div>
             <div className="rating-container">
               <p>Rate this Course</p>
-              <StarRating static={ false } rating={3} />
+              <StarRating static={ false } rating={ this.currentUserRating() } />
             </div>
           </div>
           <div className="course-info-col">
@@ -122,7 +148,7 @@ var Course = React.createClass({
             </div>
             <p>{course.description}</p>
             <div className="course-info-enrollment">
-              <p> <a className="enrollment-link" href={course.course_url}>Enroll at Udacity: {cost}</a></p>
+              <p> <a className="enrollment-link" href={course.course_url}>Enroll at {course.course_provider.name}: {cost}</a></p>
             </div>
           </div>
 
@@ -138,12 +164,5 @@ var Course = React.createClass({
     );
   }
 });
-
-// TESTING
-// <div className="rating">
-//                 <a href="" onClick={this.props.handleNewReview}>
-//                   <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-//                 </a>
-//               </div>
 
 module.exports = Course;

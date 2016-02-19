@@ -32046,9 +32046,6 @@
 	
 	  courseReviews: function () {
 	    var courseReviews = this.state.reviews;
-	    // .sort(function (rev1, rev2) {
-	    //   rev1.created_at > rev2.created_at;
-	    // }.bind(this));
 	    courseReviews = courseReviews.map(function (review) {
 	      return React.createElement(Review, { review: review, key: review.id });
 	    }.bind(this));
@@ -32056,11 +32053,31 @@
 	    return courseReviews;
 	  },
 	
-	  // printCurrentUser: function () {
-	  //   console.log(CurrentUserStore.currentUser())
-	  // },
+	  currentUserHasReviewed: function () {
+	    var currentUsersCourses = this.context.currentUser.courses.map(function (course) {
+	      return course.course_id;
+	    });
+	
+	    return currentUsersCourses.includes(this.state.course.id);
+	  },
+	
+	  currentUserRating: function () {
+	    var rating = 0;
+	
+	    this.context.currentUser.reviews.forEach(function (review) {
+	      if (this.state.course.id === review.course_id) {
+	        return rating = review.rating;
+	      }
+	    }.bind(this));
+	    return rating;
+	  },
 	
 	  handleNewReview: function () {
+	    if (this.currentUserHasReviewed()) {
+	      alert("You have already reviewed this course!");
+	      return;
+	    }
+	
 	    this.setState({ showReviewForm: true });
 	  },
 	
@@ -32087,14 +32104,21 @@
 	      reviewForm = React.createElement(
 	        'div',
 	        { className: 'review-form-container' },
-	        React.createElement(ReviewForm, { course: this.state.course, reviewFormClose: this.hideReviewForm })
+	        React.createElement(ReviewForm, {
+	          rating: this.currentUserRating(),
+	          course: this.state.course,
+	          reviewFormClose: this.hideReviewForm })
 	      );
 	    }
 	
 	    return React.createElement(
 	      'div',
 	      { className: 'course-show-body' },
-	      React.createElement(Course, { course: this.state.course, related_courses: related_courses, avg_rating: this.state.avg_rating, handleNewReview: this.handleNewReview }),
+	      React.createElement(Course, {
+	        course: this.state.course,
+	        related_courses: related_courses,
+	        avg_rating: this.state.avg_rating,
+	        handleNewReview: this.handleNewReview }),
 	      reviewForm,
 	      React.createElement(
 	        'section',
@@ -32407,6 +32431,8 @@
 	    this.currentUserListener.remove();
 	  },
 	
+	  componentWillReceiveProps: function () {},
+	
 	  submitRating: function (e) {
 	    // e.preventDefault();
 	
@@ -32430,6 +32456,21 @@
 	    // this.history.pushState({course_id: id}, "/reviews/new")
 	  },
 	
+	  currentUserRating: function () {
+	    var rating = 0;
+	
+	    this.context.currentUser.reviews.forEach(function (review) {
+	      if (this.props.course.id === review.course_id) {
+	        return rating = review.rating;
+	      }
+	    }.bind(this));
+	    return rating;
+	  },
+	
+	  // avgRating: function () {
+	  //   parseFloat(Math.ceil(this.props.course.average_rating * 100) / 100);
+	  // },
+	
 	  render: function () {
 	    var course = this.props.course;
 	    if ($.isEmptyObject(course)) {
@@ -32443,9 +32484,9 @@
 	      }
 	    }
 	
-	    var avgRating = parseFloat(Math.ceil(this.props.avg_rating * 100) / 100);
+	    var avgRating = parseFloat(Math.ceil(course.average_rating * 100) / 100);
 	
-	    var related_courses = this.props.related_courses.slice(0, 5).map(function (course) {
+	    var related_courses = this.props.related_courses.map(function (course) {
 	      return React.createElement(CourseIndexItem, { key: course.id, className: 'related-course', course: course });
 	    });
 	
@@ -32454,6 +32495,13 @@
 	      cost = "Free";
 	    } else {
 	      cost = "$" + cost + "0";
+	    }
+	
+	    var reviewText;
+	    if (this.currentUserRating() > 0) {
+	      reviewText = "Reviewed";
+	    } else {
+	      reviewText = "Review";
 	    }
 	
 	    return React.createElement(
@@ -32472,7 +32520,7 @@
 	            React.createElement(
 	              'a',
 	              { onClick: this.props.handleNewReview, className: 'want-to-read' },
-	              'Review'
+	              reviewText
 	            )
 	          ),
 	          React.createElement(
@@ -32483,7 +32531,7 @@
 	              null,
 	              'Rate this Course'
 	            ),
-	            React.createElement(StarRating, { 'static': false, rating: 3 })
+	            React.createElement(StarRating, { 'static': false, rating: this.currentUserRating() })
 	          )
 	        ),
 	        React.createElement(
@@ -32558,7 +32606,9 @@
 	              React.createElement(
 	                'a',
 	                { className: 'enrollment-link', href: course.course_url },
-	                'Enroll at Udacity: ',
+	                'Enroll at ',
+	                course.course_provider.name,
+	                ': ',
 	                cost
 	              )
 	            )
@@ -32588,13 +32638,6 @@
 	    );
 	  }
 	});
-	
-	// TESTING
-	// <div className="rating">
-	//                 <a href="" onClick={this.props.handleNewReview}>
-	//                   <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-	//                 </a>
-	//               </div>
 	
 	module.exports = Course;
 
@@ -32760,6 +32803,7 @@
 	
 	var ApiUtil = __webpack_require__(232);
 	var ReviewApiUtil = __webpack_require__(254);
+	var CourseApiUtil = __webpack_require__(232);
 	var SessionsApiUtil = __webpack_require__(246);
 	
 	var CurrentUserStore = __webpack_require__(252);
@@ -32784,8 +32828,9 @@
 	  },
 	
 	  componentDidMount: function () {
-	    this.reviewsListener = ReviewStore.addListener(this._reviewsChanged);
 	    ReviewApiUtil.fetchReviews();
+	    CourseApiUtil.fetchCourses();
+	    this.reviewsListener = ReviewStore.addListener(this._reviewsChanged);
 	  },
 	
 	  _reviewsChanged: function () {
@@ -32810,6 +32855,8 @@
 	    var rev_rows = all_revs.map(function (rev) {
 	      var course = rev.course;
 	      var avgRating = parseFloat(Math.ceil(course.avg_rating * 100) / 100);
+	
+	      var provider = course.course_provider.home_url || "#";
 	      return React.createElement(
 	        'tr',
 	        { key: rev.id, className: 'review-index-item' },
@@ -33000,7 +33047,7 @@
 	  mixins: [LinkedStateMixin, History],
 	
 	  getInitialState: function () {
-	    return { rating: 5, reviewBody: "" };
+	    return { rating: this.props.rating, reviewBody: "" };
 	  },
 	
 	  componentDidMount: function () {
@@ -33063,11 +33110,10 @@
 	          'label',
 	          null,
 	          ' My rating:',
-	          React.createElement('input', {
-	            className: 'review-input',
-	            type: 'number',
-	            valueLink: this.linkState('rating') }),
-	          React.createElement(StarRating, { rating: this.state.rating, 'static': false, handleStarClick: this.handleStarClick })
+	          React.createElement(StarRating, {
+	            rating: this.state.rating,
+	            'static': false,
+	            handleStarClick: this.handleStarClick })
 	        ),
 	        React.createElement(
 	          'label',
@@ -34426,9 +34472,9 @@
 			this.courseListener.remove();
 		},
 	
-		// componentWillReceiveProps: function () {
-		// 	this.setState({ rating: this.props.rating });
-		// },
+		componentWillReceiveProps: function () {
+			this.forceUpdate();
+		},
 	
 		changeRating: function () {
 			// probably open the review create/edit form
@@ -34470,7 +34516,11 @@
 					stars.push(React.createElement(
 						'span',
 						null,
-						React.createElement('i', { onClick: this.changeRating, id: "star" + (6 - i), onMouseOver: this.handleMouseOver, className: 'fa fa-star-o' })
+						React.createElement('i', {
+							onClick: this.changeRating,
+							id: "star" + (6 - i),
+							onMouseOver: this.handleMouseOver,
+							className: 'fa fa-star-o' })
 					));
 				} else {
 					stars.push(React.createElement(
@@ -34484,12 +34534,7 @@
 			return stars;
 		},
 	
-		// <span className="star5">☆</span><span className="star4" >☆</span><span className="star3">☆</span><span className="star2">☆</span><span className="star1">☆</span>
-	
 		render: function () {
-			// in both cases, static or not, a certain number
-			// of stars should be pre-highlighted
-			// debugger
 			if (this.props.static) {
 				return React.createElement(
 					'div',
