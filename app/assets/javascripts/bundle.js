@@ -32922,7 +32922,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'reviews-index-header-nav' },
-	          React.createElement('input', { className: 'course-index-search', type: 'text', placeholder: 'Search and add books' }),
+	          React.createElement('input', { className: 'course-index-search', type: 'text', placeholder: 'Search to be implemented.' }),
 	          React.createElement(
 	            'a',
 	            { href: '#/reviews' },

@@ -78,7 +78,7 @@ var ReviewIndex = React.createClass({
         <div className="reviews-index-header group">
           <h1><a href="#/reviews">My Courses</a></h1>
           <div className="reviews-index-header-nav">
-            <input className="course-index-search" type="text" placeholder="Search and add books"/>
+            <input className="course-index-search" type="text" placeholder="Search to be implemented."/>
             <a href="#/reviews" > Batch Edit </a>
             <a href="#/reviews" > Settings </a>
             <a href="#/reviews" > Stats </a>
