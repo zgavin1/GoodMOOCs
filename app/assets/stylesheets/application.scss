@@ -942,24 +942,47 @@ review-info-container > * {
   direction: rtl;
   text-align: left;
 }
+
 .rating > a > span, .rated > a > span {
   display: inline-block;
   position: relative;
   width: 1.1em;
 }
 
+/*.bright:hover,
+.bright:hover ~ .bright,*/
 .rating > a > span:hover,
 .rating > a > span:hover ~ span {
   color: transparent;
 }
-
+/*
+.rating > .bright:hover:before,
+.bright:hover ~ .bright:before,*/
 .rating > a > span:hover:before,
 .rating > a > span:hover ~ span:before {
-   content: "\2605";
-   position: absolute;
-   left: 0;
-   color: #fa604a;
+  /*content: "\2605";*/
+  position: absolute;
+  left: 0;
+  color: #fa604a;
 }
+
+.fa-star {
+  /*content: "\2605";*/
+/*  position: absolute;
+  left: 0;*/
+  color: #fa604a;
+}
+
+/*.rating .bright {
+  content: "\2605";
+  color: #fa604a;
+  background-color: #fa604a;
+}
+
+.rating .bright:hover {
+  background-color: transparent;
+}
+*/
 
 // Course Suggestions
 

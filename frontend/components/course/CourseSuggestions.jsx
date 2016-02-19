@@ -57,7 +57,7 @@ var CourseSuggestions = React.createClass({
     return (
       <div className="course-suggestions group">
         <div className="course-suggestions-left">
-          <h1 className="suggestions-header"><a href="/">These are our most highly rated courses!</a></h1>
+          <h1 className="suggestions-header"><a>These are our most highly rated courses!</a></h1>
           <ul className="course-suggestions-index group">
             { suggestions }
           </ul>

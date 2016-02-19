@@ -32372,8 +32372,9 @@
 	var CurrentUserStore = __webpack_require__(252);
 	var ReviewStore = __webpack_require__(248);
 	var CourseStore = __webpack_require__(209);
-	
 	var CourseIndexItem = __webpack_require__(234);
+	var StarRating = __webpack_require__(270);
+	
 	var History = __webpack_require__(1).History;
 	
 	var Course = React.createClass({
@@ -32482,39 +32483,7 @@
 	              null,
 	              'Rate this Course'
 	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'rating' },
-	              React.createElement(
-	                'a',
-	                { href: '', onClick: this.props.handleNewReview },
-	                React.createElement(
-	                  'span',
-	                  null,
-	                  '☆'
-	                ),
-	                React.createElement(
-	                  'span',
-	                  null,
-	                  '☆'
-	                ),
-	                React.createElement(
-	                  'span',
-	                  null,
-	                  '☆'
-	                ),
-	                React.createElement(
-	                  'span',
-	                  null,
-	                  '☆'
-	                ),
-	                React.createElement(
-	                  'span',
-	                  null,
-	                  '☆'
-	                )
-	              )
-	            )
+	            React.createElement(StarRating, { 'static': false, rating: 3 })
 	          )
 	        ),
 	        React.createElement(
@@ -32647,6 +32616,13 @@
 	    );
 	  }
 	});
+	
+	// TESTING
+	// <div className="rating">
+	//                 <a href="" onClick={this.props.handleNewReview}>
+	//                   <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+	//                 </a>
+	//               </div>
 	
 	module.exports = Course;
 
@@ -32786,7 +32762,7 @@
 	          { className: 'suggestions-header' },
 	          React.createElement(
 	            'a',
-	            { href: '/' },
+	            null,
 	            'These are our most highly rated courses!'
 	          )
 	        ),
@@ -34463,6 +34439,108 @@
 	});
 	
 	module.exports = Home;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var ReactDOM = __webpack_require__(207);
+	
+	var Stars = React.createClass({
+		displayName: 'Stars',
+	
+		// expecting props about how many should be highlight
+		//
+		// expecting props about whether its static or can change
+		//  // if it can change, need to store state based
+		//  // on how many stars currently highlighted
+		//  // Also, if it can change, should respond to a click
+		getInitialState: function () {
+			// if (this.props.static) {
+			return {
+				rating: this.props.rating || 0
+			};
+			// }
+		},
+	
+		changeRating: function () {
+			// probably open the review create/edit form
+			// with this.state.rating prepended
+		},
+	
+		handleMouseOver: function (e) {
+			// how to get rating from span...
+			// could give them classes/id's of numbers, or "star4" "star3" etc.
+			//  and then ReactDOM get the node, get its class, manip the string, etc.
+	
+			// ORRRR I could change the state from static to dynamic
+			// but.... only if the props are not static. And I still need to get the rating.
+			this.setState({ rating: this.whichStar(e.target) });
+		},
+	
+		handleMouseLeave: function () {
+			this.setState({ rating: this.props.rating });
+		},
+	
+		whichStar: function (star) {
+			var starNum = star.id;
+			return parseInt(starNum[starNum.length - 1]);
+		},
+	
+		starDisplay: function () {
+			var bright = Math.round(this.state.rating);
+			var stars = [];
+			for (var i = 1; i <= 5; i++) {
+				if (6 - i > bright) {
+					stars.push(React.createElement(
+						'span',
+						null,
+						React.createElement('i', { id: "star" + (6 - i), onMouseOver: this.handleMouseOver, className: 'fa fa-star-o' })
+					));
+				} else {
+					stars.push(React.createElement(
+						'span',
+						{ className: 'bright' },
+						React.createElement('i', { id: "star" + (6 - i), id: "star" + (6 - i), onMouseOver: this.handleMouseOver, className: 'fa fa-star' })
+					));
+				}
+			};
+	
+			return stars;
+		},
+	
+		// <span className="star5">☆</span><span className="star4" >☆</span><span className="star3">☆</span><span className="star2">☆</span><span className="star1">☆</span>
+	
+		render: function () {
+			// in both cases, static or not, a certain number
+			// of stars should be pre-highlighted
+			// debugger
+			if (this.props.static) {
+				return React.createElement(
+					'div',
+					{ className: 'rating' },
+					React.createElement(
+						'a',
+						null,
+						this.starDisplay()
+					)
+				);
+			}
+	
+			return React.createElement(
+				'div',
+				{ className: 'rating' },
+				React.createElement(
+					'a',
+					{ onClick: this.changeRating, onMouseLeave: this.handleMouseLeave },
+					this.starDisplay()
+				)
+			);
+		}
+	});
+	
+	module.exports = Stars;
 
 /***/ }
 /******/ ]);

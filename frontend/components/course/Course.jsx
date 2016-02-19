@@ -8,8 +8,9 @@ var SessionsApiUtil = require('./../../util/sessions_api_util');
 var CurrentUserStore = require('./../../stores/currentUser');
 var ReviewStore = require('./../../stores/review');
 var CourseStore = require('./../../stores/course');
-
 var CourseIndexItem = require('./CourseIndexItem');
+var StarRating = require('./../Stars');
+
 var History = require('react-router').History
 
 var Course = React.createClass({
@@ -99,11 +100,7 @@ var Course = React.createClass({
             </div>
             <div className="rating-container">
               <p>Rate this Course</p>
-              <div className="rating">
-                <a href="" onClick={this.props.handleNewReview}>
-                  <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                </a>
-              </div>
+              <StarRating static={ false } rating={3} />
             </div>
           </div>
           <div className="course-info-col">
@@ -143,5 +140,12 @@ var Course = React.createClass({
     );
   }
 });
+
+// TESTING
+// <div className="rating">
+//                 <a href="" onClick={this.props.handleNewReview}>
+//                   <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+//                 </a>
+//               </div>
 
 module.exports = Course;
