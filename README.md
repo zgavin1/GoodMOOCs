@@ -7,8 +7,6 @@
 
 GoodMOOCs is an online course discovery app, built with React/Flux and Ruby on Rails with postgreSQL.
 
-As this app is still 
-
 ### What is a MOOC?
 A MOOC is a Massive Open Online Course, an industry that has exploded over the past few years to bring the highest quality educational opportunities to your home computer. Anyone can register for any course, which are often taught by faculty from prestigious universities around the world, other times from industry professionals.
 
