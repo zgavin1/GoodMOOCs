@@ -1,7 +1,7 @@
-# GoodMoocs
-
-[Live Link][live]!
+#[GoodMOOCs][live]!
 [live]: http://www.goodmoocs.com/
+
+![Login Page](./app/assets/images/screenshot.png)
 
 ## Overview
 
