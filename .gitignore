@@ -14,4 +14,4 @@
 /.byebug_history
 /.DS_store
 
-.bundle.js.map
+bundle.js.map
