@@ -1,7 +1,7 @@
 #[GoodMOOCs][live]!
 [live]: http://www.goodmoocs.com/
 
-![Login Page](./app/assets/images/screenshot.png)
+![Login Page](./app/assets/images/githubss.png)
 
 ## Overview
 
