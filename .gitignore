@@ -11,7 +11,7 @@
 
 /config/application.yml
 
-/byebug_history
+/.byebug_history
 /.DS_store
 
-.bundle.js
+.bundle.js.map
