@@ -50,7 +50,6 @@ var Search = React.createClass({
   },
 
   render: function() {
-
     var searchResults = SearchResultsStore.all().map(function (searchResult) {
       if (searchResult._type === "User") {
         return <UserIndexItem key={searchResult.id} user={searchResult} className="search-result"/>;
@@ -58,6 +57,14 @@ var Search = React.createClass({
         return <CourseIndexItem key={searchResult.id} course={searchResult} className="search-result"/>;
       }
     });
+
+    if (searchResults.length === 0) {
+      searchResults =  (
+        <div>
+          <p>{"Your search didn't return any results. To be fair, this search requires matching a whole word."}</p>
+        </div>
+      );
+    } 
 
     return (
       <div className="search-content group">

@@ -54,24 +54,24 @@
 	
 	var CourseIndex = __webpack_require__(208);
 	var CourseShow = __webpack_require__(247);
-	var CourseSuggestions = __webpack_require__(256);
-	var CurrentUserStore = __webpack_require__(252);
+	var CourseSuggestions = __webpack_require__(258);
+	var CurrentUserStore = __webpack_require__(256);
 	var SessionsApiUtil = __webpack_require__(246);
-	var ReviewIndex = __webpack_require__(257);
+	var ReviewIndex = __webpack_require__(259);
 	var Review = __webpack_require__(250);
-	var ReviewForm = __webpack_require__(258);
+	var ReviewForm = __webpack_require__(252);
 	
 	var SessionForm = __webpack_require__(245);
 	
-	var UserShow = __webpack_require__(259);
+	var UserShow = __webpack_require__(260);
 	var NewUserForm = __webpack_require__(235);
-	var EditUserForm = __webpack_require__(260);
-	var UserIndex = __webpack_require__(261);
+	var EditUserForm = __webpack_require__(261);
+	var UserIndex = __webpack_require__(262);
 	
-	var Search = __webpack_require__(263);
+	var Search = __webpack_require__(264);
 	
-	var Header = __webpack_require__(268);
-	var Home = __webpack_require__(269);
+	var Header = __webpack_require__(269);
+	var Home = __webpack_require__(270);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -31982,11 +31982,11 @@
 	var ReviewStore = __webpack_require__(248);
 	var ApiUtil = __webpack_require__(232);
 	var Review = __webpack_require__(250);
-	var ReviewForm = __webpack_require__(258);
+	var ReviewForm = __webpack_require__(252);
 	
-	var CurrentUserStore = __webpack_require__(252);
+	var CurrentUserStore = __webpack_require__(256);
 	
-	var Course = __webpack_require__(253);
+	var Course = __webpack_require__(257);
 	
 	var CourseShow = React.createClass({
 	  displayName: 'CourseShow',
@@ -32347,6 +32347,311 @@
 /* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(5);
+	var LinkedStateMixin = __webpack_require__(241);
+	var ReactDOM = __webpack_require__(207);
+	
+	var ReviewStore = __webpack_require__(248);
+	var ReviewApiUtil = __webpack_require__(253);
+	var History = __webpack_require__(1).History;
+	
+	var StarRating = __webpack_require__(255);
+	
+	var ReviewForm = React.createClass({
+	  displayName: 'ReviewForm',
+	
+	  contextTypes: {
+	    currentUser: React.PropTypes.object
+	  },
+	
+	  mixins: [LinkedStateMixin, History],
+	
+	  getInitialState: function () {
+	    return { rating: this.props.rating, reviewBody: "" };
+	  },
+	
+	  componentDidMount: function () {
+	    var el = ReactDOM.findDOMNode(this);
+	
+	    el.style.opacity = 0;
+	    window.requestAnimationFrame(function () {
+	      el.style.transition = "opacity 350ms";
+	      el.style.opacity = 1;
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    var el = ReactDOM.findDOMNode(this);
+	
+	    el.style.opacity = 1;
+	    window.requestAnimationFrame(function () {
+	      el.style.transition = "opacity 350ms";
+	      el.style.opacity = 0;
+	    });
+	  },
+	
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+	    var course = this.props.course;
+	    var user_id = this.context.currentUser.id;
+	
+	    this.setState({ user_id: this.context.currentUser.id, course: this.props.course });
+	    var params = {
+	      user_id: user_id,
+	      course_id: course.id,
+	      rating: this.state.rating,
+	      body: this.state.reviewBody
+	    };
+	
+	    ReviewApiUtil.postReview(params, function () {
+	      this.history.pushState({}, "courses/" + course.id);
+	    }.bind(this));
+	
+	    this.props.reviewFormClose();
+	  },
+	
+	  handleStarClick: function (value) {
+	    this.setState({ rating: value });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'review-form-content' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        ' Post your review '
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        React.createElement(
+	          'label',
+	          null,
+	          ' My rating:',
+	          React.createElement(StarRating, {
+	            rating: this.state.rating,
+	            'static': false,
+	            handleStarClick: this.handleStarClick })
+	        ),
+	        React.createElement(
+	          'label',
+	          null,
+	          'What did you think?',
+	          React.createElement('textarea', {
+	            className: 'review-input body',
+	            placeholder: 'Enter your review (optional)',
+	            valueLink: this.linkState('reviewBody') })
+	        ),
+	        React.createElement(
+	          'button',
+	          { className: 'review-form-button submit', type: 'submit' },
+	          'Save'
+	        ),
+	        React.createElement(
+	          'a',
+	          { className: 'review-form-button cancel', onClick: this.props.reviewFormClose },
+	          'Cancel'
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = ReviewForm;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ReviewActions = __webpack_require__(254);
+	
+	var ReviewApiUtil = {
+	  fetchReviews: function () {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/reviews",
+	      dataType: 'json',
+	      success: function (reviews) {
+	        ReviewActions.receiveReviews(reviews);
+	      },
+	      error: function () {
+	        console.log('issues');
+	      }
+	    });
+	  },
+	
+	  postReview: function (reviewParams, callback) {
+	
+	    $.ajax({
+	      type: "POST",
+	      url: "api/reviews",
+	      data: { review: reviewParams },
+	      success: function (review) {
+	        ReviewActions.postReview(review);
+	        callback && callback();
+	      },
+	      error: function () {
+	        console.log("review post error");
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = ReviewApiUtil;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(228);
+	var ReviewConstants = __webpack_require__(249);
+	
+	var ReviewActions = {
+	  receiveReviews: function (reviews) {
+	    AppDispatcher.dispatch({
+	      actionType: ReviewConstants.REVIEWS_RECEIVED,
+	      reviews: reviews
+	    });
+	  },
+	
+	  postReview: function (review) {
+	    AppDispatcher.dispatch({
+	      actionType: ReviewConstants.REVIEW_POSTED,
+	      review: review
+	    });
+	  }
+	};
+	
+	module.exports = ReviewActions;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	var ReactDOM = __webpack_require__(207);
+	
+	var CourseStore = __webpack_require__(209);
+	
+	var Stars = React.createClass({
+	  displayName: 'Stars',
+	
+	  // expecting props about how many should be highlight
+	  //
+	  // expecting props about whether its static or can change
+	  //  // if it can change, need to store state based
+	  //  // on how many stars currently highlighted
+	  //  // Also, if it can change, should respond to a click
+	  getInitialState: function () {
+	
+	    return {
+	      rating: this.props.rating || 0
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.courseListener = CourseStore.addListener(this.forceUpdate.bind(this));
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.courseListener.remove();
+	  },
+	
+	  componentWillReceiveProps: function () {
+	    this.forceUpdate();
+	  },
+	
+	  changeRating: function () {
+	    // probably open the review create/edit form
+	    // with this.state.rating prepended
+	    if (!this.props.handleStarClick) {
+	      return;
+	    }
+	
+	    this.props.handleStarClick(this.state.rating);
+	  },
+	
+	  handleMouseOver: function (e) {
+	    // how to get rating from span...
+	    // could give them classes/id's of numbers, or "star4" "star3" etc.
+	    //  and then ReactDOM get the node, get its class, manip the string, etc.
+	
+	    // ORRRR I could change the state from static to dynamic
+	    // but.... only if the props are not static. And I still need to get the rating.
+	    if (this.props.static) {
+	      return;
+	    }
+	    this.setState({ rating: this.whichStar(e.target) });
+	  },
+	
+	  handleMouseLeave: function () {
+	    this.setState({ rating: this.props.rating || 0 });
+	  },
+	
+	  whichStar: function (star) {
+	    var starNum = star.id;
+	    return parseInt(starNum[starNum.length - 1]);
+	  },
+	
+	  starDisplay: function () {
+	    var bright = Math.round(this.state.rating);
+	    var stars = [];
+	    for (var i = 1; i <= 5; i++) {
+	      if (6 - i > bright) {
+	        stars.push(React.createElement(
+	          'span',
+	          null,
+	          React.createElement('i', {
+	            onClick: this.changeRating,
+	            id: "star" + (6 - i),
+	            onMouseOver: this.handleMouseOver,
+	            className: 'fa fa-star-o' })
+	        ));
+	      } else {
+	        stars.push(React.createElement(
+	          'span',
+	          { className: 'bright' },
+	          React.createElement('i', { onClick: this.changeRating, id: "star" + (6 - i), id: "star" + (6 - i), onMouseOver: this.handleMouseOver, className: 'fa fa-star' })
+	        ));
+	      }
+	    };
+	
+	    return stars;
+	  },
+	
+	  render: function () {
+	    if (this.props.static) {
+	      return React.createElement(
+	        'div',
+	        { className: 'rating' },
+	        React.createElement(
+	          'a',
+	          null,
+	          this.starDisplay()
+	        )
+	      );
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'rating' },
+	      React.createElement(
+	        'a',
+	        { onMouseLeave: this.handleMouseLeave },
+	        this.starDisplay()
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Stars;
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Store = __webpack_require__(210).Store;
 	var AppDispatcher = __webpack_require__(228);
 	
@@ -32383,21 +32688,21 @@
 	module.exports = CurrentUserStore;
 
 /***/ },
-/* 253 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
 	var ReactRouter = __webpack_require__(1);
 	var LinkedStateMixin = __webpack_require__(241);
 	
-	var ReviewApiUtil = __webpack_require__(254);
+	var ReviewApiUtil = __webpack_require__(253);
 	var SessionsApiUtil = __webpack_require__(246);
 	
-	var CurrentUserStore = __webpack_require__(252);
+	var CurrentUserStore = __webpack_require__(256);
 	var ReviewStore = __webpack_require__(248);
 	var CourseStore = __webpack_require__(209);
 	var CourseIndexItem = __webpack_require__(234);
-	var StarRating = __webpack_require__(270);
+	var StarRating = __webpack_require__(255);
 	
 	var History = __webpack_require__(1).History;
 	
@@ -32642,72 +32947,7 @@
 	module.exports = Course;
 
 /***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ReviewActions = __webpack_require__(255);
-	
-	var ReviewApiUtil = {
-	  fetchReviews: function () {
-	    $.ajax({
-	      type: "GET",
-	      url: "api/reviews",
-	      dataType: 'json',
-	      success: function (reviews) {
-	        ReviewActions.receiveReviews(reviews);
-	      },
-	      error: function () {
-	        console.log('issues');
-	      }
-	    });
-	  },
-	
-	  postReview: function (reviewParams, callback) {
-	
-	    $.ajax({
-	      type: "POST",
-	      url: "api/reviews",
-	      data: { review: reviewParams },
-	      success: function (review) {
-	        ReviewActions.postReview(review);
-	        callback && callback();
-	      },
-	      error: function () {
-	        console.log("review post error");
-	      }
-	    });
-	  }
-	};
-	
-	module.exports = ReviewApiUtil;
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(228);
-	var ReviewConstants = __webpack_require__(249);
-	
-	var ReviewActions = {
-	  receiveReviews: function (reviews) {
-	    AppDispatcher.dispatch({
-	      actionType: ReviewConstants.REVIEWS_RECEIVED,
-	      reviews: reviews
-	    });
-	  },
-	
-	  postReview: function (review) {
-	    AppDispatcher.dispatch({
-	      actionType: ReviewConstants.REVIEW_POSTED,
-	      review: review
-	    });
-	  }
-	};
-	
-	module.exports = ReviewActions;
-
-/***/ },
-/* 256 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -32794,7 +33034,7 @@
 	module.exports = CourseSuggestions;
 
 /***/ },
-/* 257 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -32802,15 +33042,15 @@
 	var LinkedStateMixin = __webpack_require__(241);
 	
 	var ApiUtil = __webpack_require__(232);
-	var ReviewApiUtil = __webpack_require__(254);
+	var ReviewApiUtil = __webpack_require__(253);
 	var CourseApiUtil = __webpack_require__(232);
 	var SessionsApiUtil = __webpack_require__(246);
 	
-	var CurrentUserStore = __webpack_require__(252);
+	var CurrentUserStore = __webpack_require__(256);
 	var ReviewStore = __webpack_require__(248);
 	var CourseStore = __webpack_require__(209);
 	
-	var StarRatiing = __webpack_require__(270);
+	var StarRatiing = __webpack_require__(255);
 	
 	var ReviewIndex = React.createClass({
 	  displayName: 'ReviewIndex',
@@ -33024,130 +33264,12 @@
 	module.exports = ReviewIndex;
 
 /***/ },
-/* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(5);
-	var LinkedStateMixin = __webpack_require__(241);
-	var ReactDOM = __webpack_require__(207);
-	
-	var ReviewStore = __webpack_require__(248);
-	var ReviewApiUtil = __webpack_require__(254);
-	var History = __webpack_require__(1).History;
-	
-	var StarRating = __webpack_require__(270);
-	
-	var ReviewForm = React.createClass({
-	  displayName: 'ReviewForm',
-	
-	  contextTypes: {
-	    currentUser: React.PropTypes.object
-	  },
-	
-	  mixins: [LinkedStateMixin, History],
-	
-	  getInitialState: function () {
-	    return { rating: this.props.rating, reviewBody: "" };
-	  },
-	
-	  componentDidMount: function () {
-	    var el = ReactDOM.findDOMNode(this);
-	
-	    el.style.opacity = 0;
-	    window.requestAnimationFrame(function () {
-	      el.style.transition = "opacity 350ms";
-	      el.style.opacity = 1;
-	    });
-	  },
-	
-	  componentWillUnmount: function () {
-	    var el = ReactDOM.findDOMNode(this);
-	
-	    el.style.opacity = 1;
-	    window.requestAnimationFrame(function () {
-	      el.style.transition = "opacity 350ms";
-	      el.style.opacity = 0;
-	    });
-	  },
-	
-	  handleSubmit: function (e) {
-	    e.preventDefault();
-	    var course = this.props.course;
-	    var user_id = this.context.currentUser.id;
-	
-	    this.setState({ user_id: this.context.currentUser.id, course: this.props.course });
-	    var params = {
-	      user_id: user_id,
-	      course_id: course.id,
-	      rating: this.state.rating,
-	      body: this.state.reviewBody
-	    };
-	
-	    ReviewApiUtil.postReview(params, function () {
-	      this.history.pushState({}, "courses/" + course.id);
-	    }.bind(this));
-	
-	    this.props.reviewFormClose();
-	  },
-	
-	  handleStarClick: function (value) {
-	    this.setState({ rating: value });
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'review-form-content' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        ' Post your review '
-	      ),
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.handleSubmit },
-	        React.createElement(
-	          'label',
-	          null,
-	          ' My rating:',
-	          React.createElement(StarRating, {
-	            rating: this.state.rating,
-	            'static': false,
-	            handleStarClick: this.handleStarClick })
-	        ),
-	        React.createElement(
-	          'label',
-	          null,
-	          'What did you think?',
-	          React.createElement('textarea', {
-	            className: 'review-input body',
-	            placeholder: 'Enter your review (optional)',
-	            valueLink: this.linkState('reviewBody') })
-	        ),
-	        React.createElement(
-	          'button',
-	          { className: 'review-form-button submit', type: 'submit' },
-	          'Save'
-	        ),
-	        React.createElement(
-	          'a',
-	          { className: 'review-form-button cancel', onClick: this.props.reviewFormClose },
-	          'Cancel'
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = ReviewForm;
-
-/***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
 	var UserStore = __webpack_require__(251);
-	var CurrentUserStore = __webpack_require__(252);
+	var CurrentUserStore = __webpack_require__(256);
 	var UsersApiUtil = __webpack_require__(236);
 	
 	var UserShow = React.createClass({
@@ -33318,7 +33440,7 @@
 	module.exports = UserShow;
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -33493,7 +33615,7 @@
 	module.exports = EditUserForm;
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -33501,8 +33623,8 @@
 	
 	var UserStore = __webpack_require__(251);
 	var UserApiUtil = __webpack_require__(236);
-	var UserShow = __webpack_require__(259);
-	var UserIndexItem = __webpack_require__(262);
+	var UserShow = __webpack_require__(260);
+	var UserIndexItem = __webpack_require__(263);
 	
 	var UsersIndex = React.createClass({
 	  displayName: 'UsersIndex',
@@ -33575,7 +33697,7 @@
 	module.exports = UsersIndex;
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -33619,14 +33741,14 @@
 	module.exports = UserIndexItem;
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
-	var SearchResultsStore = __webpack_require__(264);
-	var SearchApiUtil = __webpack_require__(266);
+	var SearchResultsStore = __webpack_require__(265);
+	var SearchApiUtil = __webpack_require__(267);
 	
-	var UserIndexItem = __webpack_require__(262);
+	var UserIndexItem = __webpack_require__(263);
 	var CourseIndexItem = __webpack_require__(234);
 	
 	var LinkedStateMixin = __webpack_require__(241);
@@ -33674,7 +33796,6 @@
 	  },
 	
 	  render: function () {
-	
 	    var searchResults = SearchResultsStore.all().map(function (searchResult) {
 	      if (searchResult._type === "User") {
 	        return React.createElement(UserIndexItem, { key: searchResult.id, user: searchResult, className: 'search-result' });
@@ -33682,6 +33803,18 @@
 	        return React.createElement(CourseIndexItem, { key: searchResult.id, course: searchResult, className: 'search-result' });
 	      }
 	    });
+	
+	    if (searchResults.length === 0) {
+	      searchResults = React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'p',
+	          null,
+	          "Your search didn't return any results. To be fair, this search requires matching a whole word."
+	        )
+	      );
+	    }
 	
 	    return React.createElement(
 	      'div',
@@ -33728,7 +33861,7 @@
 	module.exports = Search;
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(210).Store;
@@ -33737,7 +33870,7 @@
 	var _searchResults = [];
 	var _meta = {};
 	var SearchResultsStore = new Store(AppDispatcher);
-	var SearchConstants = __webpack_require__(265);
+	var SearchConstants = __webpack_require__(266);
 	
 	SearchResultsStore.all = function () {
 	  return _searchResults.slice();
@@ -33762,7 +33895,7 @@
 	module.exports = SearchResultsStore;
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports) {
 
 	var SearchConstants = {
@@ -33772,10 +33905,10 @@
 	module.exports = SearchConstants;
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SearchActions = __webpack_require__(267);
+	var SearchActions = __webpack_require__(268);
 	
 	var SearchApiUtil = {
 	  search: function (query, page) {
@@ -33807,11 +33940,11 @@
 	module.exports = SearchApiUtil;
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	var SearchConstants = __webpack_require__(265);
+	var SearchConstants = __webpack_require__(266);
 	var AppDispatcher = __webpack_require__(228);
 	
 	var SearchActions = {
@@ -33828,7 +33961,7 @@
 	module.exports = SearchActions;
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -33838,7 +33971,7 @@
 	
 	var React = __webpack_require__(5);
 	var SessionsApiUtil = __webpack_require__(246);
-	var CurrentUserStore = __webpack_require__(252);
+	var CurrentUserStore = __webpack_require__(256);
 	var History = __webpack_require__(1).History;
 	var SessionForm = __webpack_require__(245);
 	var UserForm = __webpack_require__(235);
@@ -34117,7 +34250,7 @@
 	module.exports = Header;
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -34125,11 +34258,11 @@
 	var History = __webpack_require__(1).History;
 	var LinkedStateMixin = __webpack_require__(241);
 	
-	var CurrentUserStore = __webpack_require__(252);
+	var CurrentUserStore = __webpack_require__(256);
 	var SessionsApiUtil = __webpack_require__(246);
 	
-	var SearchResultsStore = __webpack_require__(264);
-	var SearchApiUtil = __webpack_require__(266);
+	var SearchResultsStore = __webpack_require__(265);
+	var SearchApiUtil = __webpack_require__(267);
 	
 	var Home = React.createClass({
 	  displayName: 'Home',
@@ -34437,129 +34570,6 @@
 	});
 	
 	module.exports = Home;
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(5);
-	var ReactDOM = __webpack_require__(207);
-	
-	var CourseStore = __webpack_require__(209);
-	
-	var Stars = React.createClass({
-		displayName: 'Stars',
-	
-		// expecting props about how many should be highlight
-		//
-		// expecting props about whether its static or can change
-		//  // if it can change, need to store state based
-		//  // on how many stars currently highlighted
-		//  // Also, if it can change, should respond to a click
-		getInitialState: function () {
-			// if (this.props.static) {
-			return {
-				rating: this.props.rating || 0
-			};
-			// }
-		},
-	
-		componentDidMount: function () {
-			this.courseListener = CourseStore.addListener(this.forceUpdate.bind(this));
-		},
-	
-		componentWillUnmount: function () {
-			this.courseListener.remove();
-		},
-	
-		componentWillReceiveProps: function () {
-			this.forceUpdate();
-		},
-	
-		changeRating: function () {
-			// probably open the review create/edit form
-			// with this.state.rating prepended
-			if (!this.props.handleStarClick) {
-				return;
-			}
-	
-			this.props.handleStarClick(this.state.rating);
-		},
-	
-		handleMouseOver: function (e) {
-			// how to get rating from span...
-			// could give them classes/id's of numbers, or "star4" "star3" etc.
-			//  and then ReactDOM get the node, get its class, manip the string, etc.
-	
-			// ORRRR I could change the state from static to dynamic
-			// but.... only if the props are not static. And I still need to get the rating.
-			if (this.props.static) {
-				return;
-			}
-			this.setState({ rating: this.whichStar(e.target) });
-		},
-	
-		handleMouseLeave: function () {
-			this.setState({ rating: this.props.rating || 0 });
-		},
-	
-		whichStar: function (star) {
-			var starNum = star.id;
-			return parseInt(starNum[starNum.length - 1]);
-		},
-	
-		starDisplay: function () {
-			var bright = Math.round(this.state.rating);
-			var stars = [];
-			for (var i = 1; i <= 5; i++) {
-				if (6 - i > bright) {
-					stars.push(React.createElement(
-						'span',
-						null,
-						React.createElement('i', {
-							onClick: this.changeRating,
-							id: "star" + (6 - i),
-							onMouseOver: this.handleMouseOver,
-							className: 'fa fa-star-o' })
-					));
-				} else {
-					stars.push(React.createElement(
-						'span',
-						{ className: 'bright' },
-						React.createElement('i', { onClick: this.changeRating, id: "star" + (6 - i), id: "star" + (6 - i), onMouseOver: this.handleMouseOver, className: 'fa fa-star' })
-					));
-				}
-			};
-	
-			return stars;
-		},
-	
-		render: function () {
-			if (this.props.static) {
-				return React.createElement(
-					'div',
-					{ className: 'rating' },
-					React.createElement(
-						'a',
-						null,
-						this.starDisplay()
-					)
-				);
-			}
-	
-			return React.createElement(
-				'div',
-				{ className: 'rating' },
-				React.createElement(
-					'a',
-					{ onMouseLeave: this.handleMouseLeave },
-					this.starDisplay()
-				)
-			);
-		}
-	});
-	
-	module.exports = Stars;
 
 /***/ }
 /******/ ]);
