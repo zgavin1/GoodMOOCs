@@ -4,6 +4,7 @@ gem 'uuidtools'
 gem 'omniauth'
 
 gem 'omniauth-facebook'
+gem "omniauth-google-oauth2"
 
 #for aws security
 gem "figaro"

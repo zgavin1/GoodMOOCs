@@ -73,6 +73,16 @@ var ReviewIndex = React.createClass({
       );
     }.bind(this));
 
+    var tbody = (
+      <tbody className="reviews-table-body">
+        { rev_rows }
+      </tbody>
+    )
+    var no_revs = (<p></p>);
+    if (rev_rows.length === 0) {
+      no_revs = (<p>{"Looks like you haven't reviewed any courses yet! Feel free to submit a review just to explore the site!"}</p>);
+    }
+
     return (
       <div className="reviews-index">
         <div className="reviews-index-header group">
@@ -88,6 +98,7 @@ var ReviewIndex = React.createClass({
             <a><i className="fa fa-th-list"></i></a>
           </div>
         </div>
+        { no_revs }
         <table className="reviews-table group">
           <thead className="reviews-table-head">
             <tr>
@@ -98,9 +109,7 @@ var ReviewIndex = React.createClass({
               <th><a>avg rating</a></th>
             </tr>
           </thead>
-          <tbody className="reviews-table-body">
-            { rev_rows }
-          </tbody>
+          { tbody }
         </table>
       </div>);
   }

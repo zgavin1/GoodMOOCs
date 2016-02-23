@@ -31433,28 +31433,16 @@
 	              { href: '/auth/facebook' },
 	              React.createElement('i', { className: 'fa fa-facebook-square' })
 	            )
-	          ),
-	          React.createElement(
-	            'span',
-	            null,
-	            React.createElement('i', { className: 'fa fa-twitter-square' })
-	          ),
-	          React.createElement(
-	            'span',
-	            null,
-	            React.createElement('i', { className: 'fa fa-google' })
-	          ),
-	          React.createElement(
-	            'span',
-	            null,
-	            React.createElement('i', { className: 'fa fa-amazon' })
 	          )
 	        )
 	      )
 	    );
 	  }
 	});
-	
+	// For future omniauths.
+	// <span><a href="/auth/google"><i className="fa fa-google"></i></a></span>
+	// <span><i className="fa fa-twitter-square"></i></span>
+	// <span><i className="fa fa-amazon"></i></span>
 	module.exports = NewUserForm;
 
 /***/ },
@@ -33144,6 +33132,20 @@
 	      );
 	    }.bind(this));
 	
+	    var tbody = React.createElement(
+	      'tbody',
+	      { className: 'reviews-table-body' },
+	      rev_rows
+	    );
+	    var no_revs = React.createElement('p', null);
+	    if (rev_rows.length === 0) {
+	      no_revs = React.createElement(
+	        'p',
+	        null,
+	        "Looks like you haven't reviewed any courses yet! Feel free to submit a review just to explore the site!"
+	      );
+	    }
+	
 	    return React.createElement(
 	      'div',
 	      { className: 'reviews-index' },
@@ -33195,6 +33197,7 @@
 	          )
 	        )
 	      ),
+	      no_revs,
 	      React.createElement(
 	        'table',
 	        { className: 'reviews-table group' },
@@ -33251,11 +33254,7 @@
 	            )
 	          )
 	        ),
-	        React.createElement(
-	          'tbody',
-	          { className: 'reviews-table-body' },
-	          rev_rows
-	        )
+	        tbody
 	      )
 	    );
 	  }
@@ -34485,7 +34484,7 @@
 	                null,
 	                React.createElement(
 	                  'a',
-	                  { href: '#' },
+	                  { id: 'home', href: '#' },
 	                  'Home'
 	                )
 	              ),
@@ -34494,7 +34493,7 @@
 	                null,
 	                React.createElement(
 	                  'a',
-	                  { href: '#/reviews' },
+	                  { id: 'reviews', href: '#/reviews' },
 	                  'My Courses'
 	                )
 	              ),
@@ -34503,7 +34502,7 @@
 	                null,
 	                React.createElement(
 	                  'a',
-	                  { href: '#/users' },
+	                  { id: 'users', href: '#/users' },
 	                  'Users'
 	                )
 	              ),

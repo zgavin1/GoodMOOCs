@@ -46,9 +46,6 @@ var NewUserForm = React.createClass({
           <div className="o-auth">
             or sign in using
             <span><a href="/auth/facebook"><i className="fa fa-facebook-square"></i></a></span>
-            <span><i className="fa fa-twitter-square"></i></span>
-            <span><i className="fa fa-google"></i></span>
-            <span><i className="fa fa-amazon"></i></span>
           </div>
 
         </div>
@@ -56,5 +53,8 @@ var NewUserForm = React.createClass({
     );
   }
 });
-
+    // For future omniauths.
+    // <span><a href="/auth/google"><i className="fa fa-google"></i></a></span>
+    // <span><i className="fa fa-twitter-square"></i></span>
+    // <span><i className="fa fa-amazon"></i></span>
 module.exports = NewUserForm;

@@ -142,9 +142,9 @@ var Home = React.createClass({
                 </a>
               </div>
               <ul className="logged-in-site-nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#/reviews">My Courses</a></li>
-                <li><a href="#/users">Users</a></li>
+                <li><a id="home" href="#">Home</a></li>
+                <li><a id="reviews" href="#/reviews">My Courses</a></li>
+                <li><a id="users" href="#/users">Users</a></li>
                 <li><a className="drop-down-opener" href="#" onClick={this.navDropDownToggle}><i className="fa fa-caret-down"></i></a></li>
               </ul>
               <div className="nav-dropdown hidden">
