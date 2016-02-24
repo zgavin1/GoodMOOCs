@@ -124,7 +124,7 @@ var Home = React.createClass({
     } else {
       user_nav =
       <div className="user-nav-container group">
-        <a href="#/login"> Log In or Sign Up!</a>
+        <a className="logged-out-nav" href="#/login"> Log In or Sign Up!</a>
       </div>;
     }
     return (

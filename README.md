@@ -11,7 +11,7 @@ GoodMOOCs is an online course discovery app, built with React/Flux and Ruby on R
 A MOOC is a Massive Open Online Course, an industry that has exploded over the past few years to bring the highest quality educational opportunities to your home computer. Anyone can register for any course, which are often taught by faculty from prestigious universities around the world, other times from industry professionals.
 
 #### This App
-My app "GoodMOOCs" is inspired by Goodreads, in both its purpose and design. I substituted the content with courses, but include nearly every feature, such as suggestions based on course rating, suggestions based on similarity courses, and a search for specifics courses.
+My app "GoodMOOCs" is inspired by Goodreads, in both its purpose and design. I substituted the content with courses, but include nearly every feature, such as suggestions based on course rating, suggestions based on course subjects, and a search for specific courses.
 
 ### Features
 
@@ -22,7 +22,7 @@ With React and Flux architecture I was able to build my app as a single page sit
 With Rails and BCrypt, I encrypt and store user's information, and their current logged in status.
 
 #### Omni-Authentication
-Users may log in with their facebook credentials, with help form the omniauth gem and facebook.
+Users may log in with their facebook credentials, with help from the omniauth gem and facebook.
 
 #### Search
 Implemented with the PgSearch and kaminari gems, users can query the database for courses by title and users by name and see all matching results.

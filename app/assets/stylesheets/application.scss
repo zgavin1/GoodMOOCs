@@ -157,6 +157,25 @@ img {
 }
 
 
+.logged-out-nav {
+  margin: 10px;
+  padding: 5px;
+  background-color: #409d69;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  float: right;
+  margin: 14px 0 12px 0;
+  font: Lato;
+  font-size: 14px;
+}
+
+
+.logged-out-nav:hover {
+  background-color: #3d9363;
+}
+
+
 .header-nav-logo strong, .header-nav-logo-small strong {
   font-weight: 300;
   font-family: Roboto;

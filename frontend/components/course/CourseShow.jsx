@@ -94,6 +94,11 @@ var CourseShow = React.createClass({
   },
 
   handleNewReview: function () {
+    if (Object.keys(this.context.currentUser).length === 0) {
+      alert("Log in or sign up to review courses!");
+      return;
+    }
+
     if (this.currentUserHasReviewed()) {
       alert("You have already reviewed this course!");
       return;

@@ -24,8 +24,6 @@ var Course = React.createClass({
     return {
       rating: 5,
     };
-    // Need to use LinkedStateMixin to connect
-    // this and the number of starrs hovered
   },
 
   componentDidMount: function () {
@@ -71,6 +69,10 @@ var Course = React.createClass({
   currentUserRating: function () {
     var rating = 0;
 
+    if (Object.keys(this.context.currentUser).length === 0) {
+      return this.avgRating();
+    }
+
     this.context.currentUser.reviews.forEach(function (review) {
       if (this.props.course.id === review.course_id) {
         return rating = review.rating;
@@ -79,9 +81,9 @@ var Course = React.createClass({
     return rating;
   },
 
-  // avgRating: function () {
-  //   parseFloat(Math.ceil(this.props.course.average_rating * 100) / 100);
-  // },
+  avgRating: function () {
+    return parseFloat(Math.ceil(this.props.course.average_rating * 100) / 100);
+  },
 
   render: function () {
     var course = this.props.course;
@@ -96,7 +98,7 @@ var Course = React.createClass({
       }
     }
 
-    var avgRating = parseFloat(Math.ceil(course.average_rating * 100)/100);
+    var avgRating = parseFloat(Math.ceil(this.props.course.average_rating * 100) / 100);
 
     var related_courses = this.props.related_courses.map(function (course) {
       return <CourseIndexItem key={course.id} className="related-course" course={course} />
