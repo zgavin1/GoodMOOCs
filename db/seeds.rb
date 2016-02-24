@@ -1,22 +1,19 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'net/http'
+require 'json'
+
+
 
 User.destroy_all
 
 
-pw = User.create!(username: "password", password: "password", email: "password")
-llewyn = User.create!(username: "Llewyn Davis", password: "folkmusic", email: "dylanismyidol@gmail.com")
-homer = User.create!(username: "Homer Simpson", password: "duffbeer", email: "mmmdonuts@yahoo.com")
-willhunting = User.create!(username: "Will Hunting", password: "mathispower")
-barrybonds = User.create!(username: "Barry Bonds", password: "homerunking")
-spongebob = User.create!(username: "Spongebob Squarepants", password: "bikinibottom")
-jonsnow = User.create!(username: "Jon Snow", password: "secrettarg")
-stevejobs = User.create!(username: "Steve Jobs", password: "iphones4ever")
+zachgavin = User.create!(username: "Zach Gavin", password: "zgavin1", email: "gavinzach@gmail.com", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/IMG_2102.jpg")
+michaelscott = User.create!(username: "Michael Scott", password: "dundermifflin", email: "worldsbestboss@gmail.com", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/mscott.jpg")
+homer = User.create!(username: "Homer Simpson", password: "duffbeer", email: "mmmdonuts@yahoo.com", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/homer.jpg")
+bilbo = User.create!(username: "Bilbo Baggins", password: "myprecious", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/bilbo.png")
+barrybonds = User.create!(username: "Barry Bonds", password: "homerunking", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/bbonds.jpg")
+spongebob = User.create!(username: "Spongebob Squarepants", password: "bikinibottom", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/spongebob.png")
+jonsnow = User.create!(username: "Jon Snow", password: "secrettarg", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/jsnow.jpg")
+kanyewest = User.create!(username: "Kanye West", password: "nomorepartiesinla", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/kanye-west.jpg")
 
 
 
@@ -54,6 +51,25 @@ futurelearn = CourseProvider.create!(
 )
 
 Course.destroy_all
+
+url = "https://www.udacity.com/public-api/v0/courses"
+response = Net::HTTP.get(URI.parse(url))
+json_response = JSON.parse(response)
+
+json_response["courses"].each do |course|
+    Course.create!(
+      title: course["title"],
+      description: course["short_summary"] || "No summary.",
+      course_url: course["homepage"],
+      cost: 0,
+      start_date: DateTime.now,
+      course_provider_id: udacity.id,
+      subject: "programming",
+      image: course["image"]
+    )
+end
+
+
 
 course1 = Course.create!(
   title: "Intro to Statistics",
@@ -271,7 +287,7 @@ course20 = Course.create!(
 Review.destroy_all
 
 Review.create!(
-  user_id: llewyn.id,
+  user_id: michaelscott.id,
   course_id: course3.id,
   rating: 4,
   body: "They wouldn't let me just write lyrics! I'm a musician, that's my PROFESSION."
@@ -285,19 +301,19 @@ Review.create!(
 )
 
 Review.create!(
-  user_id: pw.id,
+  user_id: zachgavin.id,
   course_id: course1.id,
   rating: 5,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
 Review.create!(
-  user_id: pw.id,
+  user_id: zachgavin.id,
   course_id: course2.id,
   rating: 1,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
 )
 Review.create!(
-  user_id: pw.id,
+  user_id: zachgavin.id,
   course_id: course3.id,
   rating: 2,
   body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
@@ -305,13 +321,13 @@ Review.create!(
 
 
 Review.create!(
-  user_id: pw.id,
+  user_id: zachgavin.id,
   course_id: course12.id,
   rating: 1,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
 )
 Review.create!(
-  user_id: pw.id,
+  user_id: zachgavin.id,
   course_id: course13.id,
   rating: 2,
   body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
@@ -319,26 +335,26 @@ Review.create!(
 
 
 Review.create!(
-  user_id: pw.id,
+  user_id: zachgavin.id,
   course_id: course14.id,
   rating: 3,
   body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
 )
 Review.create!(
-  user_id: pw.id,
+  user_id: zachgavin.id,
   course_id: course15.id,
   rating: 4,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
 )
 rev3 = Review.create!(
-  user_id: pw.id,
+  user_id: zachgavin.id,
   course_id: course16.id,
   rating: 5,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
 
 Review.create!(
-  user_id: pw.id,
+  user_id: zachgavin.id,
   course_id: course20.id,
   rating: 4,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
@@ -350,13 +366,13 @@ Review.create!(
 
 
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course1.id,
   rating: 5,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course3.id,
   rating: 3,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
@@ -364,57 +380,57 @@ Review.create!(
 
 
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course4.id,
   rating: 5,
   body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course5.id,
   rating: 1,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course6.id,
   rating: 3,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
 
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course8.id,
   rating: 4,
   body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
 )
 
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course9.id,
   rating: 5,
   body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course10.id,
   rating: 1,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course11.id,
   rating: 1,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course12.id,
   rating: 1,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course13.id,
   rating: 5,
   body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
@@ -422,31 +438,31 @@ Review.create!(
 
 
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course14.id,
   rating: 4,
   body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course15.id,
   rating: 2,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
 )
 rev3 = Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course16.id,
   rating: 2,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course17.id,
   rating: 5,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course18.id,
   rating: 2,
   body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
@@ -454,13 +470,13 @@ Review.create!(
 
 
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course19.id,
   rating: 2,
   body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
 )
 Review.create!(
-  user_id: willhunting.id,
+  user_id: bilbo.id,
   course_id: course20.id,
   rating: 5,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
@@ -471,13 +487,13 @@ Review.create!(
 
 
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course1.id,
   rating: 2,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course3.id,
   rating: 3,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
@@ -485,51 +501,51 @@ Review.create!(
 
 
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course4.id,
   rating: 4,
   body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
 )
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course5.id,
   rating: 5,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
 )
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course6.id,
   rating: 4,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
 
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course8.id,
   rating: 3,
   body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
 )
 
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course9.id,
   rating: 5,
   body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
 )
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course10.id,
   rating: 3,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
 )
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course11.id,
   rating: 3,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course12.id,
   rating: 3,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
@@ -537,31 +553,31 @@ Review.create!(
 
 
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course14.id,
   rating: 4,
   body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
 )
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course15.id,
   rating: 2,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
 )
 rev3 = Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course16.id,
   rating: 2,
   body: "I'm course tester and this was a fantastic course. Udacity does a great job, and this is an intersting topic"
 )
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course17.id,
   rating: 5,
   body: "I'm course tester and this was a awful course. I wrote a great novel with edX's instruction."
 )
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course18.id,
   rating: 2,
   body: "I'm course tester and this was a bad course. Coursera does a great job teaching R, and this is an intersting topic"
@@ -569,13 +585,13 @@ Review.create!(
 
 
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course19.id,
   rating: 2,
   body: "I'm course tester and this was an okay course. Coursera does a great job discussing terrorism, and this is an intersting topic"
 )
 Review.create!(
-  user_id: stevejobs.id,
+  user_id: kanyewest.id,
   course_id: course20.id,
   rating: 3,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"

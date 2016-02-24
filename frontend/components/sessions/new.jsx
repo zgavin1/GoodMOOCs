@@ -23,9 +23,8 @@ var Session = React.createClass({
     e.preventDefault();
     SessionsApiUtil.login(
       {
-        username: "password",
-        password: "password",
-        email: "password"
+        username: "Zach Gavin",
+        password: "zgavin1"
       },
       function () {
         this.history.pushState({}, "/");

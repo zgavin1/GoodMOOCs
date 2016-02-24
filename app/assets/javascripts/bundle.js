@@ -31847,9 +31847,8 @@
 	  demoSession: function (e) {
 	    e.preventDefault();
 	    SessionsApiUtil.login({
-	      username: "password",
-	      password: "password",
-	      email: "password"
+	      username: "Zach Gavin",
+	      password: "zgavin1"
 	    }, function () {
 	      this.history.pushState({}, "/");
 	    }.bind(this));
@@ -33486,7 +33485,7 @@
 	    var user_params = { user: this.state };
 	    var formData = new FormData();
 	
-	    formData.append("user[avatar]", this.state.avatarFile);
+	    formData.append("user[avatar]", this.state.avatarFile || user_params.user.avatar);
 	    formData.append("user[username]", this.state.username);
 	    formData.append("user[email]", this.state.email);
 	    formData.append("user[id]", this.state.id);
