@@ -24378,6 +24378,16 @@
 	  return courses;
 	};
 	
+	// CourseStore.getTwenty = function () {
+	//   var courses = [];
+	
+	//   var count = Object.keys(_courses).length;
+	
+	//   for (var i = 0; i < 20; i++) {
+	
+	//   }
+	// }
+	
 	var resetCourses = function (coursesArray) {
 	  _courses = {};
 	  coursesArray.forEach(function (course) {
@@ -32963,7 +32973,8 @@
 	
 	  getInitialState: function () {
 	    return {
-	      courses: CourseStore.all()
+	      courses: CourseStore.all(),
+	      showCount: 20
 	    };
 	  },
 	
@@ -32984,28 +32995,34 @@
 	    this.history.pushState(null, "courses/" + course.id);
 	  },
 	
+	  twentyMore: function () {
+	    this.setState({ showCount: this.state.showCount + 20 });
+	  },
+	
 	  render: function () {
 	    if (!this.state.courses) {
 	      return React.createElement('div', null);
 	    }
 	    // var handleCourseClick = this.handleCourseClick;
 	    var courses = this.state.courses;
+	    var i = 0;
 	    var suggestions = courses.map(function (course) {
 	      // var boundClick = handleCourseClick.bind(null, course);
-	      if (course.average_rating >= 3) {
+	      if (i < this.state.showCount) {
+	        i++;
 	        return React.createElement(CourseIndexItem, {
 	          className: 'suggestion',
 	          key: course.id,
 	          course: course });
 	      }
-	    });
+	    }.bind(this));
 	
 	    return React.createElement(
 	      'div',
 	      { className: 'course-suggestions group' },
 	      React.createElement(
 	        'div',
-	        { className: 'course-suggestions-left' },
+	        { className: 'course-suggestions-left group' },
 	        React.createElement(
 	          'h1',
 	          { className: 'suggestions-header' },
@@ -33019,6 +33036,11 @@
 	          'ul',
 	          { className: 'course-suggestions-index group' },
 	          suggestions
+	        ),
+	        React.createElement(
+	          'a',
+	          { className: 'course-suggestions-see-more', onClick: this.twentyMore },
+	          'See More'
 	        )
 	      )
 	    );

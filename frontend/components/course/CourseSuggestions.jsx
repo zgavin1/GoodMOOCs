@@ -15,7 +15,8 @@ var CourseSuggestions = React.createClass({
 
   getInitialState: function () {
     return {
-      courses: CourseStore.all()
+      courses: CourseStore.all(),
+      showCount: 20
     };
   },
 
@@ -36,15 +37,21 @@ var CourseSuggestions = React.createClass({
     this.history.pushState(null, "courses/" + course.id);
   },
 
+  twentyMore: function () {
+    this.setState({ showCount: this.state.showCount + 20 });
+  },
+
   render: function () {
     if (!this.state.courses) {
       return <div></div>;
     }
     // var handleCourseClick = this.handleCourseClick;
     var courses = this.state.courses;
+    var i = 0;
     var suggestions = courses.map(function (course) {
       // var boundClick = handleCourseClick.bind(null, course);
-      if (course.average_rating >= 3) {
+      if (i < this.state.showCount) {
+        i++;
         return (
           <CourseIndexItem
             className="suggestion"
@@ -52,15 +59,16 @@ var CourseSuggestions = React.createClass({
             course={course} />
         );
       }
-    });
+    }.bind(this));
 
     return (
       <div className="course-suggestions group">
-        <div className="course-suggestions-left">
+        <div className="course-suggestions-left group">
           <h1 className="suggestions-header"><a>These are our most highly rated courses!</a></h1>
           <ul className="course-suggestions-index group">
             { suggestions }
           </ul>
+          <a className="course-suggestions-see-more" onClick={ this.twentyMore } >See More</a>
         </div>
       </div>
     );

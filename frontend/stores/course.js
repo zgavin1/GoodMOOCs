@@ -14,6 +14,16 @@ CourseStore.all = function () {
   return courses;
 };
 
+// CourseStore.getTwenty = function () {
+//   var courses = [];
+
+//   var count = Object.keys(_courses).length;
+
+//   for (var i = 0; i < 20; i++) {
+    
+//   }
+// }
+
 var resetCourses = function (coursesArray) {
   _courses = {};
   coursesArray.forEach(function (course) {

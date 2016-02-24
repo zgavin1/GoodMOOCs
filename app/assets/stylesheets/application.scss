@@ -47,6 +47,7 @@ html {
 
 body {
   width: 100%;
+  padding-bottom: 50px;
 }
 
 button:hover, a:hover {
@@ -635,6 +636,7 @@ img {
   padding: 10px;
   margin-bottom: 10px;
   margin-top: 10px;
+  font-weight: bold;
 }
 
 .user-link-to-reviews:hover {
@@ -1039,10 +1041,25 @@ review-info-container > * {
   font-size: 14px;
   font-weight: normal;
 }
+.suggestions-header > a {
+  cursor: default;
+}
 
 .course-suggestions-index {
   float: left;
   padding-left: 0px;
+}
+
+.course-suggestions-see-more {
+  background-color: white;
+  text-align: center;
+  float: left;
+  width: 100%;
+  padding: 10px;
+}
+
+.course-suggestions-see-more:hover {
+  background-color: #f4f1ea;
 }
 
 .suggestion {
@@ -1065,6 +1082,10 @@ review-info-container > * {
 .suggestion-info > h2 {
   margin: 0 0 5px 0;
   font-size: 16px;
+}
+
+.suggestion-info > h2 > a:hover {
+  text-decoration: underline;
 }
 
 .suggestion-info > h3 {
