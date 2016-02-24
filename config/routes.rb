@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   get 'auth/facebook/callback', to: 'sessions#omniauth_facebook'
-  get 'auth/google', to: 'sessions#omniauth2_google'
+  # get 'auth/google', to: 'sessions#omniauth2_google'
 
   namespace :api, defaults: {format: :json} do
     resources :courses
