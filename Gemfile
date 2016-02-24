@@ -11,7 +11,7 @@ gem "figaro"
 #aws gem for s3
 gem 'aws-sdk'
 #paperclip for hosting images
-gem "paperclip", :git=> "https://github.com/thoughtbot/paperclip", :ref => "523bd46c768226893f23889079a7aa9c73b57d68"
+gem "paperclip", "~> 4.3"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use postgresql as the database for Active Record
