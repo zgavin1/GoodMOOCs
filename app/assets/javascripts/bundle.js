@@ -24242,7 +24242,8 @@
 	
 	  getInitialState: function () {
 	    return {
-	      courses: CourseStore.all()
+	      courses: CourseStore.all(),
+	      showCount: 40
 	    };
 	  },
 	
@@ -24266,14 +24267,22 @@
 	  render: function () {
 	
 	    var handleCourseClick = this.handleCourseClick;
+	    var i = 0;
 	    var courses = CourseStore.all().map(function (course) {
-	      var boundClick = handleCourseClick.bind(null, course);
-	      return React.createElement(CourseIndexItem, {
-	        className: 'landing-page-course-index-item',
-	        course: course,
-	        key: course.id,
-	        onClick: boundClick });
-	    });
+	      if (i < this.state.showCount) {
+	        i++;
+	        var boundClick = handleCourseClick.bind(null, course);
+	        return React.createElement(CourseIndexItem, {
+	          className: 'landing-page-course-index-item',
+	          course: course,
+	          key: course.id,
+	          onClick: boundClick });
+	      }
+	    }.bind(this));
+	
+	    if (courses.length === 0) {
+	      courses = React.createElement('i', { className: 'fa-li fa fa-spinner fa-spin' });
+	    }
 	
 	    return React.createElement(
 	      'div',
@@ -31518,7 +31527,9 @@
 	        callback && callback();
 	      },
 	      error: function (data) {
-	        console.log("edit error");
+	        if (id == 52) {
+	          alert("Please do not edit my name! It will cause issues with the demo feature");
+	        }
 	      }
 	    });
 	  }

@@ -12,7 +12,8 @@ var SessionForm = require('./../sessions/new');
 var CourseIndex = React.createClass({
   getInitialState: function () {
     return {
-      courses: CourseStore.all()
+      courses: CourseStore.all(),
+      showCount: 40
     };
   },
 
@@ -36,16 +37,24 @@ var CourseIndex = React.createClass({
   render: function () {
 
     var handleCourseClick = this.handleCourseClick;
+    var i = 0;
     var courses = CourseStore.all().map(function (course) {
-      var boundClick = handleCourseClick.bind(null, course);
-      return (
-        <CourseIndexItem
-          className="landing-page-course-index-item"
-          course={ course }
-          key={ course.id }
-          onClick={ boundClick } />
-      );
-    });
+      if (i < this.state.showCount) {
+        i++;
+        var boundClick = handleCourseClick.bind(null, course);
+        return (
+          <CourseIndexItem
+            className="landing-page-course-index-item"
+            course={ course }
+            key={ course.id }
+            onClick={ boundClick } />
+        );
+      }
+    }.bind(this));
+
+    if (courses.length === 0) {
+      courses = (<i className="fa-li fa fa-spinner fa-spin"></i>)
+    }
 
     return (
       <div>

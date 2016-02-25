@@ -18,8 +18,14 @@ class Api::UsersController < ApplicationController
 	end
 
   def update
+  	if User.all.first.id == params[:id].to_i
+  		alert "Please do not change the info for the demo account!"
+  		return
+  	end
+
+
     @user = User.find(params[:id])
-    
+
     if @user.update(user_params)
       render 'api/users/show'
     else

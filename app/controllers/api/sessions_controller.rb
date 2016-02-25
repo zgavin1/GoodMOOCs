@@ -14,6 +14,7 @@ class Api::SessionsController < ApplicationController
       params[:username],
       params[:password]
     )
+
     if @user.nil?
       # flash.now[:alert] = "Wrong email/password combo"
       # render :new, status: 401

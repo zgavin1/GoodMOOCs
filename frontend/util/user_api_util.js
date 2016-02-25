@@ -57,7 +57,9 @@ var UsersApiUtil = {
         callback && callback();
       },
       error: function (data) {
-        console.log("edit error");
+        if (id == 52) {
+          alert("Please do not edit my name! It will cause issues with the demo feature");
+        }
       }
     });
   }
