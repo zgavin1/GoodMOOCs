@@ -6,6 +6,8 @@ var ApiUtil = require('./../../util/api_util');
 var CourseIndexItem = require('./CourseIndexItem');
 var History = require('react-router').History;
 
+var Ads = require('./../CourseAds');
+
 var CourseSuggestions = React.createClass({
   contextTypes: {
     currentUser: React.PropTypes.object
@@ -70,6 +72,7 @@ var CourseSuggestions = React.createClass({
           </ul>
           <a className="course-suggestions-see-more" onClick={ this.twentyMore } >See More</a>
         </div>
+        <Ads />
       </div>
     );
   }

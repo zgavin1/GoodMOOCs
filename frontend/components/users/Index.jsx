@@ -6,6 +6,8 @@ var UserApiUtil = require('./../../util/user_api_util');
 var UserShow = require('./Show');
 var UserIndexItem = require('./IndexItem');
 
+var Ads = require('./../CourseAds');
+
 var UsersIndex = React.createClass({
   contextTypes: {
     currentUser: React.PropTypes.object
@@ -50,9 +52,7 @@ var UsersIndex = React.createClass({
         <div className="users-pane-left">
           <ul className="users-list group">{ users }</ul>
         </div>
-        <div className="users-pane-right">
-          <div> More user features</div>
-        </div>
+        <Ads />
       </div>
     );
   }

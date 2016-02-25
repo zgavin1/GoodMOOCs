@@ -8,6 +8,7 @@ var CourseIndexItem = require('./CourseIndexItem');
 var UserForm = require('./../users/Form');
 var SessionForm = require('./../sessions/new');
 
+var Ads = require('./../CourseAds');
 
 var CourseIndex = React.createClass({
   getInitialState: function () {
@@ -65,29 +66,34 @@ var CourseIndex = React.createClass({
           </div>
         </header>
         <div className="landing-page-content group" >
-          <div className="landing-page-intro group">
-            <div className="landing-page-selling-point">
-              <h3>Deciding what to study next?</h3>
-              <p>
-                You’re in the right place. Tell us what courses <br />
-                or subjects you’ve enjoyed in the past, and we’ll give <br />
-                you surprisingly insightful recommendations.
-              </p>
+          <div className="landing-page-left">
+            <div className="landing-page-intro group">
+              <div className="landing-page-selling-point">
+                <h3>Deciding what to study next?</h3>
+                <p>
+                  You’re in the right place. Tell us what courses <br />
+                  or subjects you’ve enjoyed in the past, and we’ll give <br />
+                  you surprisingly insightful recommendations.
+                </p>
+              </div>
+              <div className="landing-page-selling-point">
+                <h3>What are your friends studying?</h3>
+                <p>
+                  Chances are your friends are discussing their  <br />
+                favorite (and least favorite) classes on GoodMOOCs.  <br />
+                  Want to learn more? Take the tour.
+                </p>
+              </div>
             </div>
-            <div className="landing-page-selling-point">
-              <h3>What are your friends studying?</h3>
-              <p>
-                Chances are your friends are discussing their  <br />
-              favorite (and least favorite) classes on GoodMOOCs.  <br />
-                Want to learn more? Take the tour.
-              </p>
+
+            <div className="discover group">
+              <h3> What will <em>you</em> discover?</h3>
+              <ul className="landing-page-course-index group" >{ courses }</ul>
             </div>
           </div>
 
-          <div className="discover group">
-            <h3> What will <em>you</em> discover?</h3>
-            <ul className="landing-page-course-index group" >{ courses }</ul>
-          </div>
+          <Ads />
+
         </div>
       </div>
     );

@@ -9,6 +9,8 @@ var CurrentUserStore = require('./../../stores/currentUser');
 
 var Course = require('./Course');
 
+var Ads = require('./../CourseAds');
+
 var CourseShow = React.createClass({
   contextTypes: {
     currentUser: React.PropTypes.object
@@ -153,6 +155,8 @@ var CourseShow = React.createClass({
 
           { this.courseReviews() }
         </section>
+
+        <Ads />
       </div>
     );
   }

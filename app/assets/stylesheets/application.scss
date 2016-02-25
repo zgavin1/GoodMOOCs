@@ -289,6 +289,12 @@ img {
   width: 635px;
 }
 
+.landing-page-left {
+  float: left;
+  width: 655px;
+  margin: 0;
+}
+
 .landing-page-selling-point:first-child {
   float: left;
   width: 290px;
@@ -354,6 +360,18 @@ img {
   margin-bottom: 8px;
   box-shadow: 1px 6px 8px #888888;
 }
+
+.ads-right {
+  float: right;
+  width: 300px;
+  margin-left: 10px;
+}
+
+.ads-right a {
+  float: left;
+  margin-bottom: 20px;
+}
+
 /* LOGGED IN STYLE */
 
 .logged-in-header {
@@ -574,6 +592,7 @@ img {
 
 .user-info {
   width: 625px;
+  float: left;
 }
 
 .user-info-left {
@@ -914,7 +933,7 @@ img.preview-image {
 // COURSE SHOW REVIEWS
 
 .review {
-  width: 625px;
+  width: 600px;
   padding: 3px 20px 5px 0;
   border-bottom: 1px solid #ccc;
 }
@@ -929,7 +948,7 @@ review-info-container > * {
 }
 
 .course-reviews {
-  width: 625px;
+  width: 600px;
   float: left;
 }
 
@@ -1048,6 +1067,17 @@ review-info-container > * {
 .course-suggestions-index {
   float: left;
   padding-left: 0px;
+}
+
+.course-suggestions-right {
+  float: right;
+  width: 300px;
+  margin-left: 10px;
+}
+
+.course-suggestions-right a {
+  float: left;
+  margin-bottom: 20px;
 }
 
 .course-suggestions-see-more {

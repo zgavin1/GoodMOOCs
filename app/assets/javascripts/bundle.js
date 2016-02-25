@@ -24237,6 +24237,8 @@
 	var UserForm = __webpack_require__(235);
 	var SessionForm = __webpack_require__(245);
 	
+	var Ads = __webpack_require__(271);
+	
 	var CourseIndex = React.createClass({
 	  displayName: 'CourseIndex',
 	
@@ -24302,64 +24304,69 @@
 	        { className: 'landing-page-content group' },
 	        React.createElement(
 	          'div',
-	          { className: 'landing-page-intro group' },
+	          { className: 'landing-page-left' },
 	          React.createElement(
 	            'div',
-	            { className: 'landing-page-selling-point' },
+	            { className: 'landing-page-intro group' },
 	            React.createElement(
-	              'h3',
-	              null,
-	              'Deciding what to study next?'
+	              'div',
+	              { className: 'landing-page-selling-point' },
+	              React.createElement(
+	                'h3',
+	                null,
+	                'Deciding what to study next?'
+	              ),
+	              React.createElement(
+	                'p',
+	                null,
+	                'You’re in the right place. Tell us what courses ',
+	                React.createElement('br', null),
+	                'or subjects you’ve enjoyed in the past, and we’ll give ',
+	                React.createElement('br', null),
+	                'you surprisingly insightful recommendations.'
+	              )
 	            ),
 	            React.createElement(
-	              'p',
-	              null,
-	              'You’re in the right place. Tell us what courses ',
-	              React.createElement('br', null),
-	              'or subjects you’ve enjoyed in the past, and we’ll give ',
-	              React.createElement('br', null),
-	              'you surprisingly insightful recommendations.'
+	              'div',
+	              { className: 'landing-page-selling-point' },
+	              React.createElement(
+	                'h3',
+	                null,
+	                'What are your friends studying?'
+	              ),
+	              React.createElement(
+	                'p',
+	                null,
+	                'Chances are your friends are discussing their  ',
+	                React.createElement('br', null),
+	                'favorite (and least favorite) classes on GoodMOOCs.  ',
+	                React.createElement('br', null),
+	                'Want to learn more? Take the tour.'
+	              )
 	            )
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'landing-page-selling-point' },
+	            { className: 'discover group' },
 	            React.createElement(
 	              'h3',
 	              null,
-	              'What are your friends studying?'
+	              ' What will ',
+	              React.createElement(
+	                'em',
+	                null,
+	                'you'
+	              ),
+	              ' discover?'
 	            ),
 	            React.createElement(
-	              'p',
-	              null,
-	              'Chances are your friends are discussing their  ',
-	              React.createElement('br', null),
-	              'favorite (and least favorite) classes on GoodMOOCs.  ',
-	              React.createElement('br', null),
-	              'Want to learn more? Take the tour.'
+	              'ul',
+	              { className: 'landing-page-course-index group' },
+	              courses
 	            )
 	          )
 	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'discover group' },
-	          React.createElement(
-	            'h3',
-	            null,
-	            ' What will ',
-	            React.createElement(
-	              'em',
-	              null,
-	              'you'
-	            ),
-	            ' discover?'
-	          ),
-	          React.createElement(
-	            'ul',
-	            { className: 'landing-page-course-index group' },
-	            courses
-	          )
-	        )
+	        React.createElement(Ads, null)
 	      )
 	    );
 	  }
@@ -31996,6 +32003,8 @@
 	
 	var Course = __webpack_require__(257);
 	
+	var Ads = __webpack_require__(271);
+	
 	var CourseShow = React.createClass({
 	  displayName: 'CourseShow',
 	
@@ -32142,7 +32151,8 @@
 	          'Community Reviews'
 	        ),
 	        this.courseReviews()
-	      )
+	      ),
+	      React.createElement(Ads, null)
 	    );
 	  }
 	});
@@ -32973,6 +32983,8 @@
 	var CourseIndexItem = __webpack_require__(234);
 	var History = __webpack_require__(1).History;
 	
+	var Ads = __webpack_require__(271);
+	
 	var CourseSuggestions = React.createClass({
 	  displayName: 'CourseSuggestions',
 	
@@ -33053,7 +33065,8 @@
 	          { className: 'course-suggestions-see-more', onClick: this.twentyMore },
 	          'See More'
 	        )
-	      )
+	      ),
+	      React.createElement(Ads, null)
 	    );
 	  }
 	});
@@ -33309,6 +33322,8 @@
 	var CurrentUserStore = __webpack_require__(256);
 	var UsersApiUtil = __webpack_require__(236);
 	
+	var Ads = __webpack_require__(271);
+	
 	var UserShow = React.createClass({
 	  displayName: 'UserShow',
 	
@@ -33468,7 +33483,8 @@
 	          )
 	        ),
 	        user_info_courses
-	      )
+	      ),
+	      React.createElement(Ads, null)
 	    );
 	  }
 	
@@ -33663,6 +33679,8 @@
 	var UserShow = __webpack_require__(260);
 	var UserIndexItem = __webpack_require__(263);
 	
+	var Ads = __webpack_require__(271);
+	
 	var UsersIndex = React.createClass({
 	  displayName: 'UsersIndex',
 	
@@ -33718,15 +33736,7 @@
 	          users
 	        )
 	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'users-pane-right' },
-	        React.createElement(
-	          'div',
-	          null,
-	          ' More user features'
-	        )
-	      )
+	      React.createElement(Ads, null)
 	    );
 	  }
 	});
@@ -34607,6 +34617,46 @@
 	});
 	
 	module.exports = Home;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
+	
+	var Ads = React.createClass({
+	  displayName: "Ads",
+	
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "ads-right group" },
+	      React.createElement(
+	        "a",
+	        { href: "http://edx.org", className: "edx" },
+	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/edx.gif" })
+	      ),
+	      React.createElement(
+	        "a",
+	        { href: "http://udacity.com", className: "udacity" },
+	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/logo-udacity.png" })
+	      ),
+	      React.createElement(
+	        "a",
+	        { href: "http://udemy.com", className: "udemy" },
+	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/udemy.jpg" })
+	      ),
+	      React.createElement(
+	        "a",
+	        { href: "http://teamtreehouse.com", className: "treehouse" },
+	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/treehouse-logo.png" })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Ads;
 
 /***/ }
 /******/ ]);

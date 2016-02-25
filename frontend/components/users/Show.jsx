@@ -3,6 +3,8 @@ var UserStore = require('./../../stores/user');
 var CurrentUserStore = require('./../../stores/currentUser');
 var UsersApiUtil = require('./../../util/user_api_util');
 
+var Ads = require('./../CourseAds');
+
 var UserShow = React.createClass({
   contextTypes: {
     currentUser: React.PropTypes.object
@@ -97,6 +99,8 @@ var UserShow = React.createClass({
           </div>
           { user_info_courses }
         </div>
+        
+        <Ads />
       </div>
     );
   }
