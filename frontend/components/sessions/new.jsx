@@ -23,7 +23,7 @@ var Session = React.createClass({
     e.preventDefault();
     SessionsApiUtil.login(
       {
-        username: "Zach Gavin",
+        username: "Zach G",
         password: "zgavin1"
       },
       function () {

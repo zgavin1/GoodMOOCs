@@ -6,7 +6,7 @@ var Ads = React.createClass({
 		return (
 		    <div className="ads-right group">
           <a href="http://edx.org" className="edx" >
-            <img src="https://s3.amazonaws.com/goodmoocs-seeds/edx.gif" />
+ 						<img src="https://s3.amazonaws.com/goodmoocs-seeds/edx.gif" />
           </a>
           <a href="http://udacity.com" className="udacity" >
             <img src="https://s3.amazonaws.com/goodmoocs-seeds/logo-udacity.png"/>

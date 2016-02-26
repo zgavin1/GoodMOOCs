@@ -53,25 +53,25 @@
 	var ReactDOM = __webpack_require__(207);
 	
 	var CourseIndex = __webpack_require__(208);
-	var CourseShow = __webpack_require__(247);
-	var CourseSuggestions = __webpack_require__(258);
-	var CurrentUserStore = __webpack_require__(256);
+	var CourseShow = __webpack_require__(248);
+	var CourseSuggestions = __webpack_require__(259);
+	var CurrentUserStore = __webpack_require__(257);
 	var SessionsApiUtil = __webpack_require__(246);
-	var ReviewIndex = __webpack_require__(259);
-	var Review = __webpack_require__(250);
-	var ReviewForm = __webpack_require__(252);
+	var ReviewIndex = __webpack_require__(260);
+	var Review = __webpack_require__(251);
+	var ReviewForm = __webpack_require__(253);
 	
 	var SessionForm = __webpack_require__(245);
 	
-	var UserShow = __webpack_require__(260);
+	var UserShow = __webpack_require__(261);
 	var NewUserForm = __webpack_require__(235);
-	var EditUserForm = __webpack_require__(261);
-	var UserIndex = __webpack_require__(262);
+	var EditUserForm = __webpack_require__(262);
+	var UserIndex = __webpack_require__(263);
 	
-	var Search = __webpack_require__(264);
+	var Search = __webpack_require__(265);
 	
-	var Header = __webpack_require__(269);
-	var Home = __webpack_require__(270);
+	var Header = __webpack_require__(270);
+	var Home = __webpack_require__(271);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -24237,7 +24237,7 @@
 	var UserForm = __webpack_require__(235);
 	var SessionForm = __webpack_require__(245);
 	
-	var Ads = __webpack_require__(271);
+	var Ads = __webpack_require__(247);
 	
 	var CourseIndex = React.createClass({
 	  displayName: 'CourseIndex',
@@ -31875,7 +31875,7 @@
 	  demoSession: function (e) {
 	    e.preventDefault();
 	    SessionsApiUtil.login({
-	      username: "Zach Gavin",
+	      username: "Zach G",
 	      password: "zgavin1"
 	    }, function () {
 	      this.history.pushState({}, "/");
@@ -31993,17 +31993,57 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
+	
+	var Ads = React.createClass({
+	  displayName: "Ads",
+	
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "ads-right group" },
+	      React.createElement(
+	        "a",
+	        { href: "http://edx.org", className: "edx" },
+	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/edx.gif" })
+	      ),
+	      React.createElement(
+	        "a",
+	        { href: "http://udacity.com", className: "udacity" },
+	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/logo-udacity.png" })
+	      ),
+	      React.createElement(
+	        "a",
+	        { href: "http://udemy.com", className: "udemy" },
+	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/udemy.jpg" })
+	      ),
+	      React.createElement(
+	        "a",
+	        { href: "http://teamtreehouse.com", className: "treehouse" },
+	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/treehouse-logo.png" })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Ads;
+
+/***/ },
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(5);
 	var CourseStore = __webpack_require__(209);
-	var ReviewStore = __webpack_require__(248);
+	var ReviewStore = __webpack_require__(249);
 	var ApiUtil = __webpack_require__(232);
-	var Review = __webpack_require__(250);
-	var ReviewForm = __webpack_require__(252);
+	var Review = __webpack_require__(251);
+	var ReviewForm = __webpack_require__(253);
 	
-	var CurrentUserStore = __webpack_require__(256);
+	var CurrentUserStore = __webpack_require__(257);
 	
-	var Course = __webpack_require__(257);
+	var Course = __webpack_require__(258);
 	
-	var Ads = __webpack_require__(271);
+	var Ads = __webpack_require__(247);
 	
 	var CourseShow = React.createClass({
 	  displayName: 'CourseShow',
@@ -32160,7 +32200,7 @@
 	module.exports = CourseShow;
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(210).Store;
@@ -32168,7 +32208,7 @@
 	
 	var _reviews = {};
 	var ReviewStore = new Store(AppDispatcher);
-	var ReviewConstants = __webpack_require__(249);
+	var ReviewConstants = __webpack_require__(250);
 	
 	var resetReviews = function (reviewsArray) {
 	  _reviews = {};
@@ -32207,7 +32247,7 @@
 	module.exports = ReviewStore;
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports) {
 
 	var ReviewConstants = {
@@ -32218,14 +32258,14 @@
 	module.exports = ReviewConstants;
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
 	var ReactDOM = __webpack_require__(207);
 	
-	var UserStore = __webpack_require__(251);
-	var ReviewStore = __webpack_require__(248);
+	var UserStore = __webpack_require__(252);
+	var ReviewStore = __webpack_require__(249);
 	var UserApiUtil = __webpack_require__(236);
 	
 	var Review = React.createClass({
@@ -32313,7 +32353,7 @@
 	module.exports = Review;
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(210).Store;
@@ -32367,18 +32407,18 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
 	var LinkedStateMixin = __webpack_require__(241);
 	var ReactDOM = __webpack_require__(207);
 	
-	var ReviewStore = __webpack_require__(248);
-	var ReviewApiUtil = __webpack_require__(253);
+	var ReviewStore = __webpack_require__(249);
+	var ReviewApiUtil = __webpack_require__(254);
 	var History = __webpack_require__(1).History;
 	
-	var StarRating = __webpack_require__(255);
+	var StarRating = __webpack_require__(256);
 	
 	var ReviewForm = React.createClass({
 	  displayName: 'ReviewForm',
@@ -32485,10 +32525,10 @@
 	module.exports = ReviewForm;
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ReviewActions = __webpack_require__(254);
+	var ReviewActions = __webpack_require__(255);
 	
 	var ReviewApiUtil = {
 	  fetchReviews: function () {
@@ -32525,11 +32565,11 @@
 	module.exports = ReviewApiUtil;
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(228);
-	var ReviewConstants = __webpack_require__(249);
+	var ReviewConstants = __webpack_require__(250);
 	
 	var ReviewActions = {
 	  receiveReviews: function (reviews) {
@@ -32550,7 +32590,7 @@
 	module.exports = ReviewActions;
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -32672,7 +32712,7 @@
 	module.exports = Stars;
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(210).Store;
@@ -32711,21 +32751,21 @@
 	module.exports = CurrentUserStore;
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
 	var ReactRouter = __webpack_require__(1);
 	var LinkedStateMixin = __webpack_require__(241);
 	
-	var ReviewApiUtil = __webpack_require__(253);
+	var ReviewApiUtil = __webpack_require__(254);
 	var SessionsApiUtil = __webpack_require__(246);
 	
-	var CurrentUserStore = __webpack_require__(256);
-	var ReviewStore = __webpack_require__(248);
+	var CurrentUserStore = __webpack_require__(257);
+	var ReviewStore = __webpack_require__(249);
 	var CourseStore = __webpack_require__(209);
 	var CourseIndexItem = __webpack_require__(234);
-	var StarRating = __webpack_require__(255);
+	var StarRating = __webpack_require__(256);
 	
 	var History = __webpack_require__(1).History;
 	
@@ -32972,7 +33012,7 @@
 	module.exports = Course;
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -32983,7 +33023,7 @@
 	var CourseIndexItem = __webpack_require__(234);
 	var History = __webpack_require__(1).History;
 	
-	var Ads = __webpack_require__(271);
+	var Ads = __webpack_require__(247);
 	
 	var CourseSuggestions = React.createClass({
 	  displayName: 'CourseSuggestions',
@@ -33074,7 +33114,7 @@
 	module.exports = CourseSuggestions;
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -33082,15 +33122,15 @@
 	var LinkedStateMixin = __webpack_require__(241);
 	
 	var ApiUtil = __webpack_require__(232);
-	var ReviewApiUtil = __webpack_require__(253);
+	var ReviewApiUtil = __webpack_require__(254);
 	var CourseApiUtil = __webpack_require__(232);
 	var SessionsApiUtil = __webpack_require__(246);
 	
-	var CurrentUserStore = __webpack_require__(256);
-	var ReviewStore = __webpack_require__(248);
+	var CurrentUserStore = __webpack_require__(257);
+	var ReviewStore = __webpack_require__(249);
 	var CourseStore = __webpack_require__(209);
 	
-	var StarRatiing = __webpack_require__(255);
+	var StarRatiing = __webpack_require__(256);
 	
 	var ReviewIndex = React.createClass({
 	  displayName: 'ReviewIndex',
@@ -33314,15 +33354,15 @@
 	module.exports = ReviewIndex;
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
-	var UserStore = __webpack_require__(251);
-	var CurrentUserStore = __webpack_require__(256);
+	var UserStore = __webpack_require__(252);
+	var CurrentUserStore = __webpack_require__(257);
 	var UsersApiUtil = __webpack_require__(236);
 	
-	var Ads = __webpack_require__(271);
+	var Ads = __webpack_require__(247);
 	
 	var UserShow = React.createClass({
 	  displayName: 'UserShow',
@@ -33493,14 +33533,14 @@
 	module.exports = UserShow;
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
 	var UsersApiUtil = __webpack_require__(236);
 	var History = __webpack_require__(1).History;
 	var LinkedStateMixin = __webpack_require__(241);
-	var UserStore = __webpack_require__(251);
+	var UserStore = __webpack_require__(252);
 	
 	var EditUserForm = React.createClass({
 	  displayName: 'EditUserForm',
@@ -33668,18 +33708,18 @@
 	module.exports = EditUserForm;
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
 	var ReactDOM = __webpack_require__(207);
 	
-	var UserStore = __webpack_require__(251);
+	var UserStore = __webpack_require__(252);
 	var UserApiUtil = __webpack_require__(236);
-	var UserShow = __webpack_require__(260);
-	var UserIndexItem = __webpack_require__(263);
+	var UserShow = __webpack_require__(261);
+	var UserIndexItem = __webpack_require__(264);
 	
-	var Ads = __webpack_require__(271);
+	var Ads = __webpack_require__(247);
 	
 	var UsersIndex = React.createClass({
 	  displayName: 'UsersIndex',
@@ -33744,7 +33784,7 @@
 	module.exports = UsersIndex;
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -33788,14 +33828,14 @@
 	module.exports = UserIndexItem;
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
-	var SearchResultsStore = __webpack_require__(265);
-	var SearchApiUtil = __webpack_require__(267);
+	var SearchResultsStore = __webpack_require__(266);
+	var SearchApiUtil = __webpack_require__(268);
 	
-	var UserIndexItem = __webpack_require__(263);
+	var UserIndexItem = __webpack_require__(264);
 	var CourseIndexItem = __webpack_require__(234);
 	
 	var LinkedStateMixin = __webpack_require__(241);
@@ -33908,7 +33948,7 @@
 	module.exports = Search;
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(210).Store;
@@ -33917,7 +33957,7 @@
 	var _searchResults = [];
 	var _meta = {};
 	var SearchResultsStore = new Store(AppDispatcher);
-	var SearchConstants = __webpack_require__(266);
+	var SearchConstants = __webpack_require__(267);
 	
 	SearchResultsStore.all = function () {
 	  return _searchResults.slice();
@@ -33942,7 +33982,7 @@
 	module.exports = SearchResultsStore;
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports) {
 
 	var SearchConstants = {
@@ -33952,10 +33992,10 @@
 	module.exports = SearchConstants;
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SearchActions = __webpack_require__(268);
+	var SearchActions = __webpack_require__(269);
 	
 	var SearchApiUtil = {
 	  search: function (query, page) {
@@ -33987,11 +34027,11 @@
 	module.exports = SearchApiUtil;
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	var SearchConstants = __webpack_require__(266);
+	var SearchConstants = __webpack_require__(267);
 	var AppDispatcher = __webpack_require__(228);
 	
 	var SearchActions = {
@@ -34008,7 +34048,7 @@
 	module.exports = SearchActions;
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -34018,7 +34058,7 @@
 	
 	var React = __webpack_require__(5);
 	var SessionsApiUtil = __webpack_require__(246);
-	var CurrentUserStore = __webpack_require__(256);
+	var CurrentUserStore = __webpack_require__(257);
 	var History = __webpack_require__(1).History;
 	var SessionForm = __webpack_require__(245);
 	var UserForm = __webpack_require__(235);
@@ -34297,7 +34337,7 @@
 	module.exports = Header;
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(5);
@@ -34305,11 +34345,11 @@
 	var History = __webpack_require__(1).History;
 	var LinkedStateMixin = __webpack_require__(241);
 	
-	var CurrentUserStore = __webpack_require__(256);
+	var CurrentUserStore = __webpack_require__(257);
 	var SessionsApiUtil = __webpack_require__(246);
 	
-	var SearchResultsStore = __webpack_require__(265);
-	var SearchApiUtil = __webpack_require__(267);
+	var SearchResultsStore = __webpack_require__(266);
+	var SearchApiUtil = __webpack_require__(268);
 	
 	var Home = React.createClass({
 	  displayName: 'Home',
@@ -34617,46 +34657,6 @@
 	});
 	
 	module.exports = Home;
-
-/***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(5);
-	
-	var Ads = React.createClass({
-	  displayName: "Ads",
-	
-	
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { className: "ads-right group" },
-	      React.createElement(
-	        "a",
-	        { href: "http://edx.org", className: "edx" },
-	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/edx.gif" })
-	      ),
-	      React.createElement(
-	        "a",
-	        { href: "http://udacity.com", className: "udacity" },
-	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/logo-udacity.png" })
-	      ),
-	      React.createElement(
-	        "a",
-	        { href: "http://udemy.com", className: "udemy" },
-	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/udemy.jpg" })
-	      ),
-	      React.createElement(
-	        "a",
-	        { href: "http://teamtreehouse.com", className: "treehouse" },
-	        React.createElement("img", { src: "https://s3.amazonaws.com/goodmoocs-seeds/treehouse-logo.png" })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Ads;
 
 /***/ }
 /******/ ]);

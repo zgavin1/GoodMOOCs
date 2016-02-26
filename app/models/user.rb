@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     user = User.find_by(provider: provider, uid: uid)
 
     return user if user
-
+    
     User.create(
       provider: provider,
       uid: uid,

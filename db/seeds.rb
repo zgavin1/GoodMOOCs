@@ -6,7 +6,7 @@ require 'json'
 User.destroy_all
 
 
-zachgavin = User.create!(username: "Zach Gavin", password: "zgavin1", email: "gavinzach@gmail.com", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/IMG_2102.jpg")
+zachgavin = User.create!(username: "Zach G", password: "zgavin1", email: "gavinzach@gmail.com", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/IMG_2102.jpg")
 michaelscott = User.create!(username: "Michael Scott", password: "dundermifflin", email: "worldsbestboss@gmail.com", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/mscott.jpg")
 homer = User.create!(username: "Homer Simpson", password: "duffbeer", email: "mmmdonuts@yahoo.com", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/homer.jpg")
 bilbo = User.create!(username: "Bilbo Baggins", password: "myprecious", avatar: "https://s3.amazonaws.com/goodmoocs-seeds/bilbo.png")
