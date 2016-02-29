@@ -8,9 +8,6 @@ var ReviewApiUtil = {
       dataType: 'json',
       success: function (reviews) {
         ReviewActions.receiveReviews(reviews);
-      },
-      error: function () {
-        console.log('issues');
       }
     });
   },
@@ -24,9 +21,6 @@ var ReviewApiUtil = {
       success: function (review) {
         ReviewActions.postReview(review);
         callback && callback();
-      },
-      error: function () {
-        console.log("review post error");
       }
     });
   }

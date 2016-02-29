@@ -9,9 +9,6 @@ var UsersApiUtil = {
       dataType: 'json',
       success: function (users) {
         UserActions.receiveUsers(users);
-      },
-      error: function (users) {
-        console.log("fetching error");
       }
     });
   },
@@ -37,9 +34,6 @@ var UsersApiUtil = {
         UserActions.receiveUser(user);
         CurrentUserActions.receiveCurrentUser(user);
         callback && callback();
-      },
-      error: function (user) {
-        console.log("user created error");
       }
     });
   },

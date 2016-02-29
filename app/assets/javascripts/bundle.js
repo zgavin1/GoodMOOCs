@@ -31486,9 +31486,6 @@
 	      dataType: 'json',
 	      success: function (users) {
 	        UserActions.receiveUsers(users);
-	      },
-	      error: function (users) {
-	        console.log("fetching error");
 	      }
 	    });
 	  },
@@ -31514,9 +31511,6 @@
 	        UserActions.receiveUser(user);
 	        CurrentUserActions.receiveCurrentUser(user);
 	        callback && callback();
-	      },
-	      error: function (user) {
-	        console.log("user created error");
 	      }
 	    });
 	  },
@@ -31950,10 +31944,6 @@
 				success: function (currentUser) {
 					CurrentUserActions.receiveCurrentUser(currentUser);
 					successCallback && successCallback();
-				},
-				error: function (msg) {
-					console.log("error");
-					console.log(msg);
 				}
 			});
 		},
@@ -31965,9 +31955,6 @@
 				success: function () {
 					CurrentUserActions.logoutCurrentUser();
 					callback && callback();
-				},
-				error: function () {
-					console.log("blah");
 				}
 			});
 		},
@@ -32538,9 +32525,6 @@
 	      dataType: 'json',
 	      success: function (reviews) {
 	        ReviewActions.receiveReviews(reviews);
-	      },
-	      error: function () {
-	        console.log('issues');
 	      }
 	    });
 	  },
@@ -32554,9 +32538,6 @@
 	      success: function (review) {
 	        ReviewActions.postReview(review);
 	        callback && callback();
-	      },
-	      error: function () {
-	        console.log("review post error");
 	      }
 	    });
 	  }

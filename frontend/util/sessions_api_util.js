@@ -10,10 +10,6 @@ var SessionsApiUtil = {
 				success: function (currentUser) {
           CurrentUserActions.receiveCurrentUser(currentUser);
           successCallback && successCallback();
-        },
-        error: function (msg) {
-          console.log("error");
-          console.log(msg);
         }
 		});
 	},
@@ -25,9 +21,6 @@ var SessionsApiUtil = {
       success: function () {
       	CurrentUserActions.logoutCurrentUser();
       	callback && callback();
-      },
-      error: function () {
-      	console.log("blah");
       }
 		});
 	},
