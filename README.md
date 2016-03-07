@@ -3,6 +3,7 @@
 
 [![Login Page](./app/assets/images/githubss.png)](http://www.goodmoocs.com)
 
+
 ## Overview
 
 GoodMOOCs is an online course discovery app, built with React/Flux and Ruby on Rails with postgreSQL.
