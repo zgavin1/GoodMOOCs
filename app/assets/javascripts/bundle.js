@@ -33419,6 +33419,7 @@
 	      );
 	    } else {
 	      var demo_courses = user.courses.slice(0, 10).map(function (course) {
+	        console.log(course.id);
 	        return React.createElement(
 	          'a',
 	          { key: course.id, href: "#/courses/" + course.course_id },

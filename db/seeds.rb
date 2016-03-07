@@ -57,16 +57,17 @@ response = Net::HTTP.get(URI.parse(url))
 json_response = JSON.parse(response)
 
 json_response["courses"].each do |course|
-    Course.create!(
-      title: course["title"],
-      description: course["short_summary"] || "No summary.",
-      course_url: course["homepage"],
-      cost: 0,
-      start_date: DateTime.now,
-      course_provider_id: udacity.id,
-      subject: "programming",
-      image: course["image"]
-    )
+
+  Course.create!(
+    title: course["title"],
+    description: course["short_summary"] || "No summary.",
+    course_url: course["homepage"],
+    cost: 0,
+    start_date: DateTime.now,
+    course_provider_id: udacity.id,
+    subject: "programming",
+    image: course["image"]
+  )
 end
 
 
