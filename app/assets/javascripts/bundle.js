@@ -32646,7 +32646,7 @@
 	      if (6 - i > bright) {
 	        stars.push(React.createElement(
 	          'span',
-	          null,
+	          { key: i },
 	          React.createElement('i', {
 	            onClick: this.changeRating,
 	            id: "star" + (6 - i),
@@ -32656,8 +32656,11 @@
 	      } else {
 	        stars.push(React.createElement(
 	          'span',
-	          { className: 'bright' },
-	          React.createElement('i', { onClick: this.changeRating, id: "star" + (6 - i), id: "star" + (6 - i), onMouseOver: this.handleMouseOver, className: 'fa fa-star' })
+	          { className: 'bright', key: i },
+	          React.createElement('i', { onClick: this.changeRating,
+	            id: "star" + (6 - i), id: "star" + (6 - i),
+	            onMouseOver: this.handleMouseOver,
+	            className: 'fa fa-star' })
 	        ));
 	      }
 	    };
@@ -33419,10 +33422,9 @@
 	      );
 	    } else {
 	      var demo_courses = user.courses.slice(0, 10).map(function (course) {
-	        console.log(course.id);
 	        return React.createElement(
 	          'a',
-	          { key: course.id, href: "#/courses/" + course.course_id },
+	          { key: course.course_id, href: "#/courses/" + course.course_id },
 	          React.createElement('img', { className: 'user-info-courses-img', src: course.course_img })
 	        );
 	      }.bind(this));

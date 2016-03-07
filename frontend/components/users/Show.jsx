@@ -68,8 +68,7 @@ var UserShow = React.createClass({
         </div>;
     } else {
       var demo_courses = user.courses.slice(0, 10).map(function (course) {
-        console.log(course.id)
-        return <a key={course.id} href={"#/courses/" + course.course_id}><img className="user-info-courses-img" src={ course.course_img } /></a>;
+        return <a key={course.course_id} href={"#/courses/" + course.course_id}><img className="user-info-courses-img" src={ course.course_img } /></a>;
       }.bind(this));
 
       user_info_courses =

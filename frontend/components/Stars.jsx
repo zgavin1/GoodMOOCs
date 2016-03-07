@@ -68,7 +68,7 @@ var Stars = React.createClass({
     for (var i = 1; i <= 5; i++) {
       if (6 - i > bright) {
         stars.push(
-            <span ><i
+            <span key={i}><i
               onClick={ this.changeRating }
               id={"star" + (6-i)}
               onMouseOver={ this.handleMouseOver }
@@ -76,7 +76,12 @@ var Stars = React.createClass({
           )
       } else {
         stars.push(
-            <span className="bright"><i onClick={ this.changeRating } id={"star" + (6-i)} id={"star" + (6-i)}onMouseOver={ this.handleMouseOver } className="fa fa-star"></i></span>
+            <span className="bright" key={i} >
+              <i onClick={ this.changeRating }
+                id={"star" + (6-i)} id={"star" + (6-i)}
+                onMouseOver={ this.handleMouseOver }
+                className="fa fa-star"></i>
+            </span>
           )
       }
     };
