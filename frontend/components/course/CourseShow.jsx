@@ -9,8 +9,6 @@ var CurrentUserStore = require('./../../stores/currentUser');
 
 var Course = require('./Course');
 
-var Ads = require('./../CourseAds');
-
 var CourseShow = React.createClass({
   contextTypes: {
     currentUser: React.PropTypes.object
@@ -23,7 +21,8 @@ var CourseShow = React.createClass({
       course: course,
       avg_rating: course.avg_rating,
       reviews: course.reviews,
-      showReviewForm: false
+      showReviewForm: false,
+      starRating: 0
      };
   },
 
@@ -86,7 +85,9 @@ var CourseShow = React.createClass({
 
   currentUserRating: function () {
     var rating = 0;
-
+    if (this.state.starRating > 0) {
+      return this.state.starRating;
+    }
     this.context.currentUser.reviews.forEach(function (review) {
       if (this.state.course.id === review.course_id) {
         return rating = review.rating;
@@ -95,7 +96,7 @@ var CourseShow = React.createClass({
     return rating;
   },
 
-  handleNewReview: function () {
+  handleNewReview: function (rating) {
     if (Object.keys(this.context.currentUser).length === 0) {
       alert("Log in or sign up to review courses!");
       return;
@@ -105,8 +106,11 @@ var CourseShow = React.createClass({
       alert("You have already reviewed this course!");
       return;
     }
-
-    this.setState({showReviewForm: true});
+    if (rating) {
+      this.setState({starRating: rating, showReviewForm: true})
+    } else {
+      this.setState({showReviewForm: true});
+    }
   },
 
   hideReviewForm: function () {
@@ -155,8 +159,6 @@ var CourseShow = React.createClass({
 
           { this.courseReviews() }
         </section>
-
-        <Ads />
       </div>
     );
   }

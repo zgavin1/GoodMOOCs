@@ -43,19 +43,8 @@ var Course = React.createClass({
 
   },
 
-  submitRating: function (e) {
-    // e.preventDefault();
-
-    // var rev =
-    //   { review:
-    //     {
-    //       rating: this.state.rating,
-    //       user_id: this.context.currentUser.id,
-    //       course_id: this.props.course.id
-    //     }
-    //   }
-
-    // ReviewApiUtil.postReview(rev)
+ handleStarClick: function (rating) {
+    this.props.handleNewReview(rating)
   },
 
   _newReview: function (e) {
@@ -128,7 +117,7 @@ var Course = React.createClass({
             </div>
             <div className="rating-container">
               <p>Rate this Course</p>
-              <StarRating static={ false } rating={ this.currentUserRating() } />
+              <StarRating handleStarClick={ this.handleStarClick } static={ false } rating={ this.currentUserRating() } />
             </div>
           </div>
           <div className="course-info-col">

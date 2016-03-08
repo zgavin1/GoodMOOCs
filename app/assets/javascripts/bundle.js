@@ -32030,8 +32030,6 @@
 	
 	var Course = __webpack_require__(258);
 	
-	var Ads = __webpack_require__(247);
-	
 	var CourseShow = React.createClass({
 	  displayName: 'CourseShow',
 	
@@ -32046,7 +32044,8 @@
 	      course: course,
 	      avg_rating: course.avg_rating,
 	      reviews: course.reviews,
-	      showReviewForm: false
+	      showReviewForm: false,
+	      starRating: 0
 	    };
 	  },
 	
@@ -32107,7 +32106,9 @@
 	
 	  currentUserRating: function () {
 	    var rating = 0;
-	
+	    if (this.state.starRating > 0) {
+	      return this.state.starRating;
+	    }
 	    this.context.currentUser.reviews.forEach(function (review) {
 	      if (this.state.course.id === review.course_id) {
 	        return rating = review.rating;
@@ -32116,7 +32117,7 @@
 	    return rating;
 	  },
 	
-	  handleNewReview: function () {
+	  handleNewReview: function (rating) {
 	    if (Object.keys(this.context.currentUser).length === 0) {
 	      alert("Log in or sign up to review courses!");
 	      return;
@@ -32126,8 +32127,11 @@
 	      alert("You have already reviewed this course!");
 	      return;
 	    }
-	
-	    this.setState({ showReviewForm: true });
+	    if (rating) {
+	      this.setState({ starRating: rating, showReviewForm: true });
+	    } else {
+	      this.setState({ showReviewForm: true });
+	    }
 	  },
 	
 	  hideReviewForm: function () {
@@ -32178,8 +32182,7 @@
 	          'Community Reviews'
 	        ),
 	        this.courseReviews()
-	      ),
-	      React.createElement(Ads, null)
+	      )
 	    );
 	  }
 	});
@@ -32783,19 +32786,8 @@
 	
 	  componentWillReceiveProps: function () {},
 	
-	  submitRating: function (e) {
-	    // e.preventDefault();
-	
-	    // var rev =
-	    //   { review:
-	    //     {
-	    //       rating: this.state.rating,
-	    //       user_id: this.context.currentUser.id,
-	    //       course_id: this.props.course.id
-	    //     }
-	    //   }
-	
-	    // ReviewApiUtil.postReview(rev)
+	  handleStarClick: function (rating) {
+	    this.props.handleNewReview(rating);
 	  },
 	
 	  _newReview: function (e) {
@@ -32885,7 +32877,7 @@
 	              null,
 	              'Rate this Course'
 	            ),
-	            React.createElement(StarRating, { 'static': false, rating: this.currentUserRating() })
+	            React.createElement(StarRating, { handleStarClick: this.handleStarClick, 'static': false, rating: this.currentUserRating() })
 	          )
 	        ),
 	        React.createElement(
