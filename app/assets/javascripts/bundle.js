@@ -32127,6 +32127,7 @@
 	      alert("You have already reviewed this course!");
 	      return;
 	    }
+	
 	    if (rating) {
 	      this.setState({ starRating: rating, showReviewForm: true });
 	    } else {
@@ -32784,18 +32785,8 @@
 	    this.currentUserListener.remove();
 	  },
 	
-	  componentWillReceiveProps: function () {},
-	
 	  handleStarClick: function (rating) {
 	    this.props.handleNewReview(rating);
-	  },
-	
-	  _newReview: function (e) {
-	    // e.preventDefault();
-	
-	    // var id = this.props.course.id
-	
-	    // this.history.pushState({course_id: id}, "/reviews/new")
 	  },
 	
 	  currentUserRating: function () {

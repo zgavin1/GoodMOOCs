@@ -106,6 +106,7 @@ var CourseShow = React.createClass({
       alert("You have already reviewed this course!");
       return;
     }
+    
     if (rating) {
       this.setState({starRating: rating, showReviewForm: true})
     } else {
