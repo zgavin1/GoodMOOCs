@@ -33339,7 +33339,6 @@
 	  },
 	
 	  getInitialState: function () {
-	
 	    return this.getStateFromStore();
 	  },
 	
@@ -33368,7 +33367,7 @@
 	
 	  render: function () {
 	    var user = this.state.user;
-	    if (!user) {
+	    if (!(user && user.courses)) {
 	      return React.createElement('div', null);
 	    }
 	    var user_ratings = user.reviews || [];

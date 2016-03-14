@@ -11,7 +11,6 @@ var UserShow = React.createClass({
   },
 
 	getInitialState: function () {
-
 		return this.getStateFromStore();
 	},
 
@@ -40,7 +39,7 @@ var UserShow = React.createClass({
 
   render: function () {
     var user = this.state.user;
-    if (!user) {
+    if (!(user && user.courses)) {
       return <div></div>;
     }
     var user_ratings = user.reviews || [];
