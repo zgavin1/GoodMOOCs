@@ -2,7 +2,13 @@ class User < ActiveRecord::Base
   include PgSearch
   multisearchable :against => [:username]
 
-  has_attached_file :avatar, default_url: "stats.jpg"
+  has_attached_file :avatar,
+    default_url: "stats.jpg",
+    styles: { 
+      thumb: ["140x100#", :png],
+      small: ["140x125#", :png]
+    }
+    
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   validates :username, :session_token, :password_digest, presence: true

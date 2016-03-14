@@ -1,5 +1,5 @@
 json.extract! @user, :id, :username, :email, :created_at
-json.avatar asset_path(@user.avatar.url)
+json.avatar asset_path(@user.avatar.url(:small))
 json.reviews @user.reviews
 json.courses do
   json.array! @user.courses do |course|
