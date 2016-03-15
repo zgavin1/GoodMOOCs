@@ -20,8 +20,8 @@ var UsersIndex = React.createClass({
   },
 
   componentDidMount: function () {
-    this.userStoreListener = UserStore.addListener(this._onChange);
     UserApiUtil.fetchUsers();
+    this.userStoreListener = UserStore.addListener(this._onChange);
   },
 
   componentWillUnmount: function () {
@@ -35,7 +35,11 @@ var UsersIndex = React.createClass({
   render: function () {
     var handleClick = this.handleClick;
 
-    var users = UserStore.all().map(function (user) {
+    if (this.state.users.length === 0) {
+      return (<div></div>)
+    }
+
+    var users = this.state.users.map(function (user) {
       if (user.id !== this.context.currentUser.id) {
         return (
           <UserIndexItem

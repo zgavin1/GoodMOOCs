@@ -33695,28 +33695,37 @@
 	  },
 	
 	  getInitialState: function () {
+	    console.log("getInitialState");
 	    return {
 	      users: UserStore.all()
 	    };
 	  },
 	
 	  componentDidMount: function () {
-	    this.userStoreListener = UserStore.addListener(this._onChange);
+	    console.log("componentDidMount");
 	    UserApiUtil.fetchUsers();
+	    this.userStoreListener = UserStore.addListener(this._onChange);
 	  },
 	
 	  componentWillUnmount: function () {
+	    console.log("componentWillUnmount");
 	    this.userStoreListener.remove();
 	  },
 	
 	  _onChange: function () {
+	    console.log("onchange");
 	    this.setState({ users: UserStore.all() });
 	  },
 	
 	  render: function () {
+	    console.log("render");
 	    var handleClick = this.handleClick;
 	
-	    var users = UserStore.all().map(function (user) {
+	    if (this.state.users.length === 0) {
+	      return React.createElement('div', null);
+	    }
+	
+	    var users = this.state.users.map(function (user) {
 	      if (user.id !== this.context.currentUser.id) {
 	        return React.createElement(UserIndexItem, {
 	          className: 'user-index-item',
