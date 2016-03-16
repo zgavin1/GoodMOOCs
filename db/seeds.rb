@@ -50,7 +50,23 @@ futurelearn = CourseProvider.create!(
   home_url: "https://www.futurelearn.com/",
 )
 
+zach_provider = CourseProvider.create!(
+  name: "Zach's Personal Site",
+  home_url: "http://www.zach-gavin.com"
+)
+
 Course.destroy_all
+
+demo_course = Course.create!(
+  title: "GoodMOOCs Demo",
+  description: "Welcome to GoodMOOCs, my fullstack (React/RoR) CRUD app. The link for this course goes to my personal site"
+  cost: 0,
+  course_url: "http://www.zach-gavin.com",
+  start_date: DateTime.now,
+  course_provider_id: zach_provider.id,
+  subject: "programming",
+  image: "https://s3.amazonaws.com/goodmoocs-seeds/IMG_2102.jpg"
+)
 
 url = "https://www.udacity.com/public-api/v0/courses"
 response = Net::HTTP.get(URI.parse(url))
@@ -69,8 +85,6 @@ json_response["courses"].each do |course|
     image: course["image"]
   )
 end
-
-
 
 course1 = Course.create!(
   title: "Intro to Statistics",
