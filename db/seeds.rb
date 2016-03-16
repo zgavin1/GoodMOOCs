@@ -59,7 +59,7 @@ Course.destroy_all
 
 demo_course = Course.create!(
   title: "GoodMOOCs Demo",
-  description: "Welcome to GoodMOOCs, my fullstack (React/RoR) CRUD app. The link for this course goes to my personal site"
+  description: "Welcome to GoodMOOCs, my fullstack (React/RoR) CRUD app. The link for this course goes to my personal site",
   cost: 0,
   course_url: "http://www.zach-gavin.com",
   start_date: DateTime.now,
@@ -920,3 +920,58 @@ Review.create!(
   rating: 5,
   body: "I'm course tester and this was a good course. Udemy does a great job teaching Photography, and this is an intersting topic"
 )
+
+# DEMO REVIEWS
+
+Review.create!(
+  user_id: kanyewest.id,
+  course_id: demo_course.id,
+  rating: 2,
+  body: "Finally, you can edit your profile/login info in the users tab, in the top right under the user logo. Try uploading a picture!"
+)
+
+Review.create!(
+  user_id: homer.id,
+  course_id: demo_course.id,
+  rating: 2,
+  body: "Also in the nav bar is a search feature, that allows you to search over course titles and usernames. This feature was created with indexed database tables and efficient lookup techniques."
+)
+
+Review.create!(
+  user_id: bilbo.id,
+  course_id: demo_course.id,
+  rating: 2,
+  body: "Off to the right, there are courses in the same subject (programming) that you can scroll through."
+)
+
+Review.create!(
+  user_id: barrybonds.id,
+  course_id: demo_course.id,
+  rating: 2,
+  body: "In the nav bar at the top, you can view suggested courses (home), a table of courses you've reviewed, and a list of users who've signed up with GoodMOOCs!"
+)
+
+Review.create!(
+  user_id: spongebob.id,
+  course_id: demo_course.id,
+  rating: 5,
+  body: "These are ratings for the Demo Course, made by logged in users!"
+)
+
+Review.create!(
+  user_id: michaelscott.id,
+  course_id: demo_course.id,
+  rating: 3,
+  body: "Welcome to the GoodMOOCS, where users can find online courses they've taken or are taking, and review them!"
+)
+
+
+
+
+
+
+
+
+
+
+# 

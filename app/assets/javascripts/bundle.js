@@ -33695,30 +33695,25 @@
 	  },
 	
 	  getInitialState: function () {
-	    console.log("getInitialState");
 	    return {
 	      users: UserStore.all()
 	    };
 	  },
 	
 	  componentDidMount: function () {
-	    console.log("componentDidMount");
 	    UserApiUtil.fetchUsers();
 	    this.userStoreListener = UserStore.addListener(this._onChange);
 	  },
 	
 	  componentWillUnmount: function () {
-	    console.log("componentWillUnmount");
 	    this.userStoreListener.remove();
 	  },
 	
 	  _onChange: function () {
-	    console.log("onchange");
 	    this.setState({ users: UserStore.all() });
 	  },
 	
 	  render: function () {
-	    console.log("render");
 	    var handleClick = this.handleClick;
 	
 	    if (this.state.users.length === 0) {
